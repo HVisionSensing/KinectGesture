@@ -27,49 +27,6 @@ SSphere::SSphere(){
     hc=1;
 }
 
-void SSphere::init(void) 
-{
-    
-    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat mat_shininess[] = { 50.0 };
-    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-    glClearColor (0.0, 0.0, 0.0, 0.0);
-    
-    glShadeModel (GL_SMOOTH);
-    
-    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    
-    
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
-}
-
-void SSphere::display(void)
-{
-    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glutSolidSphere (1.0, 20, 16);
-    
-    glFlush ();
-}
-
-void SSphere::reshape (int w, int h)
-{
-    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity();
-    if (w <= h)
-        glOrtho (-1.5, 1.5, -1.5*(GLfloat)h/(GLfloat)w,
-                 1.5*(GLfloat)h/(GLfloat)w, -10.0, 10.0);
-    else
-        glOrtho (-1.5*(GLfloat)w/(GLfloat)h,
-                 1.5*(GLfloat)w/(GLfloat)h, -1.5, 1.5, -10.0, 10.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-}
-
 void SSphere::setup(void){
     //Setup Kinect
 	angle = -5;
@@ -251,63 +208,64 @@ void SSphere::trackfinger(){
                     //i=i+100;
                 }
                 
-            }//END DETERMINING IF FINGER AND ADDING TO FINGERS VECTOR
-            
-        }//END OF LOOP GOING THROUGH ALL BLOB POINT TO FIND FINGERS
-    
-    }
-    
-    //ALL FINGERS HAVE BEEN DETERMINED
-    //NOW DETERMINING IF FINGERS ARE CLOSE
-    //GO THROUGH ALL THE FINGERS
-    
-    for (int k = h; k<fingers.size(); k++) {
-        
-        //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
-        
-        int dx = fingers[k].xloc - fingers[k+1].xloc;
-        int dy = fingers[k].yloc - fingers[k+1].yloc;
-        int ll = sqrt((dx*dx)+(dy*dy)); 
-        
-        //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
- 
-        //IF FINGERS ARE CLOSE ADD TO LIST
-        if (ll<10){
-            tempfing.xloc=fingers[k].xloc;
-            tempfing.yloc=fingers[k].yloc;
-            tempfingers.push_back(tempfing);
+            }
+            //END DETERMINING IF FINGER AND ADDING TO FINGERS VECTOR
             
         }
+        //END OF LOOP GOING THROUGH ALL BLOB POINT TO FIND FINGERS
+    
+        //ALL FINGERS HAVE BEEN DETERMINED
+        //NOW DETERMINING IF FINGERS ARE CLOSE
+        //GO THROUGH ALL THE FINGERS
         
-        //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
-        else {
-            for (int p = 0; p < tempfingers.size(); p++){
-                xave += tempfingers[p].xloc;
-                yave += tempfingers[p].yloc;
+        for (int k = h; k<fingers.size(); k++) {
+            
+            //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
+            
+            int dx = fingers[k].xloc - fingers[k+1].xloc;
+            int dy = fingers[k].yloc - fingers[k+1].yloc;
+            int ll = sqrt((dx*dx)+(dy*dy)); 
+            
+            //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
+            
+            //IF FINGERS ARE CLOSE ADD TO LIST
+            if (ll<10){
+                tempfing.xloc=fingers[k].xloc;
+                tempfing.yloc=fingers[k].yloc;
+                tempfingers.push_back(tempfing);
+                
             }
             
-            xave /= tempfingers.size();
-            yave /= tempfingers.size();
-            
-            //CREATE CIRCLE AT AVERAGE
-            ofFill();
-            ofCircle(xave,yave,10);
-            ofNoFill();
-            
-            //SKIP FORWARD
-            //h += 20; 
-            
-            //RESET AVERAGES
-            xave = 0;
-            yave = 0;
-            
-            //CLEAR TEMP FINGERS
-            tempfingers.clear();
+            //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
+            else {
+                for (int p = 0; p < tempfingers.size(); p++){
+                    xave += tempfingers[p].xloc;
+                    yave += tempfingers[p].yloc;
+                }
+                
+                xave /= tempfingers.size();
+                yave /= tempfingers.size();
+                
+                //CREATE CIRCLE AT AVERAGE
+                ofFill();
+                ofCircle(xave,yave,10);
+                ofNoFill();
 
+                //RESET AVERAGES
+                xave = 0;
+                yave = 0;
+                
+                //CLEAR TEMP FINGERS
+                tempfingers.clear();
+            }
+            
         }
         
+        fingers.clear();
+
     }
-    
+    //END OF LOOP GOING THROUGH BLOBS (HANDS)
+        
 }
 
 void SSphere::draw() {

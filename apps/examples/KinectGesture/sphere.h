@@ -42,11 +42,6 @@ public:
     
     static SSphere* spheretest;
     
-    static void display(void);
-    static void reshape (int w, int h);
-        
-    void init(void);
-    
     void setup(void);
     void update(void);
     void checkDepthUpdated(void);
