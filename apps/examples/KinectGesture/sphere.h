@@ -44,23 +44,7 @@ public:
     
     static void display(void);
     static void reshape (int w, int h);
-    
-    /*
-    void setup(int argc, char** argv){
-        SSphere sphere;
-        glutInit(&argc, argv);
-        glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-        glutInitWindowSize (500, 500); 
-        glutInitWindowPosition (100, 100);
-        int window2 = glutCreateWindow("Virtual Reality");
-        sphere.init ();
-        ::glutDisplayFunc(SSphere::display); 
-        ::glutReshapeFunc(SSphere::reshape);
-        glutMainLoop();
         
-    }
-     */
-    
     void init(void);
     
     void setup(void);
@@ -69,11 +53,6 @@ public:
     void draw(void);
     void keyPressed(int key);
     void exit(void);
-    
-    void Render(void);
-    void Initialize(void);
-    void Enlarge(void);
-    void Shrink(void);
     void trackfinger(void);
     
     // Kinect
@@ -109,7 +88,6 @@ public:
     
     // fonts
 	ofTrueTypeFont		msgFont;
-    
     
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,vxv;

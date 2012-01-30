@@ -27,24 +27,6 @@ SSphere::SSphere(){
     hc=1;
 }
 
-void SSphere::Render(void){   
-    glColor3f(1.0, 0.0, 1.0);
-    glutSolidSphere (size, 200, 200);
-    glFlush(); 
-}
-
-void SSphere::Initialize(void){
-    size = 0.1;
-}
-
-void SSphere::Enlarge(void){
-    size += 0.01;
-}
-
-void SSphere::Shrink(void){
-    size -= 0.01;
-}
-
 void SSphere::init(void) 
 {
     
@@ -89,7 +71,7 @@ void SSphere::reshape (int w, int h)
 }
 
 void SSphere::setup(void){
-    //    // Setup Kinect
+    //Setup Kinect
 	angle = -5;
 	//kinect.init(true);  //shows infrared image
 	kinect.init();
@@ -123,7 +105,6 @@ void SSphere::setup(void){
     
     gui.setup();
 	gui.config->gridSize.x = 300;
-	
    
     gui.addTitle("KINECT SETTINGS");
 	gui.addSlider("Tilt Angle", angle, -30, 30);
@@ -139,10 +120,6 @@ void SSphere::setup(void){
 
     gui.setDefaultKeys(true);
 	gui.loadFromXML();
-	
-    
-  
-    
 }
 
 void SSphere::update(void){
@@ -313,10 +290,12 @@ void SSphere::trackfinger(){
             yave /= tempfingers.size();
             
             //CREATE CIRCLE AT AVERAGE
+            ofFill();
             ofCircle(xave,yave,10);
+            ofNoFill();
             
             //SKIP FORWARD
-            h += 100; 
+            //h += 20; 
             
             //RESET AVERAGES
             xave = 0;
