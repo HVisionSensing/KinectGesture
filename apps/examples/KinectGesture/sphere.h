@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
+#include "finger.h"
 
 class SSphere : public ofBaseApp
 {
@@ -105,6 +106,7 @@ public:
 	bool				detectingHands;
 	bool				detectingTwoHands;
 	vector<Hand *>		hands;
+    
     // fonts
 	ofTrueTypeFont		msgFont;
     

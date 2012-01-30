@@ -19,6 +19,7 @@
 #include <string.h>
 #include <vector>
 #include "hand.h"
+#include "finger.h"
 
 
 SSphere::SSphere(){
@@ -234,6 +235,7 @@ void SSphere::trackfinger(){
     ppico.clear();
     kpointcurv.clear();
     
+    
     ;
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
@@ -269,6 +271,7 @@ void SSphere::trackfinger(){
                 
                     numfingers++;
                     ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
+                   
                     //i=i+100;
                     
 

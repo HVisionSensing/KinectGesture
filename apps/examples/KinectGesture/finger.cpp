@@ -9,7 +9,16 @@
 #include <iostream>
 #include "finger.h"
 
-finger::finger(double x, double y){
-    xloc = x;
-    yloc = y;
+finger::finger(){
+
+}
+
+void finger::setpos(double x, double y){
+    xloc=x;
+    yloc=y;
+}
+
+double finger::getloc(char q){
+    if(q=='x') return xloc;
+    if(q=='y') return yloc;
 }
