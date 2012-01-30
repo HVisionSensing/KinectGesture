@@ -81,10 +81,7 @@ void SSphere::setup(void){
 
 void SSphere::update(void){
     kinect.update();
-    
-    //cout<<"test";
 
-    
     checkDepthUpdated();
 	
 	grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
@@ -160,6 +157,9 @@ void SSphere::checkDepthUpdated(){
 	}
 }
 
+void SSphere::drawfingertips(){
+    
+}
 void SSphere::trackfinger(){
     k=35;
     smk=200;
@@ -194,25 +194,22 @@ void SSphere::trackfinger(){
             teta=v1.angle(v2);
             
             if(fabs(teta) < 30){
-                
                 if(vxv.z > 0){
                     numfingers++;
-                    //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
+                    ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
                     
                     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
                     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
                     fingers.push_back(tempfing);
                     
-                    //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
+                    //ofCircle(fingers[fingers.size()].xloc,fingers[fingers.size()].yloc,10);
                     
                     //i=i+100;
                 }
-                
             }
-            //END DETERMINING IF FINGER AND ADDING TO FINGERS VECTOR
-            
+            //END DETERMINING IF FINGER, AND ADDING TO FINGERS VECTOR
         }
-        //END OF LOOP GOING THROUGH ALL BLOB POINT TO FIND FINGERS
+        //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
     
         //ALL FINGERS HAVE BEEN DETERMINED
         //NOW DETERMINING IF FINGERS ARE CLOSE
@@ -225,8 +222,6 @@ void SSphere::trackfinger(){
             int dx = fingers[k].xloc - fingers[k+1].xloc;
             int dy = fingers[k].yloc - fingers[k+1].yloc;
             int ll = sqrt((dx*dx)+(dy*dy)); 
-            
-            //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
             
             //IF FINGERS ARE CLOSE ADD TO LIST
             if (ll<10){

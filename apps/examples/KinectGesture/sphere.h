@@ -49,6 +49,7 @@ public:
     void keyPressed(int key);
     void exit(void);
     void trackfinger(void);
+    void drawfingertips(void);
     
     // Kinect
 	ofxKinect kinect;
@@ -101,6 +102,7 @@ public:
     vector<finger> fingers;
     vector<finger> realfingers;
     vector<finger> tempfingers;
+    finger tempfing;
 
         
 };
