@@ -88,8 +88,7 @@ void SSphere::reshape (int w, int h)
 }
 
 void SSphere::setup(void){
-    
-    // Setup Kinect
+    //    // Setup Kinect
 	angle = -5;
 	//kinect.init(true);  //shows infrared image
 	kinect.init();
