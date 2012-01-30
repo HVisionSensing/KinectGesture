@@ -23,7 +23,7 @@ class VVR{
     
 public:
     VVR();
-
+    //TEST  
     int distance;
     
     void DisplayLoc(void);
