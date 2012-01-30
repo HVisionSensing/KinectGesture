@@ -10,11 +10,17 @@
 #define jestureCap_finger_h
 
 class finger{
+    
+
+public:
+
     finger();
-private:
-    double xloc, yloc;
-    void setpos(double x, double y);
-    double getloc(char q);
+    void setpos(int x, int y);
+    int getloc(char q);
+//public:
+    int xloc, yloc;
+    
+    
 };
 
 #endif

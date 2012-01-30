@@ -10,15 +10,15 @@
 #include "finger.h"
 
 finger::finger(){
-
+    xloc = 0;
+    yloc = 0;
 }
 
-void finger::setpos(double x, double y){
+void finger::setpos(int x, int y){
     xloc=x;
     yloc=y;
 }
-
-double finger::getloc(char q){
+int finger::getloc(char q){
     if(q=='x') return xloc;
     if(q=='y') return yloc;
 }

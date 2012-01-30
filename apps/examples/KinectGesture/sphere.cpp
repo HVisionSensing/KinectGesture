@@ -234,9 +234,9 @@ void SSphere::trackfinger(){
     
     ppico.clear();
     kpointcurv.clear();
+    fingers.clear();
     
-    
-    ;
+    finger test[150];
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         
@@ -259,7 +259,7 @@ void SSphere::trackfinger(){
                 
                 if(vxv.z > 0){
                     
-                    //TO DETERMINE DISTANCE OF FINGER FMOR CENTER OF HAND
+                    /*TO DETERMINE DISTANCE OF FINGER FMOR CENTER OF HAND
                     int qq = contourFinder.blobs[j].centroid.y;
                     int pp = contourFinder.blobs[j].centroid.y;
                     int rr = contourFinder.blobs[j].pts[i].x;
@@ -267,11 +267,15 @@ void SSphere::trackfinger(){
                     int ddx = qq-rr;
                     int ddy = pp-tt;
                     int hh = sqrt((ddx*ddx)-(ddy*ddy));
-                    //
+                    */
                 
                     numfingers++;
                     ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
-                   
+                    test[numfingers].xloc=contourFinder.blobs[j].pts[i].x;
+                    test[numfingers].yloc=contourFinder.blobs[j].pts[i].y;
+                    //fingers.push_back(finger());
+                    //fingers[i].xloc=contourFinder.blobs[j].pts[i].x;
+                    
                     //i=i+100;
                     
 
