@@ -270,7 +270,7 @@ void SSphere::trackfinger(){
                     
                     //i=i+100;
                 }
-
+                
             }
             
         }
@@ -298,13 +298,13 @@ void SSphere::trackfinger(){
             
             xave = xave/tempfingers.size();
             yave = yave/tempfingers.size();
-             
+            
             ofCircle(xave,yave,10);
         }
         
         
     }
-
+    
 }
 
 void SSphere::draw() {
