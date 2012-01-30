@@ -126,6 +126,9 @@ public:
     int numfingers;
     bool detectFingers;
     vector<finger> fingers;
+    vector<finger> realfingers;
+    vector<finger> tempfingers;
+
         
 };
 
