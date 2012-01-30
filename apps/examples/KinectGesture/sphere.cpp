@@ -256,6 +256,7 @@ void SSphere::trackfinger(){
             if(fabs(teta) < 30){
                 
                 if(vxv.z > 0){
+                    
                     //TO DETERMINE DISTANCE OF FINGER FMOR CENTER OF HAND
                     int qq = contourFinder.blobs[j].centroid.y;
                     int pp = contourFinder.blobs[j].centroid.y;
@@ -264,11 +265,12 @@ void SSphere::trackfinger(){
                     int ddx = qq-rr;
                     int ddy = pp-tt;
                     int hh = sqrt((ddx*ddx)-(ddy*ddy));
+                    //
                 
-                
+                    numfingers++;
                     ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
                     //i=i+100;
-                    numfingers++;
+                    
 
                 }
 
@@ -277,6 +279,9 @@ void SSphere::trackfinger(){
         }
         
     }
+    
+    //DETERMING FINGERS BASED ON DENSITY
+    
 
 }
 

@@ -78,6 +78,7 @@
 		FE90D87714D093990018547E /* VR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE90D87614D093990018547E /* VR.cpp */; };
 		FE90D88214D0A74F0018547E /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE90D88114D0A74F0018547E /* sphere.cpp */; };
 		FECB67F614D30C0900E1D6E7 /* fingertrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECB67F514D30C0900E1D6E7 /* fingertrack.cpp */; };
+		FECF699A14D71005004C4ED7 /* finger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FECF699914D71005004C4ED7 /* finger.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +279,8 @@
 		FE90D88114D0A74F0018547E /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sphere.cpp; sourceTree = "<group>"; };
 		FECB67F414D30C0200E1D6E7 /* fingertrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fingertrack.h; sourceTree = "<group>"; };
 		FECB67F514D30C0900E1D6E7 /* fingertrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fingertrack.cpp; sourceTree = "<group>"; };
+		FECF699914D71005004C4ED7 /* finger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = finger.cpp; sourceTree = "<group>"; };
+		FECF699B14D7100D004C4ED7 /* finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = finger.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -973,6 +976,8 @@
 				FE90D87614D093990018547E /* VR.cpp */,
 				FECB67F414D30C0200E1D6E7 /* fingertrack.h */,
 				FECB67F514D30C0900E1D6E7 /* fingertrack.cpp */,
+				FECF699B14D7100D004C4ED7 /* finger.h */,
+				FECF699914D71005004C4ED7 /* finger.cpp */,
 			);
 			name = VR;
 			sourceTree = "<group>";
@@ -1105,6 +1110,7 @@
 				FE90D87714D093990018547E /* VR.cpp in Sources */,
 				FE90D88214D0A74F0018547E /* sphere.cpp in Sources */,
 				FECB67F614D30C0900E1D6E7 /* fingertrack.cpp in Sources */,
+				FECF699A14D71005004C4ED7 /* finger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
