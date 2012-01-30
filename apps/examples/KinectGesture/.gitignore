@@ -11,7 +11,7 @@
 .hg/
 .svn/
 obj/
-bin/
+
 build/
 !data/
 

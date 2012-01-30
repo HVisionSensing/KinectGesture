@@ -980,9 +980,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* jestureCap */ = {
+		E4B69B5A0A3A1756003C02F2 /* KinectGesture */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "jestureCap" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "KinectGesture" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -994,7 +994,7 @@
 			dependencies = (
 				E4C2422810CC54DA004149E2 /* PBXTargetDependency */,
 			);
-			name = jestureCap;
+			name = KinectGesture;
 			productName = myOFApp;
 			productReference = E4B69B5B0A3A1756003C02F2 /* ofxKinectDebug.app */;
 			productType = "com.apple.product-type.application";
@@ -1025,7 +1025,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* jestureCap */,
+				E4B69B5A0A3A1756003C02F2 /* KinectGesture */,
 			);
 		};
 /* End PBXProject section */
@@ -1500,7 +1500,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "jestureCap" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "KinectGesture" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
