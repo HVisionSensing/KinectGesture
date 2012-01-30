@@ -125,8 +125,7 @@ public:
     float teta,lhd;
     int numfingers;
     bool detectFingers;
-    
-      vector<finger> fingers;
+    vector<finger> fingers;
         
 };
 

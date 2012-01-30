@@ -236,7 +236,7 @@ void SSphere::trackfinger(){
     kpointcurv.clear();
     fingers.clear();
     
-    finger test[150];
+    
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         
@@ -271,10 +271,13 @@ void SSphere::trackfinger(){
                 
                     numfingers++;
                     ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
-                    test[numfingers].xloc=contourFinder.blobs[j].pts[i].x;
-                    test[numfingers].yloc=contourFinder.blobs[j].pts[i].y;
-                    //fingers.push_back(finger());
-                    //fingers[i].xloc=contourFinder.blobs[j].pts[i].x;
+                    
+                    finger tempfing;
+                    tempfing.xloc=contourFinder.blobs[j].pts[i].x;
+                    tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
+                    fingers.push_back(tempfing);
+                    
+                    
                     
                     //i=i+100;
                     
