@@ -277,71 +277,55 @@ void SSphere::trackfinger(){
             }//END DETERMINING IF FINGER AND ADDING TO FINGERS VECTOR
             
         }//END OF LOOP GOING THROUGH ALL BLOB POINT TO FIND FINGERS
-        
-        //ALL FINGERS HAVE BEEN DETERMINED
-        //NOW DETERMINING IF FINGERS ARE CLOSE
-        
-        for (int g = 0; g <11; g++) {
-            
-            for (int k = h; k<fingers.size(); k++) {//LOOP GOING THROUGH ALL THE FINGERS
-                
-                //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
-                
-                int dx = fingers[k].xloc - fingers[k+1].xloc;
-                int dy = fingers[k].yloc - fingers[k+1].yloc;
-                int ll = sqrt((dx*dx)+(dy*dy)); 
-                
-                //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
-                
-                //DETERMING IF THE FINGER IS CLOSE TO NEXT FINGER 
-                if (ll<5){
-                    //IF FINGERS ARE CLOSE ADD TO LIST
-                    //tempfing.xloc=fingers[k].xloc;
-                    //tempfing.yloc=fingers[k].yloc;
-                    //tempfingers.push_back(tempfing);
     
-                    xave += fingers[k].xloc;
-                    yave += fingers[k].yloc;
-                    
-                    b++;
-                    
-                }
-                
-
+    }
+    
+    //ALL FINGERS HAVE BEEN DETERMINED
+    //NOW DETERMINING IF FINGERS ARE CLOSE
+    //GO THROUGH ALL THE FINGERS
+    
+    for (int k = h; k<fingers.size(); k++) {
+        
+        //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
+        
+        int dx = fingers[k].xloc - fingers[k+1].xloc;
+        int dy = fingers[k].yloc - fingers[k+1].yloc;
+        int ll = sqrt((dx*dx)+(dy*dy)); 
+        
+        //ofCircle(fingers[k].xloc,fingers[k].yloc,10);
+ 
+        //IF FINGERS ARE CLOSE ADD TO LIST
+        if (ll<10){
+            tempfing.xloc=fingers[k].xloc;
+            tempfing.yloc=fingers[k].yloc;
+            tempfingers.push_back(tempfing);
             
-                /*
-                //CREATE AVERAGE FINGER
-                for (int p = 0; p < tempfingers.size(); p++){
-                    xave += tempfingers[p].xloc;
-                    yave += tempfingers[p].yloc;
-                }
-                
-                xave /= tempfingers.size();
-                yave /= tempfingers.size();
-                //ofCircle(xave,yave,10);
-                */
-            
+        }
+        
+        //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
+        else {
+            for (int p = 0; p < tempfingers.size(); p++){
+                xave += tempfingers[p].xloc;
+                yave += tempfingers[p].yloc;
             }
             
-            /*
-            xave /= b;
-            yave /= b;
+            xave /= tempfingers.size();
+            yave /= tempfingers.size();
             
+            //CREATE CIRCLE AT AVERAGE
             ofCircle(xave,yave,10);
             
-            h += 100;
+            //SKIP FORWARD
+            h += 100; 
+            
+            //RESET AVERAGES
             xave = 0;
             yave = 0;
-            b=0;
             
-             */
-            
-            //tempfingers.clear();
-            
-         
-      
-     
-        }        
+            //CLEAR TEMP FINGERS
+            tempfingers.clear();
+
+        }
         
     }
     

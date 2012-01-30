@@ -9,7 +9,7 @@
     </Toggle_Mirror_Mode>
     <SliderInt_Near_Distance>
         <name>Near Distance</name>
-        <value>5</value>
+        <value>8</value>
     </SliderInt_Near_Distance>
     <SliderInt_Far_Distance>
         <name>Far Distance</name>
