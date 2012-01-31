@@ -2,22 +2,12 @@
 #define MARKER
 
 #include "handJesture.h"
-#include "VR.h"   
+  
 #include "Math.h"
 #define SQR(x) (x*x)
-#include "sphere.h"
+#include "Tracker.h"
 
 #endif
-
-VVR VR;
-SSphere sphere;
-
-//#include "sphere.h"
-//SSphere sphere;
-//int argc;
-//char** argv;
-//sphere.setup(argc, argv);
-
 
 //#include "zhelpers.hpp"
 

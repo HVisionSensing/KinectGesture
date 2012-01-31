@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "sphere.h"
+#include "tracker.h"
 #include "Math.h"
 #include <Carbon/Carbon.h>
 #include "MacWindows.h"
@@ -22,12 +22,12 @@
 #include "finger.h"
 
 
-SSphere::SSphere(){
+Tracker::Tracker(){
     bc=0;
     hc=1;
 }
 
-void SSphere::setup(void){
+void Tracker::setup(void){
     //Setup Kinect
 	angle = -5;
 	//kinect.init(true);  //shows infrared image
@@ -79,7 +79,7 @@ void SSphere::setup(void){
 	gui.loadFromXML();
 }
 
-void SSphere::update(void){
+void Tracker::update(void){
     kinect.update();
 
     checkDepthUpdated();
@@ -130,7 +130,7 @@ void SSphere::update(void){
 	
 }
 
-void SSphere::checkDepthUpdated(){
+void Tracker::checkDepthUpdated(){
     if (ofGetFrameNum() % 150 == 0) {
 		ofLog(OF_LOG_VERBOSE, "check depth updated");
         unsigned char * nextDepth = kinect.getDepthPixels();
@@ -157,7 +157,7 @@ void SSphere::checkDepthUpdated(){
 	}
 }
 
-void SSphere::drawfingertips(){
+void Tracker::drawfingertips(){
     
     finger tempfing;
     
@@ -228,7 +228,7 @@ void SSphere::drawfingertips(){
     fingers.clear();
 
 }
-void SSphere::trackfinger(){
+void Tracker::trackfinger(){
     k=35;
     smk=200;
     teta=0.f;
@@ -279,7 +279,7 @@ void SSphere::trackfinger(){
         
 }
 
-void SSphere::draw() {
+void Tracker::draw() {
 	
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
@@ -404,7 +404,7 @@ void SSphere::draw() {
     
 };
 
-void SSphere::keyPressed (int key)
+void Tracker::keyPressed (int key)
 {
 	ofLog(OF_LOG_VERBOSE, ofToString(key));
 	switch (key)
@@ -466,7 +466,7 @@ void SSphere::keyPressed (int key)
 	}
 }
 
-void SSphere::exit(){
+void Tracker::exit(){
 	kinect.close();
 	ofLog(OF_LOG_NOTICE, "Close Kinect and exit");
 }

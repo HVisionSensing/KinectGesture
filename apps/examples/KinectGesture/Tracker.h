@@ -27,7 +27,7 @@
 #include <vector>
 #include "finger.h"
 
-class SSphere : public ofBaseApp
+class Tracker : public ofBaseApp
 {
 private:
     int bc;
@@ -38,9 +38,9 @@ private:
 public:
     
     GLdouble size;
-    SSphere();
+    Tracker();
     
-    static SSphere* spheretest;
+    static Tracker* spheretest;
     
     void setup(void);
     void update(void);

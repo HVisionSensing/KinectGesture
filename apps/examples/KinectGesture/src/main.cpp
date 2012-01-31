@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "handJesture.h"
 #include "ofAppGlutWindow.h"
-#include "sphere.h"
+#include "Tracker.h"
 
 
 
@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 	
     ofSetupOpenGL(&window1, 1024,768, OF_WINDOW);
     
-    ofRunApp(new SSphere());
+    ofRunApp(new Tracker());
     
     //ofRunApp(new HandJesture());
     
