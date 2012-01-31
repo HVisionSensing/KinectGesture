@@ -88,16 +88,12 @@ public:
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,vxv;
     ofxVec3f   v2D;
-    vector  <ofxPoint2f>      ppico;
-    vector  <ofxPoint2f>      smppico;
-    vector   <float>            kpointcurv;
-    vector   <float>            smkpointcurv;
-    vector   <bool>            bfingerRuns;
-    vector  <ofxPoint2f>      lhand;
-    vector  <ofxPoint2f>      rhand;
+    
+    //For hand and finger tracking
     int k, smk;
     float teta,lhd;
     int numfingers;
+    int numtips;
     bool detectFingers;
     vector<finger> fingers;
     vector<finger> realfingers;
