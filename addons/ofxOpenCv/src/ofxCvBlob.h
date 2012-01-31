@@ -48,6 +48,7 @@ class ofxCvBlob {
             }
             ofEndShape(true);
             ofSetColor(0xff0099);
+            //THIS DRAWS THE BOUNDING RECTANGLE
             ofRect(x + boundingRect.x, y + boundingRect.y, boundingRect.width, boundingRect.height);
         }
 };
