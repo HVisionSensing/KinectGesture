@@ -159,6 +159,60 @@ void SSphere::checkDepthUpdated(){
 
 void SSphere::drawfingertips(){
     
+    finger tempfing;
+    
+    double xave = 0;
+    double yave = 0;
+    int h = 0;
+    int b = 0;
+    
+    //ALL FINGERS HAVE BEEN DETERMINED
+    //NOW DETERMINING IF FINGERS ARE CLOSE
+    //GO THROUGH ALL THE FINGERS
+    
+    for (int k = h; k<fingers.size(); k++) {
+        
+        //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
+        
+        int dx = fingers[k].xloc - fingers[k+1].xloc;
+        int dy = fingers[k].yloc - fingers[k+1].yloc;
+        int ll = sqrt((dx*dx)+(dy*dy)); 
+        
+        //IF FINGERS ARE CLOSE ADD TO LIST
+        if (ll<10){
+            tempfing.xloc=fingers[k].xloc;
+            tempfing.yloc=fingers[k].yloc;
+            tempfingers.push_back(tempfing);
+            
+        }
+        
+        //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
+        else {
+            for (int p = 0; p < tempfingers.size(); p++){
+                xave += tempfingers[p].xloc;
+                yave += tempfingers[p].yloc;
+            }
+            
+            xave /= tempfingers.size();
+            yave /= tempfingers.size();
+            
+            //CREATE CIRCLE AT AVERAGE
+            ofFill();
+            ofCircle(xave,yave,10);
+            ofNoFill();
+            
+            //RESET AVERAGES
+            xave = 0;
+            yave = 0;
+            
+            //CLEAR TEMP FINGERS
+            tempfingers.clear();
+        }
+        
+    }
+    
+    fingers.clear();
+
 }
 void SSphere::trackfinger(){
     k=35;
@@ -169,12 +223,7 @@ void SSphere::trackfinger(){
     fingers.clear();
     tempfingers.clear();
     
-    finger tempfing;
-    
-    double xave = 0;
-    double yave = 0;
-    int h = 0;
-    int b = 0;
+
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         
@@ -196,7 +245,7 @@ void SSphere::trackfinger(){
             if(fabs(teta) < 30){
                 if(vxv.z > 0){
                     numfingers++;
-                    ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
+                    //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
                     
                     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
                     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
@@ -211,53 +260,7 @@ void SSphere::trackfinger(){
         }
         //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
     
-        //ALL FINGERS HAVE BEEN DETERMINED
-        //NOW DETERMINING IF FINGERS ARE CLOSE
-        //GO THROUGH ALL THE FINGERS
-        
-        for (int k = h; k<fingers.size(); k++) {
-            
-            //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
-            
-            int dx = fingers[k].xloc - fingers[k+1].xloc;
-            int dy = fingers[k].yloc - fingers[k+1].yloc;
-            int ll = sqrt((dx*dx)+(dy*dy)); 
-            
-            //IF FINGERS ARE CLOSE ADD TO LIST
-            if (ll<10){
-                tempfing.xloc=fingers[k].xloc;
-                tempfing.yloc=fingers[k].yloc;
-                tempfingers.push_back(tempfing);
-                
-            }
-            
-            //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
-            else {
-                for (int p = 0; p < tempfingers.size(); p++){
-                    xave += tempfingers[p].xloc;
-                    yave += tempfingers[p].yloc;
-                }
-                
-                xave /= tempfingers.size();
-                yave /= tempfingers.size();
-                
-                //CREATE CIRCLE AT AVERAGE
-                ofFill();
-                ofCircle(xave,yave,10);
-                ofNoFill();
-
-                //RESET AVERAGES
-                xave = 0;
-                yave = 0;
-                
-                //CLEAR TEMP FINGERS
-                tempfingers.clear();
-            }
-            
-        }
-        
-        fingers.clear();
-
+        drawfingertips();
     }
     //END OF LOOP GOING THROUGH BLOBS (HANDS)
         
