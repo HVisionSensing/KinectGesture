@@ -244,6 +244,7 @@ void Tracker::trackfinger(){
         
         for(int i=k; i<contourFinder.blobs[0].nPts-k; i++){ 
             
+            //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
             v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
             v2.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y);
             
@@ -288,6 +289,7 @@ void Tracker::draw() {
     
     int x [contourFinder.nBlobs];
     int y [contourFinder.nBlobs];
+    
     double length;
     
     for (int i = 0; i < contourFinder.nBlobs; i++){
@@ -376,6 +378,24 @@ void Tracker::draw() {
         ofPopMatrix();
     }
     */
+    
+    
+     if (contourFinder.nBlobs>0) {
+         for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
+             //cout<<"point ";
+             //cout<<t;
+             //cout<<'\n';
+             cout<<contourFinder.blobs[0].pts[t].x;
+             cout<<",";
+             cout<<contourFinder.blobs[0].pts[t].y;
+             cout<<"\n";
+         }
+         
+         cout<<"Newframe\n";
+     
+     
+     }
+     
     
     trackfinger();
     
