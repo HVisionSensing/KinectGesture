@@ -14,13 +14,12 @@ class finger{
 
 public:
 
-    finger();
-    void setpos(int x, int y);
-    int getloc(char q);
-//public:
     int xloc, yloc;
     
-    
+    finger(){
+        xloc = 0;
+        yloc = 0;
+    }
 };
 
 #endif

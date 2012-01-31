@@ -181,6 +181,7 @@ void Tracker::drawfingertips(){
         int dy = fingers[k].yloc - fingers[k+1].yloc;
         int ll = sqrt((dx*dx)+(dy*dy)); 
         
+        /*OUTPUTS FINGER LOCATIONS - KEEP
         cout<<"finger ";
         cout<<k;
         //cout<<"\nx loc = ";
@@ -190,6 +191,7 @@ void Tracker::drawfingertips(){
         //cout<<"\ny loc = ";
         cout<<fingers[k].yloc;
         cout<<"\n";
+        */
         
         //IF FINGERS ARE CLOSE ADD TO LIST
         if (ll<10){
@@ -228,6 +230,7 @@ void Tracker::drawfingertips(){
     fingers.clear();
 
 }
+
 void Tracker::trackfinger(){
     k=35;
     smk=200;
@@ -257,7 +260,7 @@ void Tracker::trackfinger(){
             if(fabs(teta) < 30){
                 if(vxv.z > 0){
                     numfingers++;
-                    ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
+                    //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
                     
                     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
                     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
@@ -272,7 +275,7 @@ void Tracker::trackfinger(){
         }
         //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
     
-        //drawfingertips();
+        drawfingertips();
         
     }
     //END OF LOOP GOING THROUGH BLOBS (HANDS)
@@ -404,8 +407,7 @@ void Tracker::draw() {
     
 };
 
-void Tracker::keyPressed (int key)
-{
+void Tracker::keyPressed (int key){
 	ofLog(OF_LOG_VERBOSE, ofToString(key));
 	switch (key)
 	{
