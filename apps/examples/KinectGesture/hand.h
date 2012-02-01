@@ -11,6 +11,7 @@
 #include "finger.h"
 #include "ofxCvConstants.h"
 #include "ofxKinect.h"
+#include "Tracker.h"
 
 
 class hand{
@@ -23,25 +24,44 @@ class hand{
     ofxVec3f   v2D;
     float teta;
     
+    ofPoint centroid;
+    
     vector<ofPoint> posfingers;
     vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
     
     hand(){
-        
     }
     
-    void shuffpnts(vector<ofPoint> oldpoints){
-        for (int k = 0; k<oldpoints.size()/2; k++) {
+    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center){
+        centroid = center;
+        //h = oldpoints.size()/2;
+        
+        ofSetColor(0, 255, 0);
+        ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
+        
+        ofSetColor(0, 0, 255);
+        ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
+        
+        ofSetColor(255, 0, 0);
+        
+        //for (int k = 0; k<oldpoints.size()/2; k++) {
+        for (int k = h; k<oldpoints.size(); k++) {
+
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            //ofCircle(handpnts[k].x, handpnts[k].y, 10);
+            //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
-        for (int k = oldpoints.size()/2; k<oldpoints.size(); k++) {
+        //for (int k = oldpoints.size()/2; k<oldpoints.size(); k++) {
+        for (int k = 0; k<h; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            //ofCircle(handpnts[k].x, handpnts[k].y, 10);
+            //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
+        detectfingers();
+    }
+    
+    void noshuff(vector<ofPoint> oldpoints){
         detectfingers();
     }
     
@@ -62,17 +82,18 @@ class hand{
             
             teta=v1.angle(v2);
             
-            if(fabs(teta) < 40){
+            if(fabs(teta) < 30){
                 if(vxv.z > 0){
-                    
-                    
-                    ofPoint tempPnt;
-                    tempPnt.x = handpnts[i].x;
-                    tempPnt.y = handpnts[i].y;
-                    
-                    posfingers.push_back(tempPnt);
-                    
-                    ofCircle(tempPnt.x, tempPnt.y, 10);
+                    if (handpnts[i].y<centroid.y+20) {
+                        ofPoint tempPnt;
+                        tempPnt.x = handpnts[i].x;
+                        tempPnt.y = handpnts[i].y;
+                        
+                        posfingers.push_back(tempPnt);
+                        
+                        ofCircle(tempPnt.x, tempPnt.y, 10);
+                        
+                    }
                 }
             }
         }
