@@ -18,6 +18,8 @@ class hand{
     public:
     
     int xloc, yloc;
+    double xave;
+    double yave;
     
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,vxv;
@@ -98,7 +100,55 @@ class hand{
             }
         }
         handpnts.clear();
+        
+        drawfingers();
     }
+    
+    
+    void drawfingers(void){
+        
+        for (int k = 0; k<posfingers.size(); k++) {
+            
+            //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
+            
+            int dx = posfingers[k].x - posfingers[k+1].x;
+            int dy = posfingers[k].y - posfingers[k+1].y;
+            int ll = sqrt((dx*dx)+(dy*dy)); 
+            
+            if (ll<10){
+                realfingers.push_back(posfingers[k]);
+            }
+            
+            else {
+                for (int p = 0; p < realfingers.size(); p++){
+                    xave += realfingers[p].x;
+                    yave += realfingers[p].y;
+                }
+                
+                xave /= realfingers.size();
+                yave /= realfingers.size();
+                
+                //CREATE CIRCLE AT AVERAGE
+                ofFill();
+                ofCircle(xave,yave,10);
+                //numtips++;
+                ofNoFill();
+                
+                //RESET AVERAGES
+                xave = 0;
+                yave = 0;
+                
+                //CLEAR TEMP FINGERS
+                realfingers.clear();
+                
+            }
+            
+        }
+        
+        posfingers.clear();
+
+    }
+    
 };
 
 
