@@ -10,6 +10,7 @@
 #define jestureCap_hand_h
 #include "finger.h"
 #include "ofxCvConstants.h"
+#include "ofxKinect.h"
 
 
 class hand{
@@ -21,17 +22,22 @@ class hand{
     vector<finger> realfingers;
     vector<ofPoint> handpnts;
     
-    hand();
+    hand(){
+        
+    }
     
     void shuffpnts(vector<ofPoint> oldpoints){
         for (int k = 0; k<oldpoints.size()/2; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
+            ofCircle(handpnts[k].x, handpnts[k].y, 10);
         }
         for (int k = oldpoints.size()/2; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
+            ofCircle(handpnts[k].x, handpnts[k].y, 10);
         }
+        
     }
 };
 

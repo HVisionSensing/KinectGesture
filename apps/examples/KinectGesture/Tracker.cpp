@@ -241,6 +241,18 @@ void Tracker::trackfinger(){
     tempfingers.clear();
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
+        vector<ofPoint> tempPnts;
+        for(int i=0; i<contourFinder.blobs[j].nPts; i++){
+            ofPoint tempPnt = (contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y);
+            tempPnts.push_back(tempPnt);
+            
+            ofCircle(tempPnts[k].x, tempPnts[k].y, 10);
+        }
+        hands[j].shuffpnts(tempPnts);
+    }
+    
+    
+    for (int j = 0; j < contourFinder.nBlobs; j++){
         
         for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
             
@@ -278,7 +290,7 @@ void Tracker::trackfinger(){
         }
         //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
     
-        drawfingertips();
+        //drawfingertips();
         
     }
     //END OF LOOP GOING THROUGH BLOBS (HANDS)
