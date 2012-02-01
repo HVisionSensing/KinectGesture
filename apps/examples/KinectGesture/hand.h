@@ -101,7 +101,7 @@ class hand{
                         
                         posfingers.push_back(tempPnt);
                         
-                        ofCircle(tempPnt.x, tempPnt.y, i/10);
+                        //ofCircle(tempPnt.x, tempPnt.y, i/10);
                         //cout<<i/10;
                         //cout<<"\n";
                         //ofCircle(tempPnt.x, tempPnt.y, 10);
@@ -140,23 +140,113 @@ class hand{
         
     }
     
+    void drawfingersbad(void){
+        double x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6;
+        double xx1 =0;
+        double xx2 =0;
+        double xx3 =0;
+        double xx4 =0;
+        double xx5 =0;
+        double xx6 =0;
+        
+        for (int k = 0; k<posfingers.size(); k++) {
+            //ofCircle(posfingers[k].x,posfingers[k].y,posfingers[k].z);
+        }
+        
+        //posfingers.clear();
+        
+        for (int k = 0; k<posfingers.size(); k++){
+            
+            //if(posfingers[k].z>0 && posfingers[k].z<6){
+            //    x1 += posfingers[k].x;
+            //    y1 += posfingers[k].y;
+            //    xx1++;
+            //}
+            if(posfingers[k].z>10 && posfingers[k].z<19){
+                x2 += posfingers[k].x;
+                y2 += posfingers[k].y;
+                xx2++;
+            }
+            if(posfingers[k].z>20 && posfingers[k].z<29){
+                x3 += posfingers[k].x;
+                y3 += posfingers[k].y;
+                xx3++;
+            }
+            if(posfingers[k].z>30 && posfingers[k].z<39){
+                x4 += posfingers[k].x;
+                y4 += posfingers[k].y;
+                xx4++;
+            }
+            if(posfingers[k].z>40 && posfingers[k].z<49){
+                x5 += posfingers[k].x;
+                y5 += posfingers[k].y;
+                xx5++;
+            }
+            if(posfingers[k].z>52 && posfingers[k].z<59){
+                x1 += posfingers[k].x;
+                y1 += posfingers[k].y;
+                xx1++;
+            }
+            
+            if(posfingers[k].z>0 && posfingers[k].z<6){
+                x6 += posfingers[k].x;
+                y6 += posfingers[k].y;
+                xx6++;
+            }
+        }
+        
+        x1 /= xx1;
+        x2 /= xx2;
+        x3 /= xx3;
+        x4 /= xx4;
+        x5 /= xx5;
+        x6 /= xx6;
+        
+        y1 /= xx1;
+        y2 /= xx2;
+        y3 /= xx3;
+        y4 /= xx4;
+        y5 /= xx5;
+        y6 /= xx6;
+        
+        ofFill();
+        ofCircle(x1, y1, 10);   
+        ofCircle(x2, y2, 10);
+        ofCircle(x3, y3, 10);
+        ofCircle(x4, y4, 10);
+        ofCircle(x5, y5, 10);
+        ofCircle(x6, y6, 10);
+        ofNoFill();
+        
+        posfingers.clear();
+    }
+    
     //DETERMINE AVERAGE FINGERS BY DENSITY, AND DRAW THE FINGER TIPS
     void drawfingers(void){
-
+    
+        int counter = 0;
+        
         for (int k = 0; k<posfingers.size(); k++) {
 
             dz = posfingers[k].z-posfingers[k+1].z;
+            cout<<dz;
+            cout<<"\n";
             
             if(abs(dz)<5) {
-                realfingers.push_back(posfingers[k]);
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
+                //realfingers.push_back(posfingers[k+1]);
+                xtot += posfingers[k+1].x;
+                ytot += posfingers[k+1].y;
+                counter++;
+                
             }
             
-            else {
+            if(abs(dz)>5){
 
-                xave = xtot/realfingers.size();
-                yave = ytot/realfingers.size();
+                //xave = xtot/realfingers.size();
+                //yave = ytot/realfingers.size();
+                
+                xave = xtot/counter;
+                yave = ytot/counter;
                 
                 ofFill();
                 ofCircle(xave,yave,10);
@@ -168,7 +258,12 @@ class hand{
                 ll=0;
                 xave = 0;
                 yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
                 realfingers.clear();
+  
+                
             }
             
         }

@@ -241,6 +241,7 @@ void Tracker::trackfinger(){
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
+        
         tempcenter.x = contourFinder.blobs[j].centroid.x;
         tempcenter.y = contourFinder.blobs[j].centroid.y;
         
