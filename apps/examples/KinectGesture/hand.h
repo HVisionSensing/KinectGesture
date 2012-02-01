@@ -13,7 +13,6 @@
 #include "ofxKinect.h"
 #include "Tracker.h"
 
-
 class hand{
     public:
     
@@ -60,7 +59,7 @@ class hand{
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
-        detectfingers();
+        //detectfingers();
     }
     
     void noshuff(vector<ofPoint> oldpoints){
@@ -99,11 +98,11 @@ class hand{
                 }
             }
         }
+        drawfingers();
         handpnts.clear();
         
-        drawfingers();
+  
     }
-    
     
     void drawfingers(void){
         
@@ -130,7 +129,7 @@ class hand{
                 
                 //CREATE CIRCLE AT AVERAGE
                 ofFill();
-                ofCircle(xave,yave,10);
+                //ofCircle(xave,yave,10);
                 //numtips++;
                 ofNoFill();
                 
