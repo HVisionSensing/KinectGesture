@@ -16,14 +16,15 @@
 class hand{
     public:
     
-    int xloc, yloc;
-    double xave;
-    double yave;
+    int xloc, yloc, dx, dy, dz, ll;
+    int numtips;
+    double xave, yave, xtot, ytot;
+    float teta;
     
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,vxv;
     ofxVec3f   v2D;
-    float teta;
+
     
     ofPoint centroid;
     
@@ -39,16 +40,18 @@ class hand{
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center){
         centroid = center;
         
+        //DISPLAY CENTER OF OLD FIST POSITION
         ofSetColor(0, 255, 0);
         ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
         
+        //DISPLAY CENTER OF NEW FIST POSITION
         ofSetColor(0, 0, 255);
         ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
         
         ofSetColor(255, 0, 0);
         
+        //SHUFFLE THE POINTS A DISTANCE h
         for (int k = h; k<oldpoints.size(); k++) {
-
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
@@ -58,13 +61,17 @@ class hand{
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
+        
+        //INITIALIZE DETECTING OF FINGERS
         detectfingers();
     }
     
+    //DETECT FINGERS WITHOUT SHUFFLING
     void noshuff(vector<ofPoint> oldpoints){
         detectfingers();
     }
     
+    //DETECT THE EXISTENCE OF FIGNERS
     void detectfingers(void){
         
         for(int i=0; i<handpnts.size(); i++){ 
@@ -90,24 +97,30 @@ class hand{
                         ofPoint tempPnt;
                         tempPnt.x = handpnts[i].x;
                         tempPnt.y = handpnts[i].y;
+                        tempPnt.z = i/10;
                         
                         posfingers.push_back(tempPnt);
                         
-                        ofCircle(tempPnt.x, tempPnt.y, 10);
+                        ofCircle(tempPnt.x, tempPnt.y, i/10);
+                        //cout<<i/10;
+                        //cout<<"\n";
+                        //ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
                 }
             }
         }
+        
+        //DRAW THE "FINGERS"
         drawfingers();
+        
         handpnts.clear();
         
   
     }
     
-    
+    //ATTEMPT TO SORT THE FINGERS BASED ON THEIR Y LOCATION
     void sortfingers(void){
-        
         
         ofPoint tempPnt;
         
@@ -115,6 +128,7 @@ class hand{
         tempPnt.y = posfingers[0].y;
         
         for (int b = 0; b < posfingers.size(); b++) {
+            
             //FIND FURTHEST TO THE LEFT
             if (posfingers[b].x < tempPnt.x){
                 tempPnt.x = posfingers[b].x;
@@ -126,16 +140,52 @@ class hand{
         
     }
     
+    //DETERMINE AVERAGE FINGERS BY DENSITY, AND DRAW THE FINGER TIPS
     void drawfingers(void){
 
-        
         for (int k = 0; k<posfingers.size(); k++) {
+
+            dz = posfingers[k].z-posfingers[k+1].z;
+            
+            if(abs(dz)<5) {
+                realfingers.push_back(posfingers[k]);
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
+            }
+            
+            else {
+
+                xave = xtot/realfingers.size();
+                yave = ytot/realfingers.size();
+                
+                ofFill();
+                ofCircle(xave,yave,10);
+                ofNoFill();
+                
+                dx=0;
+                dy=0;
+                dz=0;
+                ll=0;
+                xave = 0;
+                yave = 0;
+                realfingers.clear();
+            }
+            
+        }
+        
+        posfingers.clear();
+      
+        
+        
+        /*
+        for (int k = 0; k<posfingers.size(); k++) {
+        //for (int k = posfingers.size(); k>0; k--) {
             
             //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
             
-            int dx = posfingers[k].x - posfingers[k+1].x;
-            int dy = posfingers[k].y - posfingers[k+1].y;
-            int ll = sqrt((dx*dx)+(dy*dy)); 
+            dx = posfingers[k].x - posfingers[k+1].x;
+            dy = posfingers[k].y - posfingers[k+1].y;
+            ll = sqrt((dx*dx)+(dy*dy)); 
             
             if (ll<10){
                 realfingers.push_back(posfingers[k]);
@@ -152,22 +202,27 @@ class hand{
                 
                 //CREATE CIRCLE AT AVERAGE
                 ofFill();
-                //ofCircle(xave,yave,10);
-                //numtips++;
+                ofCircle(xave,yave,10);
+                numtips++;
+                cout<<numtips;
+                cout<<"\n";
                 ofNoFill();
                 
-                //RESET AVERAGES
+                //RESET VALUES
+                dx=0;
+                dy=0;
+                ll=0;
                 xave = 0;
                 yave = 0;
-                
-                //CLEAR TEMP FINGERS
                 realfingers.clear();
                 
             }
             
         }
         
+        numtips = 0;
         posfingers.clear();
+        */
 
     }
     
