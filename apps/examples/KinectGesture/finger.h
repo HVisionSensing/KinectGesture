@@ -8,12 +8,15 @@
 
 #ifndef jestureCap_finger_h
 #define jestureCap_finger_h
+#include "ofxCvConstants.h"
 
 class finger{
 
 public:
 
     int xloc, yloc;
+    
+    ofPoint loc;
     
     finger(){
         xloc = 0;

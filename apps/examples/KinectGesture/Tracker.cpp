@@ -242,14 +242,24 @@ void Tracker::trackfinger(){
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
+        
         for(int i=0; i<contourFinder.blobs[j].nPts; i++){
-            ofPoint tempPnt = (contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y);
+            ofPoint tempPnt;
+            tempPnt.x = contourFinder.blobs[j].pts[i].x;
+            tempPnt.y = contourFinder.blobs[j].pts[i].y;
+            
+            //ofCircle(tempPnt.x, tempPnt.y, 10);
+
             tempPnts.push_back(tempPnt);
             
-            ofCircle(tempPnts[k].x, tempPnts[k].y, 10);
+            //ofCircle(tempPnts[i].x, tempPnts[i].y, 10);
+
         }
         hands[j].shuffpnts(tempPnts);
+    
+        tempPnts.clear();
     }
+    
     
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
