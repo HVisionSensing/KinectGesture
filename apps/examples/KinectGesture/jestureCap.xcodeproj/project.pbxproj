@@ -959,8 +959,8 @@
 			isa = PBXGroup;
 			children = (
 				FE90D88014D0A74A0018547E /* Tracker.h */,
-				FEDADE2214D9907C00A57FA1 /* hand.h */,
 				FE90D88114D0A74F0018547E /* Tracker.cpp */,
+				FEDADE2214D9907C00A57FA1 /* hand.h */,
 				FECF699B14D7100D004C4ED7 /* finger.h */,
 			);
 			name = VR;

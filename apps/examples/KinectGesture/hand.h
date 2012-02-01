@@ -28,15 +28,16 @@ class hand{
     ofPoint centroid;
     
     vector<ofPoint> posfingers;
+    vector<ofPoint> sortedfingers;
     vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
     
     hand(){
     }
     
+    //TAKES POINTS THAT MAKE UP HAND AND SHUFFLES THEM SO START IS AT BOTTOM
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center){
         centroid = center;
-        //h = oldpoints.size()/2;
         
         ofSetColor(0, 255, 0);
         ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
@@ -46,14 +47,12 @@ class hand{
         
         ofSetColor(255, 0, 0);
         
-        //for (int k = 0; k<oldpoints.size()/2; k++) {
         for (int k = h; k<oldpoints.size(); k++) {
 
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
-        //for (int k = oldpoints.size()/2; k<oldpoints.size(); k++) {
         for (int k = 0; k<h; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
@@ -63,7 +62,7 @@ class hand{
     }
     
     void noshuff(vector<ofPoint> oldpoints){
-        //detectfingers();
+        detectfingers();
     }
     
     void detectfingers(void){
@@ -87,14 +86,14 @@ class hand{
             
             if(fabs(teta) < 30){
                 if(vxv.z > 0){
-                    if (handpnts[i].y<centroid.y+20) {
+                    if (handpnts[i].y<centroid.y+10) {
                         ofPoint tempPnt;
                         tempPnt.x = handpnts[i].x;
                         tempPnt.y = handpnts[i].y;
                         
                         posfingers.push_back(tempPnt);
                         
-                        //ofCircle(tempPnt.x, tempPnt.y, 10);
+                        ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
                 }
@@ -106,7 +105,29 @@ class hand{
   
     }
     
+    
+    void sortfingers(void){
+        
+        
+        ofPoint tempPnt;
+        
+        tempPnt.x = posfingers[0].x;
+        tempPnt.y = posfingers[0].y;
+        
+        for (int b = 0; b < posfingers.size(); b++) {
+            //FIND FURTHEST TO THE LEFT
+            if (posfingers[b].x < tempPnt.x){
+                tempPnt.x = posfingers[b].x;
+                tempPnt.y = posfingers[b].y;
+            }
+            
+            
+        }
+        
+    }
+    
     void drawfingers(void){
+
         
         for (int k = 0; k<posfingers.size(); k++) {
             
@@ -131,7 +152,7 @@ class hand{
                 
                 //CREATE CIRCLE AT AVERAGE
                 ofFill();
-                ofCircle(xave,yave,10);
+                //ofCircle(xave,yave,10);
                 //numtips++;
                 ofNoFill();
                 

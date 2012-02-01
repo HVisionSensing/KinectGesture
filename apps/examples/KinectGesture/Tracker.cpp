@@ -158,7 +158,7 @@ void Tracker::checkDepthUpdated(){
 }
 
 void Tracker::drawfingertips(){
-    
+    /*
     finger tempfing;
     
     double xave = 0;
@@ -181,17 +181,17 @@ void Tracker::drawfingertips(){
         int dy = fingers[k].yloc - fingers[k+1].yloc;
         int ll = sqrt((dx*dx)+(dy*dy)); 
         
-        /*OUTPUTS FINGER LOCATIONS - KEEP
-        cout<<"finger ";
-        cout<<k;
+        //OUTPUTS FINGER LOCATIONS - KEEP
+        //cout<<"finger ";
+        //cout<<k;
         //cout<<"\nx loc = ";
-        cout<<"\n";
-        cout<<fingers[k].xloc;
-        cout<<"\n";
+        //cout<<"\n";
+        //cout<<fingers[k].xloc;
+        //cout<<"\n";
         //cout<<"\ny loc = ";
-        cout<<fingers[k].yloc;
-        cout<<"\n";
-        */
+        //cout<<fingers[k].yloc;
+        //cout<<"\n";
+        
         
         //IF FINGERS ARE CLOSE ADD TO LIST
         if (ll<10){
@@ -228,21 +228,16 @@ void Tracker::drawfingertips(){
     }
     
     fingers.clear();
+    */
 
 }
 
 void Tracker::trackfinger(){
-    k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
-    smk=200;
-    teta=0.f;
-    numfingers=0;
     
     fingers.clear();
     tempfingers.clear();
     
     ofPoint tempcenter;
-    
-
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
@@ -261,6 +256,7 @@ void Tracker::trackfinger(){
             //ofCircle(tempPnts[i].x, tempPnts[i].y, 10);
 
         }
+        //INITIATE HAND TRACKING AN FINGER TRACKING
         hands[j].noshuff(tempPnts);
         hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter);
         //hands[j].shuffpnts(tempPnts, tempPnts.size()/4);
@@ -270,7 +266,12 @@ void Tracker::trackfinger(){
     }
     
     
-    
+    /*
+    k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
+    smk=200;
+    teta=0.f;
+    numfingers=0;
+     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         
         for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
@@ -313,6 +314,7 @@ void Tracker::trackfinger(){
         
     }
     //END OF LOOP GOING THROUGH BLOBS (HANDS)
+    */
         
 }
 
