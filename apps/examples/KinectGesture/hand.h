@@ -21,9 +21,10 @@ class hand{
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,vxv;
     ofxVec3f   v2D;
+    float teta;
     
-    vector<finger> posfingers;
-    vector<finger> realfingers;
+    vector<ofPoint> posfingers;
+    vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
     
     hand(){
@@ -34,12 +35,12 @@ class hand{
         for (int k = 0; k<oldpoints.size()/2; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            ofCircle(handpnts[k].x, handpnts[k].y, 10);
+            //ofCircle(handpnts[k].x, handpnts[k].y, 10);
         }
         for (int k = oldpoints.size()/2; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            ofCircle(handpnts[k].x, handpnts[k].y, 10);
+            //ofCircle(handpnts[k].x, handpnts[k].y, 10);
         }
         detectfingers();
     }
@@ -51,21 +52,32 @@ class hand{
             v1.set(handpnts[i].x-handpnts[i-35].x,handpnts[i].y-handpnts[i-35].y);
             v2.set(handpnts[i].x-handpnts[i+35].x,handpnts[i].y-handpnts[i+35].y);
             
-            //v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
-            //v2.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y);
-            
             v1D.set(handpnts[i].x-handpnts[i-35].x,handpnts[i].y-handpnts[i-35].y,0);
             v2D.set(handpnts[i].x-handpnts[i+35].x,handpnts[i].y-handpnts[i+35].y,0);
-            
-            //v1D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y,0);
-            //v2D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y,0);
 
+            vxv = v1D.cross(v2D);
+            
+            v1.normalize();
+            v2.normalize();
+            
+            teta=v1.angle(v2);
+            
+            if(fabs(teta) < 40){
+                if(vxv.z > 0){
+                    
+                    
+                    ofPoint tempPnt;
+                    tempPnt.x = handpnts[i].x;
+                    tempPnt.y = handpnts[i].y;
+                    
+                    posfingers.push_back(tempPnt);
+                    
+                    ofCircle(tempPnt.x, tempPnt.y, 10);
+                }
+            }
         }
-        
         handpnts.clear();
     }
-    
-    
 };
 
 
