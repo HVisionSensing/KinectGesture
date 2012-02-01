@@ -17,7 +17,6 @@
 		1664201213235744000AAE66 /* ofxKinectPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1664200713235744000AAE66 /* ofxKinectPlayer.cpp */; };
 		1664201313235744000AAE66 /* ofxKinectRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1664200913235744000AAE66 /* ofxKinectRecorder.cpp */; };
 		1677CFBB12E291DB009B9D64 /* handJesture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1677CFB912E291DB009B9D64 /* handJesture.cpp */; };
-		167D112E1306D6BE0041F817 /* hand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 167D112D1306D6BE0041F817 /* hand.cpp */; };
 		16E3DE271306AE8000224050 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16E3DE201306AE8000224050 /* tinyxml.cpp */; };
 		16E3DE281306AE8000224050 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16E3DE221306AE8000224050 /* tinyxmlerror.cpp */; };
 		16E3DE291306AE8000224050 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16E3DE231306AE8000224050 /* tinyxmlparser.cpp */; };
@@ -131,8 +130,6 @@
 		1664200A13235744000AAE66 /* ofxKinectRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectRecorder.h; sourceTree = "<group>"; };
 		1677CFB912E291DB009B9D64 /* handJesture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = handJesture.cpp; sourceTree = "<group>"; };
 		1677CFBA12E291DB009B9D64 /* handJesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = handJesture.h; sourceTree = "<group>"; };
-		167D112C1306D6BE0041F817 /* hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hand.h; sourceTree = "<group>"; };
-		167D112D1306D6BE0041F817 /* hand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hand.cpp; sourceTree = "<group>"; };
 		16E3DE1E1306AE8000224050 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		16E3DE201306AE8000224050 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		16E3DE211306AE8000224050 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
@@ -273,6 +270,7 @@
 		FE90D88014D0A74A0018547E /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		FE90D88114D0A74F0018547E /* Tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tracker.cpp; sourceTree = "<group>"; };
 		FECF699B14D7100D004C4ED7 /* finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = finger.h; sourceTree = "<group>"; };
+		FEDADE2214D9907C00A57FA1 /* hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hand.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -848,8 +846,6 @@
 				1677CFB912E291DB009B9D64 /* handJesture.cpp */,
 				1677CFBA12E291DB009B9D64 /* handJesture.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				167D112C1306D6BE0041F817 /* hand.h */,
-				167D112D1306D6BE0041F817 /* hand.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -963,6 +959,7 @@
 			isa = PBXGroup;
 			children = (
 				FE90D88014D0A74A0018547E /* Tracker.h */,
+				FEDADE2214D9907C00A57FA1 /* hand.h */,
 				FE90D88114D0A74F0018547E /* Tracker.cpp */,
 				FECF699B14D7100D004C4ED7 /* finger.h */,
 			);
@@ -1085,7 +1082,6 @@
 				16E3DE671306AE9800224050 /* ofxSimpleGuiToo.cpp in Sources */,
 				16E3DE681306AE9800224050 /* ofxSimpleGuiValueControl.cpp in Sources */,
 				16E3DE691306AE9800224050 /* ofxMSAInteractiveObject.cpp in Sources */,
-				167D112E1306D6BE0041F817 /* hand.cpp in Sources */,
 				1664200B13235744000AAE66 /* cameras.c in Sources */,
 				1664200C13235744000AAE66 /* core.c in Sources */,
 				1664200D13235744000AAE66 /* tilt.c in Sources */,

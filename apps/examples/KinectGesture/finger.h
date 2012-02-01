@@ -10,7 +10,6 @@
 #define jestureCap_finger_h
 
 class finger{
-    
 
 public:
 

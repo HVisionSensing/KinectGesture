@@ -80,7 +80,7 @@ public:
 	int					detectTwoHandsCount;
 	bool				detectingHands;
 	bool				detectingTwoHands;
-	vector<Hand *>		hands;
+	//vector<Hand *>		hands;
     
     // fonts
 	ofTrueTypeFont		msgFont;

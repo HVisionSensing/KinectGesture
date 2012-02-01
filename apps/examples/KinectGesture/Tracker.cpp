@@ -232,7 +232,7 @@ void Tracker::drawfingertips(){
 }
 
 void Tracker::trackfinger(){
-    k=0;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
+    k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
     smk=200;
     teta=0.f;
     numfingers=0;
@@ -244,7 +244,7 @@ void Tracker::trackfinger(){
         
         for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
             
-            ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
+            //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
             //cout<<"test";
             
             //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
@@ -261,11 +261,10 @@ void Tracker::trackfinger(){
             
             teta=v1.angle(v2);
             
-            if(fabs(teta) < 30){
+            if(fabs(teta) < 40){
                 if(vxv.z > 0){
                     numfingers++;
                     //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
-                    
                     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
                     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
                     fingers.push_back(tempfing);
@@ -279,7 +278,7 @@ void Tracker::trackfinger(){
         }
         //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
     
-        //drawfingertips();
+        drawfingertips();
         
     }
     //END OF LOOP GOING THROUGH BLOBS (HANDS)
