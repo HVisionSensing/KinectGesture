@@ -232,7 +232,7 @@ void Tracker::drawfingertips(){
 }
 
 void Tracker::trackfinger(){
-    //k=35;
+    k=0;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
     smk=200;
     teta=0.f;
     numfingers=0;
@@ -242,9 +242,10 @@ void Tracker::trackfinger(){
     
     for (int j = 0; j < contourFinder.nBlobs; j++){
         
-        for(int i=0; i<contourFinder.blobs[j].nPts-k; i++){ 
+        for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
             
             ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
+            //cout<<"test";
             
             //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
             v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
@@ -384,7 +385,7 @@ void Tracker::draw() {
     /*
      if (contourFinder.nBlobs>0) {
          for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
-             //ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
+             ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
              //cout<<"point ";
              //cout<<t;
              //cout<<'\n';
@@ -399,6 +400,7 @@ void Tracker::draw() {
      
      }
      */
+     
     
     trackfinger();
     
