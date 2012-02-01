@@ -59,22 +59,24 @@ class hand{
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
-        //detectfingers();
+        detectfingers();
     }
     
     void noshuff(vector<ofPoint> oldpoints){
-        detectfingers();
+        //detectfingers();
     }
     
     void detectfingers(void){
         
         for(int i=0; i<handpnts.size(); i++){ 
             
-            v1.set(handpnts[i].x-handpnts[i-35].x,handpnts[i].y-handpnts[i-35].y);
-            v2.set(handpnts[i].x-handpnts[i+35].x,handpnts[i].y-handpnts[i+35].y);
+            int l = 35;
             
-            v1D.set(handpnts[i].x-handpnts[i-35].x,handpnts[i].y-handpnts[i-35].y,0);
-            v2D.set(handpnts[i].x-handpnts[i+35].x,handpnts[i].y-handpnts[i+35].y,0);
+            v1.set(handpnts[i].x-handpnts[i-l].x,handpnts[i].y-handpnts[i-l].y);
+            v2.set(handpnts[i].x-handpnts[i+l].x,handpnts[i].y-handpnts[i+l].y);
+            
+            v1D.set(handpnts[i].x-handpnts[i-l].x,handpnts[i].y-handpnts[i-l].y,0);
+            v2D.set(handpnts[i].x-handpnts[i+l].x,handpnts[i].y-handpnts[i+l].y,0);
 
             vxv = v1D.cross(v2D);
             
@@ -92,7 +94,7 @@ class hand{
                         
                         posfingers.push_back(tempPnt);
                         
-                        ofCircle(tempPnt.x, tempPnt.y, 10);
+                        //ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
                 }
@@ -129,7 +131,7 @@ class hand{
                 
                 //CREATE CIRCLE AT AVERAGE
                 ofFill();
-                //ofCircle(xave,yave,10);
+                ofCircle(xave,yave,10);
                 //numtips++;
                 ofNoFill();
                 
