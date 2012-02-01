@@ -104,7 +104,7 @@ class hand{
                         //ofCircle(tempPnt.x, tempPnt.y, i/10);
                         //cout<<i/10;
                         //cout<<"\n";
-                        //ofCircle(tempPnt.x, tempPnt.y, 10);
+                        ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
                 }
@@ -112,7 +112,7 @@ class hand{
         }
         
         //DRAW THE "FINGERS"
-        drawfingers();
+        //drawfingers();
         
         handpnts.clear();
         
