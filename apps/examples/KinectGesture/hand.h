@@ -22,8 +22,7 @@ class hand{
     float teta;
     
     ofxVec2f   v1,v2,aux1;
-    ofxVec3f   v1D,vxv;
-    ofxVec3f   v2D;
+    ofxVec3f   v1D,v2D, vxv;
 
     
     ofPoint centroid;
@@ -36,21 +35,21 @@ class hand{
     hand(){
     }
     
-    //TAKES POINTS THAT MAKE UP HAND AND SHUFFLES THEM SO START IS AT BOTTOM
+    //takes points that make up hand and shuffles them so the start is at the bottom
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center){
         centroid = center;
         
-        //DISPLAY CENTER OF OLD FIST POSITION
+        //display center of old hand position
         ofSetColor(0, 255, 0);
-        ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
+        //ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
         
-        //DISPLAY CENTER OF NEW FIST POSITION
+        //display center of new hand position
         ofSetColor(0, 0, 255);
-        ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
+        //ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
         
         ofSetColor(255, 0, 0);
         
-        //SHUFFLE THE POINTS A DISTANCE h
+        //shuffle the poits by a number h
         for (int k = h; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
@@ -62,33 +61,36 @@ class hand{
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
         
-        //INITIALIZE DETECTING OF FINGERS
+        //initialize the detection of fingers
         //detectfingers();
     }
     
-    //DETECT FINGERS WITHOUT SHUFFLING
+    //detect fingers without shuffling the points around
     void noshuff(vector<ofPoint> oldpoints){
         detectfingers();
     }
     
-    //DETECT THE EXISTENCE OF FIGNERS
+    //detect the existence of fingers
     void detectfingers(void){
         
         for(int i=0; i<handpnts.size(); i++){ 
             
-            int l = 35;
+            int l = 25;
             
+            //vectors that make up triangle
             v1.set(handpnts[i].x-handpnts[i-l].x,handpnts[i].y-handpnts[i-l].y);
             v2.set(handpnts[i].x-handpnts[i+l].x,handpnts[i].y-handpnts[i+l].y);
-            
             v1D.set(handpnts[i].x-handpnts[i-l].x,handpnts[i].y-handpnts[i-l].y,0);
             v2D.set(handpnts[i].x-handpnts[i+l].x,handpnts[i].y-handpnts[i+l].y,0);
 
+            //Cross product to weed out finger hulls
             vxv = v1D.cross(v2D);
             
+            //normalize triangle vectors
             v1.normalize();
             v2.normalize();
             
+            //the angle between the normalized vectors
             teta=v1.angle(v2);
             
             if(fabs(teta) < 30){
@@ -114,15 +116,14 @@ class hand{
             }
         }
         
-        //DRAW THE "FINGERS"
+        //draw the "fingers"
         //drawfingers();
         
         handpnts.clear();
-        
   
     }
     
-    //ATTEMPT TO SORT THE FINGERS BASED ON THEIR Y LOCATION
+    //attempt to sort the vectors
     void sortfingers(void){
         
         ofPoint tempPnt;
@@ -224,7 +225,7 @@ class hand{
         posfingers.clear();
     }
     
-    //DETERMINE AVERAGE FINGERS BY DENSITY, AND DRAW THE FINGER TIPS
+    //determine average finger locations, and draw fingertips
     void drawfingers(void){
     
         int counter = 0;
