@@ -26,6 +26,7 @@
 #include <string.h>
 #include <vector>
 #include "finger.h"
+#include "circle.h"
 
 class Tracker : public ofBaseApp
 {
@@ -35,6 +36,7 @@ private:
     int yy;
     int ll;
     signed int hc;
+    
 public:
     
     GLdouble size;
@@ -100,6 +102,10 @@ public:
     vector<finger> realfingers;
     vector<finger> tempfingers;
     finger tempfing;
+    vector<circle> circs;
+    circle testcirc;
+    bool canedit;
+
 
         
 };

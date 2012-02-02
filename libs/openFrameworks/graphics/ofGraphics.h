@@ -54,6 +54,7 @@ void ofSetCircleResolution(int res);  		// if there 22 is a problem, you can cha
 void ofCurve(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3);
 void ofBezier(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3);
 
+void ofSolidCube(int size);
 
 // drawing options
 void ofNoFill();

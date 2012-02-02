@@ -20,11 +20,14 @@
 #include <vector>
 #include "hand.h"
 #include "finger.h"
+#include "circle.h"
 
 
 Tracker::Tracker(){
     bc=0;
     hc=1;
+    
+    
 }
 
 void Tracker::setup(void){
@@ -388,6 +391,8 @@ void Tracker::draw() {
         ofPopMatrix();
     }
     
+
+    
     //TRACKING WHEN CLOSED
     if (contourFinder.nBlobs == 2) {
         if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
@@ -396,16 +401,66 @@ void Tracker::draw() {
             xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
             yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
             ll=length/4;
-            ofCircle(xx, yy, ll);
+            
+            testcirc.loc.x=xx;
+            testcirc.loc.y=yy;
+            testcirc.rad=ll;
+            
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+
             ofPopMatrix();
             
         }
+        
         else{
             ofPushMatrix();
-            ofCircle(xx, yy, ll);
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+
             ofPopMatrix();
         }
+        
     }
+    
+    
+
+    
+
+    //ofBezier(10, 10, 500, 10, 10, 500, 10, 10);
+   
+            
+ 
+    //ALLOWS ONE HAND TO CHANGE THE POSITION OF THE CIRCLE
+    if (contourFinder.nBlobs == 1) {
+        
+        ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+        
+        //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+        //ofSolidCube(testcirc.rad);
+        
+        if (contourFinder.blobs[0].nPts < 350){
+            
+            testcirc.loc.x=contourFinder.blobs[0].centroid.x;;
+            testcirc.loc.y=contourFinder.blobs[0].centroid.y;;
+            testcirc.rad=ll;
+            
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+              
+        }
+        
+    }
+    
+    
+
+    
+    
     
     /*ALWAYS TRACKING
     if (contourFinder.nBlobs == 2 && hc==1) {

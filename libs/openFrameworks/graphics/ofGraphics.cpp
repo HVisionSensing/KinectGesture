@@ -412,10 +412,16 @@ void ofCurve(float x0, float y0, float x1, float y1, float x2, float y2, float x
 	ofEndShape();
 }
 
+void ofSolidCube(int size){
+    glutSolidCube(size);
+    glFlush();
+}
 
 //----------------------------------------------------------
 void ofBezier(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3){
 
+
+    
 	float   ax, bx, cx;
     float   ay, by, cy;
     float   t, t2, t3;
@@ -754,6 +760,7 @@ void ofSetupScreen(){
 	glScalef(1, -1, 1);           // invert Y axis so increasing Y goes down.
   	glTranslatef(0, -h, 0);       // shift origin up to upper-left corner.
 }
+
 
 
 //-------------- polygons ----------------------------------

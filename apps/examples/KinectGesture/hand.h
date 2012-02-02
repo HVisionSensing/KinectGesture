@@ -68,7 +68,7 @@ class hand{
     
     //DETECT FINGERS WITHOUT SHUFFLING
     void noshuff(vector<ofPoint> oldpoints){
-        detectfingers();
+        //detectfingers();
     }
     
     //DETECT THE EXISTENCE OF FIGNERS
@@ -104,6 +104,9 @@ class hand{
                         //ofCircle(tempPnt.x, tempPnt.y, i/10);
                         //cout<<i/10;
                         //cout<<"\n";
+                        
+                        ofTranslate(0, 0);
+                        
                         ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
@@ -229,8 +232,8 @@ class hand{
         for (int k = 0; k<posfingers.size(); k++) {
 
             dz = posfingers[k].z-posfingers[k+1].z;
-            cout<<dz;
-            cout<<"\n";
+            //cout<<dz;
+            //cout<<"\n";
             
             if(abs(dz)<5) {
                 //realfingers.push_back(posfingers[k+1]);
@@ -250,6 +253,7 @@ class hand{
                 
                 ofFill();
                 ofCircle(xave,yave,10);
+                numtips++;
                 ofNoFill();
                 
                 dx=0;
@@ -262,6 +266,8 @@ class hand{
                 ytot = 0;
                 counter = 0;
                 realfingers.clear();
+         
+                if (numtips == 3) k = posfingers.size();
   
                 
             }
@@ -269,13 +275,11 @@ class hand{
         }
         
         posfingers.clear();
-      
-        
-        
-        /*
+         
+         
+       /* 
         for (int k = 0; k<posfingers.size(); k++) {
-        //for (int k = posfingers.size(); k>0; k--) {
-            
+
             //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
             
             dx = posfingers[k].x - posfingers[k+1].x;
@@ -310,6 +314,8 @@ class hand{
                 xave = 0;
                 yave = 0;
                 realfingers.clear();
+                
+                if (numtips == 4) k = posfingers.size();
                 
             }
             
