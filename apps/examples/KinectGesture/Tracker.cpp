@@ -242,12 +242,15 @@ void Tracker::trackfinger(){
     
     ofPoint tempcenter;
     
+    //CREATE OFPOINT VECTOR WITH HANDPOINTS
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
         
+        //PASS ALONG THE CENTER OF THE HAND
         tempcenter.x = contourFinder.blobs[j].centroid.x;
         tempcenter.y = contourFinder.blobs[j].centroid.y;
         
+        //LOOP GOES THROUGH ALL THE POINTS, CREATES ofPoint, ADDS IT TO tempPnts
         for(int i=0; i<contourFinder.blobs[j].nPts; i++){
             ofPoint tempPnt;
             tempPnt.x = contourFinder.blobs[j].pts[i].x;
@@ -260,7 +263,8 @@ void Tracker::trackfinger(){
             //ofCircle(tempPnts[i].x, tempPnts[i].y, 10);
 
         }
-        //INITIATE HAND TRACKING AN FINGER TRACKING
+        //INITIATE HAND TRACKING AN FINGER TRACKING, PASS tempPnts
+        
         hands[j].noshuff(tempPnts);
         hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter);
         //hands[j].shuffpnts(tempPnts, tempPnts.size()/4);

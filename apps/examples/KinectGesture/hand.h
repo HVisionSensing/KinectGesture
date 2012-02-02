@@ -63,12 +63,12 @@ class hand{
         }
         
         //INITIALIZE DETECTING OF FINGERS
-        detectfingers();
+        //detectfingers();
     }
     
     //DETECT FINGERS WITHOUT SHUFFLING
     void noshuff(vector<ofPoint> oldpoints){
-        //detectfingers();
+        detectfingers();
     }
     
     //DETECT THE EXISTENCE OF FIGNERS
