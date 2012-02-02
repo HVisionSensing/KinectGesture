@@ -3,7 +3,7 @@
 //  jestureCap
 //
 //  Created by Noah Tovares on 2/1/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 IDIG Lab CMU All rights reserved.
 //
 
 #ifndef jestureCap_hand_h
