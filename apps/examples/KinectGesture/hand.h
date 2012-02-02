@@ -24,7 +24,6 @@ class hand{
     ofxVec2f   v1,v2,aux1;
     ofxVec3f   v1D,v2D, vxv;
 
-    
     ofPoint centroid;
     
     vector<ofPoint> posfingers;
@@ -101,14 +100,16 @@ class hand{
                         tempPnt.y = handpnts[i].y;
                         tempPnt.z = i/10;
                         
+                        //add possible finger to ofPoint vector
                         posfingers.push_back(tempPnt);
                         
                         //ofCircle(tempPnt.x, tempPnt.y, i/10);
                         //cout<<i/10;
                         //cout<<"\n";
                         
-                        ofTranslate(0, 0);
+                        //ofTranslate(0, 0);
                         
+                        //draw circle at all fingertip locations
                         ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                     }
@@ -118,6 +119,7 @@ class hand{
         
         //draw the "fingers"
         //drawfingers();
+        
         
         handpnts.clear();
   
