@@ -153,7 +153,8 @@ class hand{
         
     }
     
-    void drawfingersbad(void){
+    //draw and group fingers based on pre determined values
+    void drawfingerspre(void){
         double x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6;
         double xx1 =0;
         double xx2 =0;
@@ -234,7 +235,8 @@ class hand{
         posfingers.clear();
     }
     
-    void drawfingersnew(void){
+    //create vetor, iterate through points, grab and erase
+    void drawfingersvetor(void){
     
         //create posfingers copy and fill with posfingers
         for (int j = 0; j <posfingers.size();j++){
@@ -342,7 +344,6 @@ class hand{
     
     //determine average finger locations, and draw fingertips based on Z value
     void drawfingers(void){
-         
          
        /* 
         for (int k = 0; k<posfingers.size(); k++) {
