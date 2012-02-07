@@ -77,6 +77,7 @@ class hand{
         
         for(int i=0; i<handpnts.size(); i++){ 
             
+            //integers that determines points that make up triangle
             int l = 25;
             
             //vectors that make up triangle
@@ -98,9 +99,13 @@ class hand{
             if(fabs(teta) < 40){
                 if(vxv.z > 0){
                     if (handpnts[i].y<centroid.y+10) {
+                        
+                        //create temporary point to push back
                         ofPoint tempPnt;
                         tempPnt.x = handpnts[i].x;
                         tempPnt.y = handpnts[i].y;
+                        //assign z value of possible finger to i, or index in handpoints
+                        //use later to group fingers
                         tempPnt.z = i/10;
                         
                         //add possible finger to ofPoint vector
@@ -283,13 +288,12 @@ class hand{
                 
     }
     
-    //determine average finger locations, and draw fingertips
-    void drawfingers(void){
-    
+    //group and draw fingers based on the z value of the points
+    void drawfingersz(void){
         int counter = 0;
         
         for (int k = 0; k<posfingers.size(); k++) {
-
+            
             dz = posfingers[k].z-posfingers[k+1].z;
             //cout<<dz;
             //cout<<"\n";
@@ -303,7 +307,7 @@ class hand{
             }
             
             if(abs(dz)>5){
-
+                
                 //xave = xtot/realfingers.size();
                 //yave = ytot/realfingers.size();
                 
@@ -325,15 +329,19 @@ class hand{
                 ytot = 0;
                 counter = 0;
                 realfingers.clear();
-         
+                
                 if (numtips == 3) k = posfingers.size();
-  
+                
                 
             }
             
         }
         
         posfingers.clear();
+    }
+    
+    //determine average finger locations, and draw fingertips based on Z value
+    void drawfingers(void){
          
          
        /* 
