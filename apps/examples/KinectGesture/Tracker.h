@@ -51,6 +51,7 @@ public:
     void keyPressed(int key);
     void exit(void);
     void trackfinger(void);
+    void trackhand(void);
     void drawfingertips(void);
     
     // Kinect

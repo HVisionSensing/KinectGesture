@@ -30,6 +30,9 @@ class hand{
     vector<ofPoint> sortedfingers;
     vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
+    vector<ofPoint> posfingerscopy;
+    vector<ofPoint> fingerpnts;
+    
     
     hand(){
     }
@@ -92,7 +95,7 @@ class hand{
             //the angle between the normalized vectors
             teta=v1.angle(v2);
             
-            if(fabs(teta) < 30){
+            if(fabs(teta) < 40){
                 if(vxv.z > 0){
                     if (handpnts[i].y<centroid.y+10) {
                         ofPoint tempPnt;
@@ -118,8 +121,7 @@ class hand{
         }
         
         //draw the "fingers"
-        //drawfingers();
-        
+        //drawfingersnew();
         
         handpnts.clear();
   
@@ -225,6 +227,60 @@ class hand{
         ofNoFill();
         
         posfingers.clear();
+    }
+    
+    void drawfingersnew(void){
+    
+        //create posfingers copy and fill with posfingers
+        for (int j = 0; j <posfingers.size();j++){
+            posfingerscopy.push_back(posfingers[j]);
+        }
+        
+        //continue as long as the copied vector has elements
+        if(posfingerscopy.size() > 0) {
+             
+            //take the first posfingercopy point at the reference
+            fingerpnts.push_back(posfingerscopy[0]);
+            
+            //iterate through all the possible fingers
+            for (int k = 1; k<posfingerscopy.size(); k++) {
+                dx = fingerpnts[0].x - posfingerscopy[k].x;
+                dy = fingerpnts[0].y - posfingerscopy[k].y;
+                ll = sqrt((dx*dx)+(dy*dy)); 
+                
+                //if distance between points is less than 5
+                if(ll<5){
+                    //add finger to fingerpnts vector
+                    fingerpnts.push_back(posfingerscopy[k]);
+                    
+                    //delete from posfingerscopy
+                    posfingerscopy.erase(posfingerscopy.begin()+k-1);
+                }
+            }
+            
+            //create average of fingerponts
+            for (int j = 0; j<fingerpnts.size(); j++) {
+                xtot += fingerpnts[j].x;
+                ytot += fingerpnts[j].y;
+            }
+            
+            xave = xtot/fingerpnts.size();
+            yave = ytot/fingerpnts.size();
+            
+            ofFill();
+            ofCircle(xave,yave,10);
+            ofNoFill();
+            
+            xave = 0;
+            yave = 0;
+            xtot = 0;
+            ytot = 0;
+            
+            fingerpnts.clear();
+
+        }
+         
+                
     }
     
     //determine average finger locations, and draw fingertips

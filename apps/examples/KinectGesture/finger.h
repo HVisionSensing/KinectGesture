@@ -16,7 +16,7 @@ public:
 
     int xloc, yloc;
     
-    ofPoint loc;
+    vector<ofPoint> loc;
     
     finger(){
         xloc = 0;

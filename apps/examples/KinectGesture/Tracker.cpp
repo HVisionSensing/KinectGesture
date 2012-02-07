@@ -326,7 +326,99 @@ void Tracker::trackfinger(){
         
 }
 
+void Tracker::trackhand(){
+    
+    //TRACKING WHEN CLOSED
+    if (contourFinder.nBlobs == 2) {
+        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
+            //hc=hc*-1;
+            ofPushMatrix();
+            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
+            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
+            ll=sqrt((xx*xx)-(yy*yy))/4;
+            
+            testcirc.loc.x=xx;
+            testcirc.loc.y=yy;
+            testcirc.rad=ll;
+            
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+            
+            ofPopMatrix();
+            
+        }
+        
+        else{
+            ofPushMatrix();
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+            
+            ofPopMatrix();
+        }
+        
+    }
+    
+    //ofBezier(10, 10, 500, 10, 10, 500, 10, 10);
+    
+    //ALLOWS ONE HAND TO CHANGE THE POSITION OF THE CIRCLE
+    if (contourFinder.nBlobs == 1) {
+        
+        ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+        
+        //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+        //ofSolidCube(testcirc.rad);
+        
+        if (contourFinder.blobs[0].nPts < 350){
+            
+            testcirc.loc.x=contourFinder.blobs[0].centroid.x;;
+            testcirc.loc.y=contourFinder.blobs[0].centroid.y;;
+            testcirc.rad=ll;
+            
+            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            
+            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
+            //ofSolidCube(testcirc.rad);
+            
+        }
+        
+    }    
+    
+    /*ALWAYS TRACKING
+     if (contourFinder.nBlobs == 2 && hc==1) {
+     ofPushMatrix();
+     ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
+     ofPopMatrix();
+     }
+     */
+    
+    /*
+     if (contourFinder.nBlobs>0) {
+     for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
+     ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
+     //cout<<"point ";
+     //cout<<t;
+     //cout<<'\n';
+     cout<<contourFinder.blobs[0].pts[t].x;
+     cout<<",";
+     cout<<contourFinder.blobs[0].pts[t].y;
+     cout<<"\n";
+     }
+     
+     cout<<"Newframe\n";
+     
+     
+     }
+     */
+}
+
 void Tracker::draw() {
+    
+    trackhand();
+    
+    trackfinger();
 	
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
@@ -373,6 +465,7 @@ void Tracker::draw() {
     ofTranslate(200, 150, 0);
     glScalef(0.9, 0.9, 1.0f); 
     
+    //draw the blobs
     for (int i = 0; i < contourFinder.nBlobs; i++){
         ofPushMatrix();
         contourFinder.blobs[i].draw(0,0);
@@ -394,107 +487,6 @@ void Tracker::draw() {
         
         ofPopMatrix();
     }
-    
-
-    
-    //TRACKING WHEN CLOSED
-    if (contourFinder.nBlobs == 2) {
-        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
-            //hc=hc*-1;
-            ofPushMatrix();
-            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
-            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
-            ll=length/4;
-            
-            testcirc.loc.x=xx;
-            testcirc.loc.y=yy;
-            testcirc.rad=ll;
-            
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-
-            ofPopMatrix();
-            
-        }
-        
-        else{
-            ofPushMatrix();
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-
-            ofPopMatrix();
-        }
-        
-    }
-    
-    
-
-    
-
-    //ofBezier(10, 10, 500, 10, 10, 500, 10, 10);
-   
-            
- 
-    //ALLOWS ONE HAND TO CHANGE THE POSITION OF THE CIRCLE
-    if (contourFinder.nBlobs == 1) {
-        
-        ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-        
-        //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-        //ofSolidCube(testcirc.rad);
-        
-        if (contourFinder.blobs[0].nPts < 350){
-            
-            testcirc.loc.x=contourFinder.blobs[0].centroid.x;;
-            testcirc.loc.y=contourFinder.blobs[0].centroid.y;;
-            testcirc.rad=ll;
-            
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-              
-        }
-        
-    }
-    
-    
-
-    
-    
-    
-    /*ALWAYS TRACKING
-    if (contourFinder.nBlobs == 2 && hc==1) {
-        ofPushMatrix();
-        ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
-        ofPopMatrix();
-    }
-    */
-    
-    /*
-     if (contourFinder.nBlobs>0) {
-         for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
-             ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
-             //cout<<"point ";
-             //cout<<t;
-             //cout<<'\n';
-             cout<<contourFinder.blobs[0].pts[t].x;
-             cout<<",";
-             cout<<contourFinder.blobs[0].pts[t].y;
-             cout<<"\n";
-         }
-         
-         cout<<"Newframe\n";
-     
-     
-     }
-     */
-     
-    
-    trackfinger();
     
     if (contourFinder.nBlobs == 2){
         stream3<<contourFinder.blobs[0].nPts;
