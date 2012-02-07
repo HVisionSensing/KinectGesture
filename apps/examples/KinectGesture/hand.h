@@ -64,7 +64,7 @@ class hand{
         }
         
         //initialize the detection of fingers
-        //detectfingers();
+        detectfingers();
     }
     
     //detect fingers without shuffling the points around
