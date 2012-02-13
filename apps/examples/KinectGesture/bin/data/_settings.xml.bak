@@ -9,11 +9,11 @@
     </Toggle_Mirror_Mode>
     <SliderInt_Near_Distance>
         <name>Near Distance</name>
-        <value>5</value>
+        <value>12</value>
     </SliderInt_Near_Distance>
     <SliderInt_Far_Distance>
         <name>Far Distance</name>
-        <value>32</value>
+        <value>40</value>
     </SliderInt_Far_Distance>
     <SliderInt_Display_Width>
         <name>Display Width</name>
@@ -21,6 +21,6 @@
     </SliderInt_Display_Width>
     <SliderInt_Display_height>
         <name>Display height</name>
-        <value>1980</value>
+        <value>1074</value>
     </SliderInt_Display_height>
 </controls>

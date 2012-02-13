@@ -104,6 +104,7 @@ class hand{
                         ofPoint tempPnt;
                         tempPnt.x = handpnts[i].x;
                         tempPnt.y = handpnts[i].y;
+                        
                         //assign z value of possible finger to i, or index in handpoints
                         //use later to group fingers
                         tempPnt.z = i/10;
@@ -112,8 +113,8 @@ class hand{
                         posfingers.push_back(tempPnt);
                         
                         //ofCircle(tempPnt.x, tempPnt.y, i/10);
-                        //cout<<i/10;
-                        //cout<<"\n";
+                        cout<<i/10;
+                        cout<<"\n";
                         
                         //ofTranslate(0, 0);
                         

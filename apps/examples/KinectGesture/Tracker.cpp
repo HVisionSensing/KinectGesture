@@ -266,6 +266,7 @@ void Tracker::trackfinger(){
     
 }
 
+//tracking of the hand, and gestures associated with hands
 void Tracker::trackhand() {
     ofPushMatrix();
     
@@ -282,7 +283,7 @@ void Tracker::trackhand() {
         float centroidX = 0;
         float centroidY = 0;
         float addCount = 0;
-        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=5){
+        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=1){
             addCount++;
             centroidX += contourFinder.blobs[i].pts[j].x;
             centroidY += contourFinder.blobs[i].pts[j].y;
@@ -294,14 +295,17 @@ void Tracker::trackhand() {
         ofPopMatrix();
     }
     
-    //TRACKING WHEN CLOSED
+    //gesture to track hands when they are closed
     if (contourFinder.nBlobs == 2) {
         if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
-            //hc=hc*-1;
             ofPushMatrix();
             xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
             yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
-            ll=sqrt((xx*xx)-(yy*yy))/4;
+            int dx = contourFinder.blobs[1].centroid.x-contourFinder.blobs[0].centroid.x;
+            int dy = contourFinder.blobs[1].centroid.y-contourFinder.blobs[0].centroid.y;
+            ll=sqrt((dx*dx)+(dy*dy))/4;
+            
+            
             ofCircle(xx, yy, ll);
             ofPopMatrix();
             
@@ -344,7 +348,7 @@ void Tracker::draw() {
     if (contourFinder.nBlobs == 2){
         int dx = contourFinder.blobs[1].centroid.x-contourFinder.blobs[0].centroid.x;
         int dy = contourFinder.blobs[1].centroid.y-contourFinder.blobs[0].centroid.y;
-        length = sqrt((dx*dx)-(dy*dy));
+        length = sqrt((dx*dx)+(dy*dy));
         stream2<< "length = ";
         stream2<< length;
         stream2<< " dx = ";
@@ -389,7 +393,7 @@ void Tracker::draw() {
     
 };
 
-void Tracker::keyPressed (int key){
+void Tracker::keyPressed (int key) {
 	ofLog(OF_LOG_VERBOSE, ofToString(key));
 	switch (key)
 	{
