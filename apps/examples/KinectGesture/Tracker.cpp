@@ -328,6 +328,8 @@ void Tracker::trackfinger(){
 
 void Tracker::trackhand(){
     
+    ofSetColor(255, 0, 0);
+    
     //TRACKING WHEN CLOSED
     if (contourFinder.nBlobs == 2) {
         if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
@@ -377,7 +379,9 @@ void Tracker::trackhand(){
             testcirc.loc.y=contourFinder.blobs[0].centroid.y;;
             testcirc.rad=ll;
             
+            ofPushMatrix();
             ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
+            ofPopMatrix();
             
             //ofTranslate(testcirc.loc.x, testcirc.loc.y);
             //ofSolidCube(testcirc.rad);
