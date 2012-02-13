@@ -368,8 +368,6 @@ class hand{
                 numtips++;
                 ofNoFill();
                 
-                
-                
                 dz=0;
                 xave = 0;
                 yave = 0;
