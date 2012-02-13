@@ -311,20 +311,19 @@ class hand{
             //cout<<"\n";
             
             //if the two fingers are close
-            if(abs(dz)<3) {
+            if(abs(dz)<2) {
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
-                /*
+                
                 cout<<posfingers[k].z;
                 cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
-                 */
+                 
                 counter++;
                 
             }
-            
-            //else{
-            if(abs(dz)>3){
-                //cout<<"new finger\n";
+  
+            if(abs(dz)>2){
+                cout<<"new finger\n";
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -337,6 +336,11 @@ class hand{
                 ofCircle(xave,yave,10);
                 numtips++;
                 ofNoFill();
+                
+                ofPoint tempPnt;
+                tempPnt.x = xave;
+                tempPnt.y = yave;
+                realfingers.push_back(tempPnt);
                 
                 dz=0;
                 xave = 0;
@@ -348,7 +352,7 @@ class hand{
             }
             
             if(k==posfingers.size()-1){
-                //cout<<"new finger\n";
+                cout<<"new finger\n";
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -371,11 +375,12 @@ class hand{
                 
             }
             
-            cout<<numtips<<"\n";
+            //cout<<numtips<<"\n";
         }
         
         
         posfingers.clear();
+        realfingers.clear();
     }
     
     //determine average finger locations, and draw fingertips based on Z value

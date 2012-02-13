@@ -83,7 +83,8 @@ public:
 	int					detectTwoHandsCount;
 	bool				detectingHands;
 	bool				detectingTwoHands;
-	//vector<hand>		hands;
+	
+    //vector<hand>		hands;
     hand hands[2];
     
     // fonts
@@ -97,7 +98,6 @@ public:
     int k, smk;
     float teta,lhd;
     int numfingers;
-    int numtips;
     bool detectFingers;
     vector<finger> fingers;
     vector<finger> realfingers;

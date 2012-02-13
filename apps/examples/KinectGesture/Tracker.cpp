@@ -272,7 +272,7 @@ void Tracker::trackhand() {
     
     ofTranslate(200, 150, 0);
     glScalef(0.9, 0.9, 1.0f); 
-    
+    /*
     for (int i = 0; i < contourFinder.nBlobs; i++){
         ofPushMatrix();
         contourFinder.blobs[i].draw(0,0);
@@ -316,6 +316,39 @@ void Tracker::trackhand() {
             ofPopMatrix();
         }
     }
+    */
+    
+    if (hands[0].numtips==2) {
+        if (hands[1].numtips==2) {
+            
+            int xave;
+            int yave;
+            
+            for (int j = 0; j < 2; j++){
+                for (int p = 0; p <2; p++) {
+                    xave += hands[j].realfingers[p].x;
+                    yave += hands[j].realfingers[p].y;
+                }
+                
+            }
+            
+            xave /=4;
+            yave /=4;
+            
+            ofPushMatrix();
+            
+            ofCircle(xave, yave, 10);
+            
+            ofPopMatrix();
+            
+        }
+        else{
+            ofPushMatrix();
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+        }
+    }
+
 
 }
 
@@ -375,7 +408,8 @@ void Tracker::draw() {
 	ofSetColor(255, 255, 255);
     
     //stream5<<numfingers;
-    stream5<<numtips;
+    int c = hands[0].numtips + hands[1].numtips;
+    stream5<<c;
     
     std::string string_x = osstream.str();
     std::string string_y = stream2.str();
