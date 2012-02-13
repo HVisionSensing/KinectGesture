@@ -134,7 +134,8 @@ class hand{
         
         //draw the "fingers"
         //drawfingersnew();
-        drawfingersz();
+        //drawfingersz();
+        drawfingers();
         handpnts.clear();
   
     }
@@ -360,35 +361,47 @@ class hand{
     
     //determine average finger locations, and draw fingertips based on Z value
     void drawfingers(void){
-         
-       /* 
+        
+        int counter = 0;
+       
         for (int k = 0; k<posfingers.size(); k++) {
 
-            //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
-            
-            dx = posfingers[k].x - posfingers[k+1].x;
-            dy = posfingers[k].y - posfingers[k+1].y;
+            //determine ll, the distance between one "figner" and the next
+            dx = posfingers[k+1].x - posfingers[k].x;
+            dy = posfingers[k+1].y - posfingers[k].y;
             ll = sqrt((dx*dx)+(dy*dy)); 
             
-            if (ll<10){
-                realfingers.push_back(posfingers[k]);
+            //if the distance between the fingers is less than 5 ...
+            if (ll<5){
+                
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
+                counter++;
+                
+                //realfingers.push_back(posfingers[k]);
             }
             
             else {
-                for (int p = 0; p < realfingers.size(); p++){
-                    xave += realfingers[p].x;
-                    yave += realfingers[p].y;
-                }
                 
-                xave /= realfingers.size();
-                yave /= realfingers.size();
+                //for (int p = 0; p < realfingers.size(); p++){
+                //    xave += realfingers[p].x;
+                //    yave += realfingers[p].y;
+                //}
                 
-                //CREATE CIRCLE AT AVERAGE
+                //xave /= realfingers.size();
+                //yave /= realfingers.size();
+                
+                //counter++;
+                //xtot += posfingers[k].x;
+                //ytot += posfingers[k].y;
+
+                xave = xtot/counter;
+                yave = ytot/counter;
+
+                //create circle at the average finger position
                 ofFill();
+                ofSetColor(0,0,255);
                 ofCircle(xave,yave,10);
-                numtips++;
-                cout<<numtips;
-                cout<<"\n";
                 ofNoFill();
                 
                 //RESET VALUES
@@ -397,17 +410,16 @@ class hand{
                 ll=0;
                 xave = 0;
                 yave = 0;
-                realfingers.clear();
+                //realfingers.clear();
                 
-                if (numtips == 4) k = posfingers.size();
+                //if (numtips == 4) k = posfingers.size();
                 
             }
             
         }
         
-        numtips = 0;
         posfingers.clear();
-        */
+        
 
     }
     
