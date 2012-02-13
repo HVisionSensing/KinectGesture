@@ -124,8 +124,8 @@ class hand{
                         ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                         //double check to make sure posfingers contains correct points
-                        //int k = posfingers.size();
-                        //ofCircle(posfingers[k].x, posfingers[k].y, 10);
+                        int k = posfingers.size();
+                        ofCircle(posfingers[k].x, posfingers[k].y, i/10);
                         
                     }
                 }
@@ -308,7 +308,7 @@ class hand{
         }
         */
         
-        for (int k = 0; k<posfingers.size(); k++) {
+        for (int k = 3; k<posfingers.size(); k++) {
             
             //compute z distance between one finger and the next
             dz = posfingers[k+1].z-posfingers[k].z;
@@ -337,25 +337,20 @@ class hand{
                 yave = ytot/counter;
                 
                 ofFill();
-                ofSetColor(0,255,0);
+                ofSetColor(0,0,255);
                 ofCircle(xave,yave,10);
                 numtips++;
                 ofNoFill();
                 
-                dx=0;
-                dy=0;
                 dz=0;
-                ll=0;
                 xave = 0;
                 yave = 0;
                 xtot = 0;
                 ytot = 0;
                 counter = 0;
-                realfingers.clear();
                 
+         
 
-                
-                
             }
             
         }
