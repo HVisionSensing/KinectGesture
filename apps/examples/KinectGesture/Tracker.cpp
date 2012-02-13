@@ -20,14 +20,11 @@
 #include <vector>
 #include "hand.h"
 #include "finger.h"
-#include "circle.h"
 
 
 Tracker::Tracker(){
     bc=0;
     hc=1;
-    
-    
 }
 
 void Tracker::setup(void){
@@ -49,13 +46,13 @@ void Tracker::setup(void){
 	grayImage.allocate(kinect.width, kinect.height);
 	checkGrayImage.allocate(kinect.width, kinect.height);
 	grayThresh.allocate(kinect.width, kinect.height);
-	
+    
 	// For hand detection
 	nearThreshold = 5;
 	farThreshold = 30;
 	detectCount = 0;
 	detectTwoHandsCount = 0;
-	
+    
 	displayWidth = 1280;
 	displayHeight = 800;
     
@@ -65,38 +62,38 @@ void Tracker::setup(void){
     
     gui.setup();
 	gui.config->gridSize.x = 300;
-   
+    
     gui.addTitle("KINECT SETTINGS");
 	gui.addSlider("Tilt Angle", angle, -30, 30);
 	gui.addToggle("Mirror Mode", mirror);
 	gui.addTitle("DETECT RANGE");
-	 
+    
     gui.addSlider("Near Distance", nearThreshold, 5, 20);
 	gui.addSlider("Far Distance", farThreshold, 20, 60);
-	
+    
     gui.addTitle("MOUSE CONTROLL");
 	gui.addSlider("Display Width", displayWidth, 600, 1980);
 	gui.addSlider("Display height", displayHeight, 600, 1980);
-
+    
     gui.setDefaultKeys(true);
 	gui.loadFromXML();
 }
 
 void Tracker::update(void){
     kinect.update();
-
+    
     checkDepthUpdated();
-	
+    
 	grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
 	grayThresh.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
-	
+    
 	unsigned char * pix = grayImage.getPixels();
 	unsigned char * grayThreshPix = grayThresh.getPixels();
 	int numPixels = grayImage.getWidth() * grayImage.getHeight();
     
 	int maxThreshold = 255 - nearThreshold;// default 250
 	int minThreshold = 255 - farThreshold; // default 225
-	
+    
 	int nearestDepth = 0;
 	for(int i = 0; i < numPixels; i++){
 		if (minThreshold < pix[i] && pix[i] < maxThreshold && pix[i] > nearestDepth) {
@@ -116,7 +113,7 @@ void Tracker::update(void){
 			//grayThreshPix[i] = 0;
 		}
 	}
-	
+    
 	//update the cv image
 	grayImage.flagImageChanged();
 	//grayThresh.flagImageChanged();
@@ -124,24 +121,24 @@ void Tracker::update(void){
 		grayImage.mirror(false, true);
 	}
 	//grayThresh.mirror(false, true);
-	
+    
     contourFinder.findContours(grayImage, 2000, (kinect.width*kinect.height)/4, 2, false);
-	
+    
 	if (showConfigUI) {
 		return;
 	}
-	
+    
 }
 
 void Tracker::checkDepthUpdated(){
     if (ofGetFrameNum() % 150 == 0) {
 		ofLog(OF_LOG_VERBOSE, "check depth updated");
         unsigned char * nextDepth = kinect.getDepthPixels();
-		
+        
         if (ofGetFrameNum() != 150) {
 			ofLog(OF_LOG_VERBOSE, "Start compare depth pixels");
 			unsigned char * currentDepthPixels = checkGrayImage.getPixels();
-			
+            
 		    int pixNum = kinect.width * kinect.height;
             for (int i=0; i<pixNum; i++) {
                 if (nextDepth[i] != currentDepthPixels[i]) {
@@ -162,77 +159,77 @@ void Tracker::checkDepthUpdated(){
 
 void Tracker::drawfingertips(){
     /*
-    finger tempfing;
+     finger tempfing;
+     
+     double xave = 0;
+     double yave = 0;
+     int h = 0;
+     int b = 0;
+     numtips=0;
+     
+     int tester = 0;
+     
+     //ALL FINGERS HAVE BEEN DETERMINED
+     //NOW DETERMINING IF FINGERS ARE CLOSE
+     //GO THROUGH ALL THE FINGERS
+     
+     for (int k = h; k<fingers.size(); k++) {
+     
+     //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
+     
+     int dx = fingers[k].xloc - fingers[k+1].xloc;
+     int dy = fingers[k].yloc - fingers[k+1].yloc;
+     int ll = sqrt((dx*dx)+(dy*dy)); 
+     
+     //OUTPUTS FINGER LOCATIONS - KEEP
+     //cout<<"finger ";
+     //cout<<k;
+     //cout<<"\nx loc = ";
+     //cout<<"\n";
+     //cout<<fingers[k].xloc;
+     //cout<<"\n";
+     //cout<<"\ny loc = ";
+     //cout<<fingers[k].yloc;
+     //cout<<"\n";
+     
+     
+     //IF FINGERS ARE CLOSE ADD TO LIST
+     if (ll<10){
+     tempfing.xloc=fingers[k].xloc;
+     tempfing.yloc=fingers[k].yloc;
+     tempfingers.push_back(tempfing);
+     
+     }
+     
+     //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
+     else {
+     for (int p = 0; p < tempfingers.size(); p++){
+     xave += tempfingers[p].xloc;
+     yave += tempfingers[p].yloc;
+     }
+     
+     xave /= tempfingers.size();
+     yave /= tempfingers.size();
+     
+     //CREATE CIRCLE AT AVERAGE
+     ofFill();
+     ofCircle(xave,yave,10);
+     numtips++;
+     ofNoFill();
+     
+     //RESET AVERAGES
+     xave = 0;
+     yave = 0;
+     
+     //CLEAR TEMP FINGERS
+     tempfingers.clear();
+     }
+     
+     }
+     
+     fingers.clear();
+     */
     
-    double xave = 0;
-    double yave = 0;
-    int h = 0;
-    int b = 0;
-    numtips=0;
-    
-    int tester = 0;
-    
-    //ALL FINGERS HAVE BEEN DETERMINED
-    //NOW DETERMINING IF FINGERS ARE CLOSE
-    //GO THROUGH ALL THE FINGERS
-    
-    for (int k = h; k<fingers.size(); k++) {
-        
-        //DETERMINE THE DISTANCE BETWEEN FINGER THE THE NEXT FINGER
-        
-        int dx = fingers[k].xloc - fingers[k+1].xloc;
-        int dy = fingers[k].yloc - fingers[k+1].yloc;
-        int ll = sqrt((dx*dx)+(dy*dy)); 
-        
-        //OUTPUTS FINGER LOCATIONS - KEEP
-        //cout<<"finger ";
-        //cout<<k;
-        //cout<<"\nx loc = ";
-        //cout<<"\n";
-        //cout<<fingers[k].xloc;
-        //cout<<"\n";
-        //cout<<"\ny loc = ";
-        //cout<<fingers[k].yloc;
-        //cout<<"\n";
-        
-        
-        //IF FINGERS ARE CLOSE ADD TO LIST
-        if (ll<10){
-            tempfing.xloc=fingers[k].xloc;
-            tempfing.yloc=fingers[k].yloc;
-            tempfingers.push_back(tempfing);
-            
-        }
-        
-        //IF FINGERS ARE NOT CLOSE, AVERAGE ALL PREVIOUS FINGERS
-        else {
-            for (int p = 0; p < tempfingers.size(); p++){
-                xave += tempfingers[p].xloc;
-                yave += tempfingers[p].yloc;
-            }
-            
-            xave /= tempfingers.size();
-            yave /= tempfingers.size();
-            
-            //CREATE CIRCLE AT AVERAGE
-            ofFill();
-            ofCircle(xave,yave,10);
-            numtips++;
-            ofNoFill();
-            
-            //RESET AVERAGES
-            xave = 0;
-            yave = 0;
-            
-            //CLEAR TEMP FINGERS
-            tempfingers.clear();
-        }
-        
-    }
-    
-    fingers.clear();
-    */
-
 }
 
 void Tracker::trackfinger(){
@@ -242,188 +239,88 @@ void Tracker::trackfinger(){
     
     ofPoint tempcenter;
     
-    //CREATE OFPOINT VECTOR WITH HANDPOINTS
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
         
-        //PASS ALONG THE CENTER OF THE HAND
         tempcenter.x = contourFinder.blobs[j].centroid.x;
         tempcenter.y = contourFinder.blobs[j].centroid.y;
         
-        //LOOP GOES THROUGH ALL THE POINTS, CREATES ofPoint, ADDS IT TO tempPnts
         for(int i=0; i<contourFinder.blobs[j].nPts; i++){
             ofPoint tempPnt;
             tempPnt.x = contourFinder.blobs[j].pts[i].x;
             tempPnt.y = contourFinder.blobs[j].pts[i].y;
             
             //ofCircle(tempPnt.x, tempPnt.y, 10);
-
+            
             tempPnts.push_back(tempPnt);
             
             //ofCircle(tempPnts[i].x, tempPnts[i].y, 10);
-
+            
         }
-        //INITIATE HAND TRACKING AN FINGER TRACKING, PASS tempPnts
-        
+        //INITIATE HAND TRACKING AN FINGER TRACKING
         hands[j].noshuff(tempPnts);
         hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter);
         //hands[j].shuffpnts(tempPnts, tempPnts.size()/4);
         //hands[j].shuffpnts(tempPnts, tempPnts.size()*(3/4));
-    
+        
         tempPnts.clear();
     }
     
     
     /*
-    k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
-    smk=200;
-    teta=0.f;
-    numfingers=0;
+     k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
+     smk=200;
+     teta=0.f;
+     numfingers=0;
      
-    for (int j = 0; j < contourFinder.nBlobs; j++){
-        
-        for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
-            
-            //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
-            //cout<<"test";
-            
-            //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
-            v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
-            v2.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y);
-            
-            v1D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y,0);
-            v2D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y,0);
-            
-            vxv = v1D.cross(v2D);
-            
-            v1.normalize();
-            v2.normalize();
-            
-            teta=v1.angle(v2);
-            
-            if(fabs(teta) < 40){
-                if(vxv.z > 0){
-                    numfingers++;
-                    //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
-                    tempfing.xloc=contourFinder.blobs[j].pts[i].x;
-                    tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
-                    fingers.push_back(tempfing);
-                    
-                    //ofCircle(fingers[fingers.size()].xloc,fingers[fingers.size()].yloc,10);
-                    
-                    //i=i+100;
-                }
-            }
-            //END DETERMINING IF FINGER, AND ADDING TO FINGERS VECTOR
-        }
-        //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
-    
-        //drawfingertips();
-        
-    }
-    //END OF LOOP GOING THROUGH BLOBS (HANDS)
-    */
-        
-}
-
-void Tracker::trackhand(){
-    
-    ofSetColor(255, 0, 0);
-    
-    //TRACKING WHEN CLOSED
-    if (contourFinder.nBlobs == 2) {
-        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
-            //hc=hc*-1;
-            ofPushMatrix();
-            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
-            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
-            ll=sqrt((xx*xx)-(yy*yy))/4;
-            
-            testcirc.loc.x=xx;
-            testcirc.loc.y=yy;
-            testcirc.rad=ll;
-            
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-            
-            ofPopMatrix();
-            
-        }
-        
-        else{
-            ofPushMatrix();
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-            
-            ofPopMatrix();
-        }
-        
-    }
-    
-    //ofBezier(10, 10, 500, 10, 10, 500, 10, 10);
-    
-    //ALLOWS ONE HAND TO CHANGE THE POSITION OF THE CIRCLE
-    if (contourFinder.nBlobs == 1) {
-        
-        ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-        
-        //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-        //ofSolidCube(testcirc.rad);
-        
-        if (contourFinder.blobs[0].nPts < 350){
-            
-            testcirc.loc.x=contourFinder.blobs[0].centroid.x;;
-            testcirc.loc.y=contourFinder.blobs[0].centroid.y;;
-            testcirc.rad=ll;
-            
-            ofPushMatrix();
-            ofCircle(testcirc.loc.x,testcirc.loc.y,testcirc.rad);
-            ofPopMatrix();
-            
-            //ofTranslate(testcirc.loc.x, testcirc.loc.y);
-            //ofSolidCube(testcirc.rad);
-            
-        }
-        
-    }    
-    
-    /*ALWAYS TRACKING
-     if (contourFinder.nBlobs == 2 && hc==1) {
-     ofPushMatrix();
-     ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
-     ofPopMatrix();
+     for (int j = 0; j < contourFinder.nBlobs; j++){
+     
+     for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
+     
+     //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
+     //cout<<"test";
+     
+     //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
+     v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
+     v2.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y);
+     
+     v1D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y,0);
+     v2D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y,0);
+     
+     vxv = v1D.cross(v2D);
+     
+     v1.normalize();
+     v2.normalize();
+     
+     teta=v1.angle(v2);
+     
+     if(fabs(teta) < 40){
+     if(vxv.z > 0){
+     numfingers++;
+     //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
+     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
+     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
+     fingers.push_back(tempfing);
+     
+     //ofCircle(fingers[fingers.size()].xloc,fingers[fingers.size()].yloc,10);
+     
+     //i=i+100;
      }
+     }
+     //END DETERMINING IF FINGER, AND ADDING TO FINGERS VECTOR
+     }
+     //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
+     
+     //drawfingertips();
+     
+     }
+     //END OF LOOP GOING THROUGH BLOBS (HANDS)
      */
     
-    /*
-     if (contourFinder.nBlobs>0) {
-     for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
-     ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
-     //cout<<"point ";
-     //cout<<t;
-     //cout<<'\n';
-     cout<<contourFinder.blobs[0].pts[t].x;
-     cout<<",";
-     cout<<contourFinder.blobs[0].pts[t].y;
-     cout<<"\n";
-     }
-     
-     cout<<"Newframe\n";
-     
-     
-     }
-     */
 }
 
 void Tracker::draw() {
     
-    trackhand();
-    
-    trackfinger();
-	
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
     int x [contourFinder.nBlobs];
@@ -469,7 +366,6 @@ void Tracker::draw() {
     ofTranslate(200, 150, 0);
     glScalef(0.9, 0.9, 1.0f); 
     
-    //draw the blobs
     for (int i = 0; i < contourFinder.nBlobs; i++){
         ofPushMatrix();
         contourFinder.blobs[i].draw(0,0);
@@ -492,11 +388,60 @@ void Tracker::draw() {
         ofPopMatrix();
     }
     
+    //TRACKING WHEN CLOSED
+    if (contourFinder.nBlobs == 2) {
+        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
+            //hc=hc*-1;
+            ofPushMatrix();
+            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
+            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
+            ll=length/4;
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+            
+        }
+        else{
+            ofPushMatrix();
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+        }
+    }
+    
+    /*ALWAYS TRACKING
+     if (contourFinder.nBlobs == 2 && hc==1) {
+     ofPushMatrix();
+     ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
+     ofPopMatrix();
+     }
+     */
+    
+    /*
+     if (contourFinder.nBlobs>0) {
+     for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
+     ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
+     //cout<<"point ";
+     //cout<<t;
+     //cout<<'\n';
+     cout<<contourFinder.blobs[0].pts[t].x;
+     cout<<",";
+     cout<<contourFinder.blobs[0].pts[t].y;
+     cout<<"\n";
+     }
+     
+     cout<<"Newframe\n";
+     
+     
+     }
+     */
+    
+    
+    trackfinger();
+    
     if (contourFinder.nBlobs == 2){
         stream3<<contourFinder.blobs[0].nPts;
         stream4<<contourFinder.blobs[1].nPts;
     }
-        
+    
     ofPopMatrix();
     
 	ofSetColor(255, 255, 255);
@@ -540,7 +485,7 @@ void Tracker::keyPressed (int key){
 			farThreshold --;
 			if (farThreshold < 0) farThreshold = 0;
 			break;
-			
+            
 		case '+':
 		case '=':
 			nearThreshold ++;
