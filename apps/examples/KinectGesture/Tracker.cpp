@@ -267,7 +267,52 @@ void Tracker::trackfinger(){
 }
 
 void Tracker::trackhand() {
+    ofPushMatrix();
     
+    ofTranslate(200, 150, 0);
+    glScalef(0.9, 0.9, 1.0f); 
+    
+    for (int i = 0; i < contourFinder.nBlobs; i++){
+        ofPushMatrix();
+        contourFinder.blobs[i].draw(0,0);
+        ofSetColor(255, 0, 0);
+        //ofFill();
+        //ofEllipse(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 4, 4);
+        
+        float centroidX = 0;
+        float centroidY = 0;
+        float addCount = 0;
+        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=5){
+            addCount++;
+            centroidX += contourFinder.blobs[i].pts[j].x;
+            centroidY += contourFinder.blobs[i].pts[j].y;
+        }
+        centroidX = centroidX/addCount;
+        centroidY = centroidY/addCount;
+        ofCircle(centroidX, centroidY, 5);
+        
+        ofPopMatrix();
+    }
+    
+    //TRACKING WHEN CLOSED
+    if (contourFinder.nBlobs == 2) {
+        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
+            //hc=hc*-1;
+            ofPushMatrix();
+            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
+            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
+            ll=sqrt((xx*xx)-(yy*yy))/4;
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+            
+        }
+        else{
+            ofPushMatrix();
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+        }
+    }
+
 }
 
 void Tracker::draw() {
@@ -312,53 +357,10 @@ void Tracker::draw() {
     
     gui.draw();
     
-    ofPushMatrix();
+    trackhand();
     
-    ofTranslate(200, 150, 0);
-    glScalef(0.9, 0.9, 1.0f); 
-    
-    for (int i = 0; i < contourFinder.nBlobs; i++){
-        ofPushMatrix();
-        contourFinder.blobs[i].draw(0,0);
-        ofSetColor(255, 0, 0);
-        //ofFill();
-        //ofEllipse(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 4, 4);
-        
-        float centroidX = 0;
-        float centroidY = 0;
-        float addCount = 0;
-        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=5){
-            addCount++;
-            centroidX += contourFinder.blobs[i].pts[j].x;
-            centroidY += contourFinder.blobs[i].pts[j].y;
-        }
-        centroidX = centroidX/addCount;
-        centroidY = centroidY/addCount;
-        ofCircle(centroidX, centroidY, 5);
-        
-        ofPopMatrix();
-    }
-    
-    //TRACKING WHEN CLOSED
-    if (contourFinder.nBlobs == 2) {
-        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
-            //hc=hc*-1;
-            ofPushMatrix();
-            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
-            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
-            ll=length/4;
-            ofCircle(xx, yy, ll);
-            ofPopMatrix();
-            
-        }
-        else{
-            ofPushMatrix();
-            ofCircle(xx, yy, ll);
-            ofPopMatrix();
-        }
-    }
-    
-    /*ALWAYS TRACKING
+    /*
+        ALWAYS TRACKING
      if (contourFinder.nBlobs == 2 && hc==1) {
      ofPushMatrix();
      ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
