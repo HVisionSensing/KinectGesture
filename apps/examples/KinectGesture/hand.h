@@ -115,13 +115,13 @@ class hand{
                         posfingers.push_back(tempPnt);
                         
                         //ofCircle(tempPnt.x, tempPnt.y, i/10);
-                        cout<<i/10;
-                        cout<<"\n";
+                        //cout<<i/10;
+                        //cout<<"\n";
                         
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        //ofCircle(tempPnt.x, tempPnt.y, 10);
+                        ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                         //double check to make sure posfingers contains correct points
                         //int k = posfingers.size();
@@ -301,22 +301,34 @@ class hand{
     void drawfingersz(void){
         
         int counter = 0;
+        /*
+        if (posfingers.size()>0) {
+            xtot += posfingers[0].x;
+            ytot += posfingers[0].y;
+        }
+        */
         
         for (int k = 0; k<posfingers.size(); k++) {
             
-            dz = posfingers[k].z-posfingers[k+1].z;
+            //compute z distance between one finger and the next
+            dz = posfingers[k+1].z-posfingers[k].z;
             //cout<<dz;
             //cout<<"\n";
             
-            if(abs(dz)<3) {
-                //realfingers.push_back(posfingers[k+1]);
-                xtot += posfingers[k+1].x;
-                ytot += posfingers[k+1].y;
+            //if the two fingers are close
+            if(abs(dz)<2) {
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
                 counter++;
                 
             }
             
-            if(abs(dz)>3){
+            else{
+            //if(abs(dz)>2){
+                
+                counter++;
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
                 
                 //xave = xtot/realfingers.size();
                 //yave = ytot/realfingers.size();
@@ -325,6 +337,7 @@ class hand{
                 yave = ytot/counter;
                 
                 ofFill();
+                ofSetColor(0,255,0);
                 ofCircle(xave,yave,10);
                 numtips++;
                 ofNoFill();
@@ -340,7 +353,7 @@ class hand{
                 counter = 0;
                 realfingers.clear();
                 
-                if (numtips == 3) k = posfingers.size();
+
                 
                 
             }
