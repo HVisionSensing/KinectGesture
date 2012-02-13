@@ -260,11 +260,13 @@ void Tracker::trackfinger(){
         //INITIATE HAND TRACKING AN FINGER TRACKING
         hands[j].noshuff(tempPnts);
         hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter);
-        //hands[j].shuffpnts(tempPnts, tempPnts.size()/4);
-        //hands[j].shuffpnts(tempPnts, tempPnts.size()*(3/4));
         
         tempPnts.clear();
     }
+    
+}
+
+void Tracker::trackhand() {
     
 }
 
