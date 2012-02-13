@@ -16,7 +16,7 @@
 class hand{
     public:
     
-    int xloc, yloc, dx, dy, dz, ll;
+    int xloc, yloc, dx, dy, dz, dl, ll;
     int numtips;
     double xave, yave, xtot, ytot;
     float teta;
@@ -31,8 +31,7 @@ class hand{
     vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
     vector<ofPoint> posfingerscopy;
-    vector<ofPoint> fingerpnts;
-    
+    vector<ofPoint> fingerpnts;    
     
     hand(){
     }
@@ -121,11 +120,11 @@ class hand{
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        ofCircle(tempPnt.x, tempPnt.y, 10);
+                        //ofCircle(tempPnt.x, tempPnt.y, 10);
                         
                         //double check to make sure posfingers contains correct points
                         int k = posfingers.size();
-                        ofCircle(posfingers[k].x, posfingers[k].y, i/10);
+                        //ofCircle(posfingers[k].x, posfingers[k].y, i/10);
                         
                     }
                 }
@@ -134,8 +133,8 @@ class hand{
         
         //draw the "fingers"
         //drawfingersnew();
-        //drawfingersz();
-        drawfingers();
+        drawfingersz();
+        //drawfingers();
         handpnts.clear();
   
     }
@@ -301,15 +300,10 @@ class hand{
     //group and draw fingers based on the z value of the points
     void drawfingersz(void){
         
+        numtips = 0;
         int counter = 0;
-        /*
-        if (posfingers.size()>0) {
-            xtot += posfingers[0].x;
-            ytot += posfingers[0].y;
-        }
-        */
         
-        for (int k = 3; k<posfingers.size(); k++) {
+        for (int k = 0; k<posfingers.size(); k++) {
             
             //compute z distance between one finger and the next
             dz = posfingers[k+1].z-posfingers[k].z;
@@ -317,22 +311,23 @@ class hand{
             //cout<<"\n";
             
             //if the two fingers are close
-            if(abs(dz)<2) {
+            if(abs(dz)<3) {
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
+                /*
+                cout<<posfingers[k].z;
+                cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
+                 */
                 counter++;
                 
             }
             
-            else{
-            //if(abs(dz)>2){
-                
+            //else{
+            if(abs(dz)>3){
+                //cout<<"new finger\n";
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
-                
-                //xave = xtot/realfingers.size();
-                //yave = ytot/realfingers.size();
                 
                 xave = xtot/counter;
                 yave = ytot/counter;
@@ -350,11 +345,35 @@ class hand{
                 ytot = 0;
                 counter = 0;
                 
-         
-
             }
             
+            if(k==posfingers.size()-1){
+                //cout<<"new finger\n";
+                counter++;
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
+                
+                xave = xtot/counter;
+                yave = ytot/counter;
+                
+                ofFill();
+                ofSetColor(0,0,255);
+                ofCircle(xave,yave,10);
+                numtips++;
+                ofNoFill();
+                
+                dz=0;
+                xave = 0;
+                yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
+                
+            }
+            
+            cout<<numtips<<"\n";
         }
+        
         
         posfingers.clear();
     }
@@ -363,16 +382,19 @@ class hand{
     void drawfingers(void){
         
         int counter = 0;
+        
+        for (int k = 0; k<posfingers.size(); k++) ofCircle(posfingers[k].x, posfingers[k].y, 10);
        
         for (int k = 0; k<posfingers.size(); k++) {
+           
 
-            //determine ll, the distance between one "figner" and the next
+            //determine ll, the distance between one "finger" and the next
             dx = posfingers[k+1].x - posfingers[k].x;
             dy = posfingers[k+1].y - posfingers[k].y;
-            ll = sqrt((dx*dx)+(dy*dy)); 
+            dl = sqrt((dx*dx)+(dy*dy)); 
             
             //if the distance between the fingers is less than 5 ...
-            if (ll<5){
+            if (dl<10){
                 
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -401,13 +423,17 @@ class hand{
                 //create circle at the average finger position
                 ofFill();
                 ofSetColor(0,0,255);
+                
                 ofCircle(xave,yave,10);
+                
                 ofNoFill();
                 
                 //RESET VALUES
                 dx=0;
                 dy=0;
                 ll=0;
+                xtot = 0;
+                ytot = 0;
                 xave = 0;
                 yave = 0;
                 //realfingers.clear();
