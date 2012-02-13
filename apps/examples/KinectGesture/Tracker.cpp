@@ -272,7 +272,7 @@ void Tracker::trackhand() {
     
     ofTranslate(200, 150, 0);
     glScalef(0.9, 0.9, 1.0f); 
-    /*
+    
     for (int i = 0; i < contourFinder.nBlobs; i++){
         ofPushMatrix();
         contourFinder.blobs[i].draw(0,0);
@@ -295,6 +295,8 @@ void Tracker::trackhand() {
         ofPopMatrix();
     }
     
+    /*
+    
     //gesture to track hands when they are closed
     if (contourFinder.nBlobs == 2) {
         if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
@@ -316,6 +318,7 @@ void Tracker::trackhand() {
             ofPopMatrix();
         }
     }
+    
     */
     
     if (hands[0].numtips==2) {

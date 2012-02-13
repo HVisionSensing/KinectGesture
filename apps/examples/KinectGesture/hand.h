@@ -303,6 +303,8 @@ class hand{
         numtips = 0;
         int counter = 0;
         
+        cout<<posfingers.size()<<"\n";
+        
         for (int k = 0; k<posfingers.size(); k++) {
             
             //compute z distance between one finger and the next
@@ -315,15 +317,15 @@ class hand{
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
                 
-                cout<<posfingers[k].z;
-                cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
+                //cout<<posfingers[k].z;
+                //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
                  
                 counter++;
                 
             }
   
             if(abs(dz)>2){
-                cout<<"new finger\n";
+                //cout<<"new finger\n";
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -352,7 +354,9 @@ class hand{
             }
             
             if(k==posfingers.size()-1){
-                cout<<"new finger\n";
+                //cout<<"new finger\n";
+                
+                
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -365,6 +369,8 @@ class hand{
                 ofCircle(xave,yave,10);
                 numtips++;
                 ofNoFill();
+                 
+                 
                 
                 dz=0;
                 xave = 0;
