@@ -75,6 +75,8 @@ class hand{
     //detect the existence of fingers
     void detectfingers(void){
         
+        posfingers.clear();
+        
         for(int i=0; i<handpnts.size(); i++){ 
             
             //integers that determines points that make up triangle
@@ -119,7 +121,11 @@ class hand{
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        ofCircle(tempPnt.x, tempPnt.y, 10);
+                        //ofCircle(tempPnt.x, tempPnt.y, 10);
+                        
+                        //double check to make sure posfingers contains correct points
+                        //int k = posfingers.size();
+                        //ofCircle(posfingers[k].x, posfingers[k].y, 10);
                         
                     }
                 }
@@ -128,7 +134,7 @@ class hand{
         
         //draw the "fingers"
         //drawfingersnew();
-        
+        drawfingersz();
         handpnts.clear();
   
     }
@@ -293,6 +299,7 @@ class hand{
     
     //group and draw fingers based on the z value of the points
     void drawfingersz(void){
+        
         int counter = 0;
         
         for (int k = 0; k<posfingers.size(); k++) {
@@ -301,7 +308,7 @@ class hand{
             //cout<<dz;
             //cout<<"\n";
             
-            if(abs(dz)<5) {
+            if(abs(dz)<3) {
                 //realfingers.push_back(posfingers[k+1]);
                 xtot += posfingers[k+1].x;
                 ytot += posfingers[k+1].y;
@@ -309,7 +316,7 @@ class hand{
                 
             }
             
-            if(abs(dz)>5){
+            if(abs(dz)>3){
                 
                 //xave = xtot/realfingers.size();
                 //yave = ytot/realfingers.size();
