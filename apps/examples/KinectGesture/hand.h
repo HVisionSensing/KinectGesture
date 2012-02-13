@@ -303,7 +303,7 @@ class hand{
         numtips = 0;
         int counter = 0;
         
-        cout<<posfingers.size()<<"\n";
+        //cout<<posfingers.size()<<"\n";
         
         for (int k = 0; k<posfingers.size(); k++) {
             
@@ -312,8 +312,37 @@ class hand{
             //cout<<dz;
             //cout<<"\n";
             
+            
+            if(k==posfingers.size()-1){
+                //cout<<"new finger\n";
+                /*
+                 
+                 counter++;
+                 xtot += posfingers[k].x;
+                 ytot += posfingers[k].y;
+                 
+                 xave = xtot/counter;
+                 yave = ytot/counter;
+                 
+                 ofFill();
+                 ofSetColor(0,0,255);
+                 ofCircle(xave,yave,10);
+                 numtips++;
+                 ofNoFill();
+                 
+                 */
+                
+                dz=0;
+                xave = 0;
+                yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
+                
+            }
+            
             //if the two fingers are close
-            if(abs(dz)<2) {
+            else if(abs(dz)<2) {
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
                 
@@ -324,7 +353,7 @@ class hand{
                 
             }
   
-            if(abs(dz)>2){
+            else if(abs(dz)>2){
                 //cout<<"new finger\n";
                 counter++;
                 xtot += posfingers[k].x;
@@ -353,33 +382,7 @@ class hand{
                 
             }
             
-            if(k==posfingers.size()-1){
-                //cout<<"new finger\n";
-                
-                
-                counter++;
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
-                
-                xave = xtot/counter;
-                yave = ytot/counter;
-                
-                ofFill();
-                ofSetColor(0,0,255);
-                ofCircle(xave,yave,10);
-                numtips++;
-                ofNoFill();
-                 
-                 
-                
-                dz=0;
-                xave = 0;
-                yave = 0;
-                xtot = 0;
-                ytot = 0;
-                counter = 0;
-                
-            }
+ 
             
             //cout<<numtips<<"\n";
         }
