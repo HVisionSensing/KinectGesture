@@ -266,57 +266,6 @@ void Tracker::trackfinger(){
         tempPnts.clear();
     }
     
-    
-    /*
-     k=35;//THIS WAS MAKING ME ONLY TRACK 4 FINGERS
-     smk=200;
-     teta=0.f;
-     numfingers=0;
-     
-     for (int j = 0; j < contourFinder.nBlobs; j++){
-     
-     for(int i=k; i<contourFinder.blobs[j].nPts-k; i++){ 
-     
-     //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 5);
-     //cout<<"test";
-     
-     //TRY USING POINT AND POINTS 2, 3, 4, OR 5 AHEAD
-     v1.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y);
-     v2.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y);
-     
-     v1D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i-k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i-k].y,0);
-     v2D.set(contourFinder.blobs[j].pts[i].x-contourFinder.blobs[j].pts[i+k].x,contourFinder.blobs[j].pts[i].y-contourFinder.blobs[j].pts[i+k].y,0);
-     
-     vxv = v1D.cross(v2D);
-     
-     v1.normalize();
-     v2.normalize();
-     
-     teta=v1.angle(v2);
-     
-     if(fabs(teta) < 40){
-     if(vxv.z > 0){
-     numfingers++;
-     //ofCircle(contourFinder.blobs[j].pts[i].x, contourFinder.blobs[j].pts[i].y, 10);
-     tempfing.xloc=contourFinder.blobs[j].pts[i].x;
-     tempfing.yloc=contourFinder.blobs[j].pts[i].y ;
-     fingers.push_back(tempfing);
-     
-     //ofCircle(fingers[fingers.size()].xloc,fingers[fingers.size()].yloc,10);
-     
-     //i=i+100;
-     }
-     }
-     //END DETERMINING IF FINGER, AND ADDING TO FINGERS VECTOR
-     }
-     //END OF LOOP GOING THROUGH ALL BLOB POINTS TO FIND FINGERS
-     
-     //drawfingertips();
-     
-     }
-     //END OF LOOP GOING THROUGH BLOBS (HANDS)
-     */
-    
 }
 
 void Tracker::draw() {
