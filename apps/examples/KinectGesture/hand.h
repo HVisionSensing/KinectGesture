@@ -120,7 +120,7 @@ class hand{
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        //ofCircle(tempPnt.x, tempPnt.y, 10);
+                        //ofCircle(tempPnt.x, tempPnt.y, 30);
                         
                         //double check to make sure posfingers contains correct points
                         int k = posfingers.size();
@@ -312,41 +312,12 @@ class hand{
             //cout<<dz;
             //cout<<"\n";
             
-            
-            if(k==posfingers.size()-1){
-                //cout<<"new finger\n";
-                /*
-                 
-                 counter++;
-                 xtot += posfingers[k].x;
-                 ytot += posfingers[k].y;
-                 
-                 xave = xtot/counter;
-                 yave = ytot/counter;
-                 
-                 ofFill();
-                 ofSetColor(0,0,255);
-                 ofCircle(xave,yave,10);
-                 numtips++;
-                 ofNoFill();
-                 
-                 */
-                
-                dz=0;
-                xave = 0;
-                yave = 0;
-                xtot = 0;
-                ytot = 0;
-                counter = 0;
-                
-            }
-            
             //if the two fingers are close
-            else if(abs(dz)<2) {
+            if(abs(dz)<2) {
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
                 
-                //cout<<posfingers[k].z;
+                cout<<posfingers[k].z<<",";
                 //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
                  
                 counter++;
@@ -354,7 +325,7 @@ class hand{
             }
   
             else if(abs(dz)>2){
-                //cout<<"new finger\n";
+                cout<<",n,";
                 counter++;
                 xtot += posfingers[k].x;
                 ytot += posfingers[k].y;
@@ -362,11 +333,11 @@ class hand{
                 xave = xtot/counter;
                 yave = ytot/counter;
                 
-                ofFill();
+                //ofFill();
                 ofSetColor(0,0,255);
-                ofCircle(xave,yave,10);
+                ofCircle(xave,yave,20);
                 numtips++;
-                ofNoFill();
+                //ofNoFill();
                 
                 ofPoint tempPnt;
                 tempPnt.x = xave;
@@ -381,12 +352,39 @@ class hand{
                 counter = 0;
                 
             }
-            
- 
+               
+            if(k==posfingers.size()-1){
+                cout<<",n,";
+                
+                
+                counter++;
+                xtot += posfingers[k].x;
+                ytot += posfingers[k].y;
+                
+                xave = xtot/counter;
+                yave = ytot/counter;
+                
+                //ofFill();
+                ofSetColor(0,0,255);
+                ofCircle(xave,yave,20);
+                numtips++;
+                //ofNoFill();
+                
+                
+                
+                dz=0;
+                xave = 0;
+                yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
+                
+            }
             
             //cout<<numtips<<"\n";
         }
         
+        cout<<"\n";
         
         posfingers.clear();
         realfingers.clear();
