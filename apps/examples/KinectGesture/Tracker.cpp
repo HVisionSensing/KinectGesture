@@ -359,35 +359,6 @@ void Tracker::draw() {
     
     trackhand();
     
-    /*
-        ALWAYS TRACKING
-     if (contourFinder.nBlobs == 2 && hc==1) {
-     ofPushMatrix();
-     ofCircle((contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2, (contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2, length/4);
-     ofPopMatrix();
-     }
-     */
-    
-    /*
-     if (contourFinder.nBlobs>0) {
-     for (int t = 0; t < contourFinder.blobs[0].nPts; t++) {
-     ofCircle(contourFinder.blobs[0].pts[t].x, contourFinder.blobs[0].pts[t].y, 5);
-     //cout<<"point ";
-     //cout<<t;
-     //cout<<'\n';
-     cout<<contourFinder.blobs[0].pts[t].x;
-     cout<<",";
-     cout<<contourFinder.blobs[0].pts[t].y;
-     cout<<"\n";
-     }
-     
-     cout<<"Newframe\n";
-     
-     
-     }
-     */
-    
-    
     trackfinger();
     
     if (contourFinder.nBlobs == 2){
