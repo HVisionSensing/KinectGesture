@@ -100,14 +100,17 @@ public:
     int numfingers;
     bool detectFingers;
     vector<finger> fingers;
-    vector<finger> realfingers;
+    //vector<finger> realfingers;
     vector<finger> tempfingers;
     finger tempfing;
     vector<circle> circs;
     circle testcirc;
     bool canedit;
+    
+    int avex,avey,avel;
 
 
+    
         
 };
 

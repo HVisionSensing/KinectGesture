@@ -343,6 +343,7 @@ class hand{
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
+                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
                 }
 
@@ -377,6 +378,7 @@ class hand{
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
+                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
                 }
                 
@@ -397,6 +399,8 @@ class hand{
         //cout<<"\n";
         
         posfingers.clear();
+        
+        
     }
     
     //determine average finger locations, and draw fingertips based on Z value

@@ -264,41 +264,64 @@ void Tracker::trackfinger(){
         tempPnts.clear();
     }
     
-    if (hands[0].numtips==2) {
-        if (hands[1].numtips==2) {
+    
+    
+    if (hands[0].numtips==1) {
+        if (hands[1].numtips==1) {
             
-            int avex;
-            int avey;
-            
+            avex = 0;
+            avey = 0;
+            avel = 0;
+                        
             for (int j = 0; j < 2; j++){
-                for (int p = 0; p <2; p++) {
+                for (int p = 0; p <1; p++) {
                     avex += hands[j].realfingers[p].x;
                     avey += hands[j].realfingers[p].y;
                 }
                 
             }
             
-            avex /=4;
-            avey /=4;
+            avel = sqrt(
+                        
+                        (((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x))*
+                        ((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x)))
+                        +(((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y))*
+                          ((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y)))
+                        
+                        );
             
-            cout<<avex<<" "<<avey<<"\n";
+            avex /=2;
+            avey /=2;
+            
+            //cout<<avex<<" "<<avey<<"\n";
             
             ofPushMatrix();
             
-            ofCircle(avex, avey, 10);
+            ofCircle(avex, avey, avel/5);
             
             ofPopMatrix();
             
         }
+        
         else{
             ofPushMatrix();
-            ofCircle(xx, yy, ll);
+            ofCircle(avex, avey, avel/5);
             ofPopMatrix();
         }
+
+        
     }
     
-    realfingers.clear();
-
+    else{
+        ofPushMatrix();
+        ofCircle(avex, avey, avel/5);
+        ofPopMatrix();
+    }
+    
+    for (int p = 0; p <2; p++) {
+        hands[p].realfingers.clear();
+    }
+    
     }
 
 //tracking of the hand, and gestures associated with hands
@@ -362,6 +385,10 @@ void Tracker::trackhand() {
 
 void Tracker::draw() {
     
+    trackhand();
+    
+    trackfinger();
+    
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
     int x [contourFinder.nBlobs];
@@ -401,10 +428,6 @@ void Tracker::draw() {
 	ofSetColor(255, 255, 255);
     
     gui.draw();
-    
-    trackhand();
-    
-    trackfinger();
     
     if (contourFinder.nBlobs == 2){
         stream3<<contourFinder.blobs[0].nPts;
