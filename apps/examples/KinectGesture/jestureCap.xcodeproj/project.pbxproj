@@ -271,6 +271,7 @@
 		FE34FF8714EBF47D00A540E2 /* gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestures.h; sourceTree = "<group>"; };
 		FE34FF8814EBF4D000A540E2 /* gestures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gestures.cpp; sourceTree = "<group>"; };
 		FE5EDA3614D9F13000319173 /* circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = circle.h; sourceTree = "<group>"; };
+		FE8CA0F614EC6F880055F2C8 /* fourpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fourpoint.h; sourceTree = "<group>"; };
 		FE90D88014D0A74A0018547E /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		FE90D88114D0A74F0018547E /* Tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tracker.cpp; sourceTree = "<group>"; };
 		FECF699B14D7100D004C4ED7 /* finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = finger.h; sourceTree = "<group>"; };
@@ -965,6 +966,7 @@
 			children = (
 				FE90D88014D0A74A0018547E /* Tracker.h */,
 				FE90D88114D0A74F0018547E /* Tracker.cpp */,
+				FE8CA0F614EC6F880055F2C8 /* fourpoint.h */,
 				FEDADE2214D9907C00A57FA1 /* hand.h */,
 				FE34FF8714EBF47D00A540E2 /* gestures.h */,
 				FE34FF8814EBF4D000A540E2 /* gestures.cpp */,

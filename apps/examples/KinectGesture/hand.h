@@ -12,13 +12,14 @@
 #include "ofxCvConstants.h"
 #include "ofxKinect.h"
 #include "Tracker.h"
+#include "fourpoint.h"
 
 class hand{
     public:
     
-    int xloc, yloc, dx, dy, dz, dl, ll;
+    int xloc, yloc, dx, dy, dz, dl, ll, dq;
     int numtips;
-    double xave, yave, xtot, ytot;
+    double xave, yave, xtot, ytot, zave, ztot;
     float teta;
     
     ofxVec2f   v1,v2,aux1;
@@ -31,7 +32,8 @@ class hand{
     vector<ofPoint> realfingers;
     vector<ofPoint> handpnts;
     vector<ofPoint> posfingerscopy;
-    vector<ofPoint> fingerpnts;    
+    vector<ofPoint> fingerpnts;   
+    vector<fourpoint> fourfingers;
     
     hand(){
     }
@@ -106,6 +108,15 @@ class hand{
                         tempPnt.x = handpnts[i].x;
                         tempPnt.y = handpnts[i].y;
                         
+                        //REPLACEMENT CODE 
+                        fourpoint tempfour;
+                        tempfour.x = handpnts[i].x;
+                        tempfour.y = handpnts[i].y;
+                        tempfour.z = handpnts[i].z;
+                        tempfour.q = i/10;
+                        fourfingers.push_back(tempfour);
+                        //
+                        
                         //assign z value of possible finger to i, or index in handpoints
                         //use later to group fingers
                         tempPnt.z = i/10;
@@ -120,10 +131,10 @@ class hand{
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        //ofCircle(tempPnt.x, tempPnt.y, 30);
+                        ofCircle(tempPnt.x, tempPnt.y, 15);
                         
                         //double check to make sure posfingers contains correct points
-                        int k = posfingers.size();
+                        //int k = posfingers.size();
                         //ofCircle(posfingers[k].x, posfingers[k].y, i/10);
                         
                     }
@@ -133,7 +144,8 @@ class hand{
         
         //draw the "fingers"
         //drawfingersnew();
-        drawfingersz();
+        //drawfingersz();
+        drawfingersq();
         //drawfingers();
         handpnts.clear();
   
@@ -302,7 +314,7 @@ class hand{
         
         numtips = 0;
         int counter = 0;
-        
+        int mindensity = 3;
         //cout<<posfingers.size()<<"\n";
         
         for (int k = 1; k<posfingers.size(); k++) {
@@ -316,6 +328,7 @@ class hand{
             if(abs(dz)<2) {
                 xtot += posfingers[k-1].x;
                 ytot += posfingers[k-1].y;
+                ztot += posfingers[k-1].z;
                 
                 //cout<<posfingers[k].z<<",";
                 //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
@@ -330,20 +343,22 @@ class hand{
                 
                 //counter++;
                 
-                if (counter > 3) {
+                if (counter > mindensity) {
                     xave = xtot/counter;
                     yave = ytot/counter;
+                    zave = ztot/counter;
                     
                     ofFill();
                     ofSetColor(0,0,255);
                     
-                    //ofCircle(xave,yave,20);
+                    ofCircle(xave,yave,20);
                     numtips++;
                     ofNoFill();
                     
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
+                    tempPnt.z = zave;
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
                 }
@@ -366,13 +381,13 @@ class hand{
                 //xtot += posfingers[k].x;
                 //ytot += posfingers[k].y;
                 
-                if (counter > 3) {
+                if (counter > mindensity) {
                     xave = xtot/counter;
                     yave = ytot/counter;
                     
                     ofFill();
                     ofSetColor(0,0,255);
-                    //ofCircle(xave,yave,20);
+                    ofCircle(xave,yave,20);
                     numtips++;
                     ofNoFill();
                     
@@ -403,6 +418,118 @@ class hand{
         
         
     }
+    
+    void drawfingersq(void){
+        
+        numtips = 0;
+        int counter = 0;
+        int mindensity = 3;
+        
+        for (int k = 1; k<fourfingers.size(); k++) {
+            
+            //compute z distance between one finger and the next
+            dq = fourfingers[k-1].q-fourfingers[k].q;
+            //cout<<dz;
+            //cout<<"\n";
+            
+            //if the two fingers are close
+            if(abs(dq)<2) {
+                xtot += fourfingers[k-1].x;
+                ytot += fourfingers[k-1].y;
+                ztot += fourfingers[k-1].z;
+                
+                //cout<<posfingers[k].z<<",";
+                //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
+                
+                counter++;
+            }
+            
+            else if(abs(dq)>2){
+                //cout<<",n,";
+                //xtot += posfingers[k-1].x;
+                //ytot += posfingers[k-1].y;
+                
+                //counter++;
+                
+                if (counter > mindensity) {
+                    xave = xtot/counter;
+                    yave = ytot/counter;
+                    zave = ztot/counter;
+                    
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
+                    
+                    ofPoint tempPnt;
+                    tempPnt.x = xave;
+                    tempPnt.y = yave;
+                    tempPnt.z = zave;
+                    cout<<tempPnt.z<<" ";
+                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
+                    realfingers.push_back(tempPnt);
+                }
+                
+                
+                dq=0;
+                xave = 0;
+                yave = 0;
+                zave = 0;
+                xtot = 0;
+                ytot = 0;
+                ztot = 0;
+                counter = 0;
+                
+            }
+            
+            
+            if(k==posfingers.size()-1){
+                //cout<<",n,";
+                
+                //counter++;
+                //xtot += posfingers[k].x;
+                //ytot += posfingers[k].y;
+                
+                if (counter > mindensity) {
+                    xave = xtot/counter;
+                    yave = ytot/counter;
+                    
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
+                    
+                    ofPoint tempPnt;
+                    tempPnt.x = xave;
+                    tempPnt.y = yave;
+                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
+                    realfingers.push_back(tempPnt);
+                }
+                
+                dz=0;
+                xave = 0;
+                yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
+                
+            }
+            
+            
+            
+            //cout<<numtips<<"\n";
+        }
+        
+        cout<<"\n";
+        
+        fourfingers.clear();
+        
+        
+    }
+
     
     //determine average finger locations, and draw fingertips based on Z value
     void drawfingers(void){

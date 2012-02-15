@@ -27,6 +27,7 @@
 #include <vector>
 #include "finger.h"
 #include "circle.h"
+#include "fourpoint.h"
 
 class Tracker : public ofBaseApp
 {
@@ -108,10 +109,6 @@ public:
     bool canedit;
     
     int avex,avey,avel;
-
-
-    
-        
 };
 
 #endif

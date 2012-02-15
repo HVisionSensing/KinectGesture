@@ -249,6 +249,7 @@ void Tracker::trackfinger(){
             ofPoint tempPnt;
             tempPnt.x = contourFinder.blobs[j].pts[i].x;
             tempPnt.y = contourFinder.blobs[j].pts[i].y;
+            tempPnt.z = kinect.getDistanceAt(tempPnt.x, tempPnt.y);
             
             //ofCircle(tempPnt.x, tempPnt.y, 10);
             
@@ -353,16 +354,15 @@ void Tracker::trackhand() {
         glPushMatrix();
         
         //this draws a 3d sphere at the center of the hand
-        int z = kinect.getDistanceAt(centroidX,centroidY);
-        glTranslatef(centroidX,centroidY,z/10);
-        ofSetColor(0, 255, 0);
-        ofSolidSphere(40);
-        glPopMatrix();
+        //int z = kinect.getDistanceAt(centroidX,centroidY);
+        //cout<<z<<"\n";
+        //glTranslatef(centroidX,z+100,centroidY);
+        //ofSetColor(255, 255, 0);
+        //ofSolidSphere(10);
+        //glPopMatrix();
     
         ofPopMatrix();
     }
-    
-    
     
     /*
     
@@ -402,25 +402,32 @@ void Tracker::draw() {
     
     for (int p = 0; p<2; p++) {
         for (int i = 0; i<hands[p].numtips; i++) {
-            int z = 0;
             
-            if (hands[p].numtips != 0){
-                z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
+            //int z = 0;
+            
+            if (hands[p].numtips !=0){
+                
+                //glLoadIdentity();
+                
+                //ofSetColor(255, 0, 0);
+                //ofCircle(hands[p].realfingers[i].x,hands[p].realfingers[i].y, 5);
+                
+                glPushMatrix();
+                
+                //glTranslatef(hands[p].realfingers[i].x,hands[p].realfingers[i].y,z/10);
+                
+                //z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
+                
+                //changes the axes so that when show from below motion is realistic
+                
+                glTranslatef(hands[p].realfingers[i].x, hands[p].realfingers[i].z, hands[p].realfingers[i].y);
+                
+                ofSetColor(0, 255, 0);
+                ofSolidSphere(10);
+                
+                glPopMatrix();
             }
-            
-            //glLoadIdentity();
-            
-            //ofSetColor(255, 0, 0);
-            //ofCircle(hands[p].realfingers[i].x,hands[p].realfingers[i].y, 5);
-
-            glPushMatrix();
-
-            glTranslatef(hands[p].realfingers[i].x,hands[p].realfingers[i].y,z/10);
-            
-            ofSetColor(0, 255, 0);
-            ofSolidSphere(10);
-            
-            glPopMatrix();
+   
         }
         
     }
