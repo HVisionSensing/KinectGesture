@@ -336,7 +336,8 @@ class hand{
                     
                     ofFill();
                     ofSetColor(0,0,255);
-                    ofCircle(xave,yave,20);
+                    
+                    //ofCircle(xave,yave,20);
                     numtips++;
                     ofNoFill();
                     
@@ -371,7 +372,7 @@ class hand{
                     
                     ofFill();
                     ofSetColor(0,0,255);
-                    ofCircle(xave,yave,20);
+                    //ofCircle(xave,yave,20);
                     numtips++;
                     ofNoFill();
                     

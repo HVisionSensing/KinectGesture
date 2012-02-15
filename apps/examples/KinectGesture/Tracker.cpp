@@ -389,6 +389,27 @@ void Tracker::draw() {
     
     trackfinger();
     
+    //draw spheres for fingers
+    
+    for (int p = 0; p<2; p++) {
+        for (int i = 0; i<hands[p].numtips; i++) {
+            
+            int z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
+            
+            //glLoadIdentity();
+
+            glPushMatrix();
+
+            glTranslatef(hands[p].realfingers[i].x,hands[p].realfingers[i].y,z/10);
+            
+            ofSetColor(0, 255, 0);
+            ofSolidSphere(20);
+            
+            glPopMatrix();
+        }
+        
+    }
+    
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
     int x [contourFinder.nBlobs];
