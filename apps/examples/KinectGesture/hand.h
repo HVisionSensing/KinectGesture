@@ -305,17 +305,17 @@ class hand{
         
         //cout<<posfingers.size()<<"\n";
         
-        for (int k = 0; k<posfingers.size(); k++) {
+        for (int k = 1; k<posfingers.size(); k++) {
             
             //compute z distance between one finger and the next
-            dz = posfingers[k+1].z-posfingers[k].z;
+            dz = posfingers[k-1].z-posfingers[k].z;
             //cout<<dz;
             //cout<<"\n";
             
             //if the two fingers are close
             if(abs(dz)<2) {
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
+                xtot += posfingers[k-1].x;
+                ytot += posfingers[k-1].y;
                 
                 //cout<<posfingers[k].z<<",";
                 //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
@@ -325,48 +325,27 @@ class hand{
   
             else if(abs(dz)>2){
                 //cout<<",n,";
-                counter++;
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
+                //xtot += posfingers[k-1].x;
+                //ytot += posfingers[k-1].y;
                 
-                xave = xtot/counter;
-                yave = ytot/counter;
+                //counter++;
                 
-                ofFill();
-                ofSetColor(0,0,255);
-                ofCircle(xave,yave,10);
-                numtips++;
-                ofNoFill();
-                
-                ofPoint tempPnt;
-                tempPnt.x = xave;
-                tempPnt.y = yave;
-                realfingers.push_back(tempPnt);
-                
-                dz=0;
-                xave = 0;
-                yave = 0;
-                xtot = 0;
-                ytot = 0;
-                counter = 0;
-                
-            }
-               
-            if(k==posfingers.size()-1){
-                //cout<<",n,";
-                
-                counter++;
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
-                
-                xave = xtot/counter;
-                yave = ytot/counter;
-                
-                ofFill();
-                ofSetColor(0,0,255);
-                ofCircle(xave,yave,10);
-                numtips++;
-                ofNoFill();
+                if (counter > 3) {
+                    xave = xtot/counter;
+                    yave = ytot/counter;
+                    
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
+                    
+                    ofPoint tempPnt;
+                    tempPnt.x = xave;
+                    tempPnt.y = yave;
+                    realfingers.push_back(tempPnt);
+                }
+
                 
                 dz=0;
                 xave = 0;
@@ -377,13 +356,47 @@ class hand{
                 
             }
             
+              
+            if(k==posfingers.size()-1){
+                //cout<<",n,";
+                
+                //counter++;
+                //xtot += posfingers[k].x;
+                //ytot += posfingers[k].y;
+                
+                if (counter > 3) {
+                    xave = xtot/counter;
+                    yave = ytot/counter;
+                    
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
+                    
+                    ofPoint tempPnt;
+                    tempPnt.x = xave;
+                    tempPnt.y = yave;
+                    realfingers.push_back(tempPnt);
+                }
+                
+                dz=0;
+                xave = 0;
+                yave = 0;
+                xtot = 0;
+                ytot = 0;
+                counter = 0;
+                
+            }
+            
+            
+            
             //cout<<numtips<<"\n";
         }
         
         //cout<<"\n";
         
         posfingers.clear();
-        realfingers.clear();
     }
     
     //determine average finger locations, and draw fingertips based on Z value

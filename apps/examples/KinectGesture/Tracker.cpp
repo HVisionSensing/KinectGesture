@@ -264,7 +264,42 @@ void Tracker::trackfinger(){
         tempPnts.clear();
     }
     
-}
+    if (hands[0].numtips==2) {
+        if (hands[1].numtips==2) {
+            
+            int avex;
+            int avey;
+            
+            for (int j = 0; j < 2; j++){
+                for (int p = 0; p <2; p++) {
+                    avex += hands[j].realfingers[p].x;
+                    avey += hands[j].realfingers[p].y;
+                }
+                
+            }
+            
+            avex /=4;
+            avey /=4;
+            
+            cout<<avex<<" "<<avey<<"\n";
+            
+            ofPushMatrix();
+            
+            ofCircle(avex, avey, 10);
+            
+            ofPopMatrix();
+            
+        }
+        else{
+            ofPushMatrix();
+            ofCircle(xx, yy, ll);
+            ofPopMatrix();
+        }
+    }
+    
+    realfingers.clear();
+
+    }
 
 //tracking of the hand, and gestures associated with hands
 void Tracker::trackhand() {
@@ -295,6 +330,8 @@ void Tracker::trackhand() {
         ofPopMatrix();
     }
     
+    
+    
     /*
     
     //gesture to track hands when they are closed
@@ -320,38 +357,6 @@ void Tracker::trackhand() {
     }
     
     */
-    
-    if (hands[0].numtips==2) {
-        if (hands[1].numtips==2) {
-            
-            int xave;
-            int yave;
-            
-            for (int j = 0; j < 2; j++){
-                for (int p = 0; p <2; p++) {
-                    xave += hands[j].realfingers[p].x;
-                    yave += hands[j].realfingers[p].y;
-                }
-                
-            }
-            
-            xave /=4;
-            yave /=4;
-            
-            ofPushMatrix();
-            
-            ofCircle(xave, yave, 10);
-            
-            ofPopMatrix();
-            
-        }
-        else{
-            ofPushMatrix();
-            ofCircle(xx, yy, ll);
-            ofPopMatrix();
-        }
-    }
-
 
 }
 
