@@ -495,6 +495,7 @@ class hand{
                 if (counter > mindensity) {
                     xave = xtot/counter;
                     yave = ytot/counter;
+                    zave = ztot/counter;
                     
                     ofFill();
                     ofSetColor(0,0,255);
@@ -505,25 +506,27 @@ class hand{
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
+                    tempPnt.z = zave;
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
                 }
                 
-                dz=0;
+                dq=0;
                 xave = 0;
                 yave = 0;
+                zave = 0;
                 xtot = 0;
                 ytot = 0;
+                ztot = 0;
                 counter = 0;
-                
             }
             
-            
+            cout<<"\n";
             
             //cout<<numtips<<"\n";
         }
         
-        cout<<"\n";
+        
         
         fourfingers.clear();
         
