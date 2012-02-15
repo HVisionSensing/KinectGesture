@@ -348,8 +348,17 @@ void Tracker::trackhand() {
         }
         centroidX = centroidX/addCount;
         centroidY = centroidY/addCount;
-        ofCircle(centroidX, centroidY, 5);
+        //ofCircle(centroidX, centroidY, 5);
         
+        glPushMatrix();
+        
+        //this draws a 3d sphere at the center of the hand
+        int z = kinect.getDistanceAt(centroidX,centroidY);
+        glTranslatef(centroidX,centroidY,z/10);
+        ofSetColor(0, 255, 0);
+        ofSolidSphere(40);
+        glPopMatrix();
+    
         ofPopMatrix();
     }
     
@@ -389,21 +398,27 @@ void Tracker::draw() {
     
     trackfinger();
     
-    //draw spheres for fingers
+    //this draws a 3d sphere at the center of each finger
     
     for (int p = 0; p<2; p++) {
         for (int i = 0; i<hands[p].numtips; i++) {
+            int z = 0;
             
-            int z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
+            if (hands[p].numtips != 0){
+                z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
+            }
             
             //glLoadIdentity();
+            
+            //ofSetColor(255, 0, 0);
+            //ofCircle(hands[p].realfingers[i].x,hands[p].realfingers[i].y, 5);
 
             glPushMatrix();
 
             glTranslatef(hands[p].realfingers[i].x,hands[p].realfingers[i].y,z/10);
             
             ofSetColor(0, 255, 0);
-            ofSolidSphere(20);
+            ofSolidSphere(10);
             
             glPopMatrix();
         }
