@@ -131,7 +131,7 @@ class hand{
                         //ofTranslate(0, 0);
                         
                         //draw circle at all fingertip locations
-                        ofCircle(tempPnt.x, tempPnt.y, 15);
+                        //ofCircle(tempPnt.x, tempPnt.y, 15);
                         
                         //double check to make sure posfingers contains correct points
                         //int k = posfingers.size();
@@ -467,7 +467,7 @@ class hand{
                     tempPnt.x = xave;
                     tempPnt.y = yave;
                     tempPnt.z = zave;
-                    cout<<tempPnt.z<<" ";
+                    //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
                 }
@@ -485,7 +485,7 @@ class hand{
             }
             
             
-            if(k==posfingers.size()-1){
+            if(k==fourfingers.size()-1){
                 //cout<<",n,";
                 
                 //counter++;
@@ -521,12 +521,12 @@ class hand{
                 counter = 0;
             }
             
-            cout<<"\n";
+            
             
             //cout<<numtips<<"\n";
         }
         
-        
+        //cout<<"\n";
         
         fourfingers.clear();
         

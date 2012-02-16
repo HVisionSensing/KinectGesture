@@ -354,12 +354,12 @@ void Tracker::trackhand() {
         glPushMatrix();
         
         //this draws a 3d sphere at the center of the hand
-        //int z = kinect.getDistanceAt(centroidX,centroidY);
-        //cout<<z<<"\n";
-        //glTranslatef(centroidX,z+100,centroidY);
-        //ofSetColor(255, 255, 0);
-        //ofSolidSphere(10);
-        //glPopMatrix();
+        int z = kinect.getDistanceAt(centroidX,centroidY);
+        cout<<z<<"\n";
+        glTranslatef(centroidX,z,centroidY);
+        ofSetColor(255, 255, 0);
+        ofSolidSphere(10);
+        glPopMatrix();
     
         ofPopMatrix();
     }
