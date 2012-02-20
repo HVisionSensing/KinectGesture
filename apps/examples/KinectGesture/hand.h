@@ -423,7 +423,7 @@ class hand{
         
         numtips = 0;
         int counter = 0;
-        int mindensity = 3;
+        int mindensity = 1;
         
         for (int k = 1; k<fourfingers.size(); k++) {
             

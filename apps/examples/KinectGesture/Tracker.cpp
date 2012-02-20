@@ -354,12 +354,12 @@ void Tracker::trackhand() {
         glPushMatrix();
         
         //this draws a 3d sphere at the center of the hand
-        int z = kinect.getDistanceAt(centroidX,centroidY);
-        cout<<z<<"\n";
-        glTranslatef(centroidX,z,centroidY);
-        ofSetColor(255, 255, 0);
-        ofSolidSphere(10);
-        glPopMatrix();
+        //int z = kinect.getDistanceAt(centroidX,centroidY);
+        //cout<<z<<"\n";
+        //glTranslatef(centroidX,z,centroidY);
+        //ofSetColor(255, 255, 0);
+        //ofSolidSphere(10);
+        ///glPopMatrix();
     
         ofPopMatrix();
     }
@@ -400,6 +400,7 @@ void Tracker::draw() {
     
     //this draws a 3d sphere at the center of each finger
     
+    /*
     for (int p = 0; p<2; p++) {
         for (int i = 0; i<hands[p].numtips; i++) {
             
@@ -420,10 +421,10 @@ void Tracker::draw() {
                 
                 //changes the axes so that when show from below motion is realistic
                 
-                glTranslatef(hands[p].realfingers[i].x, hands[p].realfingers[i].z, hands[p].realfingers[i].y);
+                //glTranslatef(hands[p].realfingers[i].x, hands[p].realfingers[i].z, hands[p].realfingers[i].y);
                 
                 ofSetColor(0, 255, 0);
-                ofSolidSphere(10);
+                //ofSolidSphere(10);
                 
                 glPopMatrix();
             }
@@ -431,7 +432,7 @@ void Tracker::draw() {
         }
         
     }
-    
+    */
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
     int x [contourFinder.nBlobs];
