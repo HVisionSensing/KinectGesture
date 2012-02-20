@@ -28,6 +28,7 @@ Tracker::Tracker(){
 }
 
 void Tracker::setup(void){
+    
     //Setup Kinect
 	angle = -5;
 	//kinect.init(true);  //shows infrared image
@@ -76,6 +77,7 @@ void Tracker::setup(void){
 	gui.addSlider("Display height", displayHeight, 600, 1980);
     
     gui.setDefaultKeys(true);
+    
 	gui.loadFromXML();
 }
 
@@ -502,8 +504,10 @@ void Tracker::draw() {
     
 };
 
+
 void Tracker::keyPressed (int key) {
 	ofLog(OF_LOG_VERBOSE, ofToString(key));
+    
 	switch (key)
 	{
         case 's':
@@ -513,6 +517,7 @@ void Tracker::keyPressed (int key) {
             gui.hide();
             break;
 		case '>':
+            
 		case '.':
 			farThreshold ++;
 			if (farThreshold > 255) farThreshold = 255;
@@ -541,6 +546,8 @@ void Tracker::keyPressed (int key) {
 			kinect.open();
 			kinect.setCameraTiltAngle(angle);
             break;
+            
+        
 		case ' ':
 			showConfigUI = !showConfigUI;
 			if (showConfigUI) {
@@ -550,6 +557,8 @@ void Tracker::keyPressed (int key) {
 				kinect.setCameraTiltAngle(angle);
 			}
 			break;			
+        
+            
 		case OF_KEY_UP:
 			angle++;
 			if(angle>30) angle=30;
@@ -561,6 +570,7 @@ void Tracker::keyPressed (int key) {
 			kinect.setCameraTiltAngle(angle);
 			break;
 	}
+    
 }
 
 void Tracker::exit(){
