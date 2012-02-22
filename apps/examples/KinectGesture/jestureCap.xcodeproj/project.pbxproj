@@ -74,7 +74,6 @@
 		E4F056081293A22200BAAF7C /* ofxMatrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F055FB1293A22200BAAF7C /* ofxMatrix3x3.cpp */; };
 		E4F056091293A22200BAAF7C /* ofxMatrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F055FD1293A22200BAAF7C /* ofxMatrix4x4.cpp */; };
 		E4F0560A1293A22200BAAF7C /* ofxQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F056021293A22200BAAF7C /* ofxQuaternion.cpp */; };
-		FE34FF8914EBF4D000A540E2 /* gestures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE34FF8814EBF4D000A540E2 /* gestures.cpp */; };
 		FE90D88214D0A74F0018547E /* Tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE90D88114D0A74F0018547E /* Tracker.cpp */; };
 /* End PBXBuildFile section */
 
@@ -268,13 +267,10 @@
 		E4F056051293A22200BAAF7C /* ofxVec3f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxVec3f.h; path = ../../../addons/ofxVectorMath/src/ofxVec3f.h; sourceTree = SOURCE_ROOT; };
 		E4F056061293A22200BAAF7C /* ofxVec4f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxVec4f.h; path = ../../../addons/ofxVectorMath/src/ofxVec4f.h; sourceTree = SOURCE_ROOT; };
 		E4F056071293A22200BAAF7C /* ofxVectorMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxVectorMath.h; path = ../../../addons/ofxVectorMath/src/ofxVectorMath.h; sourceTree = SOURCE_ROOT; };
-		FE34FF8714EBF47D00A540E2 /* gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestures.h; sourceTree = "<group>"; };
-		FE34FF8814EBF4D000A540E2 /* gestures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gestures.cpp; sourceTree = "<group>"; };
 		FE5EDA3614D9F13000319173 /* circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = circle.h; sourceTree = "<group>"; };
 		FE8CA0F614EC6F880055F2C8 /* fourpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fourpoint.h; sourceTree = "<group>"; };
 		FE90D88014D0A74A0018547E /* Tracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		FE90D88114D0A74F0018547E /* Tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tracker.cpp; sourceTree = "<group>"; };
-		FECF699B14D7100D004C4ED7 /* finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = finger.h; sourceTree = "<group>"; };
 		FEDADE2214D9907C00A57FA1 /* hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hand.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -968,9 +964,6 @@
 				FE90D88114D0A74F0018547E /* Tracker.cpp */,
 				FE8CA0F614EC6F880055F2C8 /* fourpoint.h */,
 				FEDADE2214D9907C00A57FA1 /* hand.h */,
-				FE34FF8714EBF47D00A540E2 /* gestures.h */,
-				FE34FF8814EBF4D000A540E2 /* gestures.cpp */,
-				FECF699B14D7100D004C4ED7 /* finger.h */,
 			);
 			name = VR;
 			sourceTree = "<group>";
@@ -1100,7 +1093,6 @@
 				1664201213235744000AAE66 /* ofxKinectPlayer.cpp in Sources */,
 				1664201313235744000AAE66 /* ofxKinectRecorder.cpp in Sources */,
 				FE90D88214D0A74F0018547E /* Tracker.cpp in Sources */,
-				FE34FF8914EBF4D000A540E2 /* gestures.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
