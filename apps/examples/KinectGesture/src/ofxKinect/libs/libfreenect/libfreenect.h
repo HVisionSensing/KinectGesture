@@ -117,7 +117,7 @@ typedef struct _freenect_device freenect_device; /**< Holds device information. 
   /* frees Windows users of the burden of specifying the path to <libusb-1.0/libusb.h> */
   typedef void freenect_usb_context;
 #else
-  #include "libusb.h"
+  #include <libusb-1.0/libusb.h>
   typedef libusb_context freenect_usb_context; /**< Holds libusb-1.0 specific information */
 #endif
 //

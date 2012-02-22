@@ -12,7 +12,15 @@ int main(int argc, char** argv){
     ofSetupOpenGL(&window1, 1024,768, OF_WINDOW);
     
     ofRunApp(new Tracker());
+    /*
+    Tracker test;
+    test.setup();
     
+    for (int i = 0; ; i++) {
+        test.update();
+        test.draw();
+    }
+    */
     //ofRunApp(new HandJesture());
     
     return 0;
