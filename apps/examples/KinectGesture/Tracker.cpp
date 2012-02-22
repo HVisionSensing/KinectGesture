@@ -5,22 +5,6 @@
 //  Created by Noah Tovares on 1/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-/*
-#include <iostream>
-
-#include "Math.h"
-#include <Carbon/Carbon.h>
-#include "MacWindows.h"
-#include <GLUT/GLUT.h>
-
-#include <iostream>
-#include <sstream>
-#include <stdio.h>
-#include <string.h>
-#include <vector>
-#include "hand.h"
-#include "finger.h"
-*/
 
 #include "tracker.h"
 
@@ -505,7 +489,6 @@ void Tracker::draw() {
 	ofNoFill();
     
 };
-
 
 void Tracker::keyPressed (int key) {
 	ofLog(OF_LOG_VERBOSE, ofToString(key));
