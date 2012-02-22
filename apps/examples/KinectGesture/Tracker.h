@@ -51,7 +51,6 @@ public:
     void exit(void);
     void trackfinger(void);
     void trackhand(void);
-    void drawfingertips(void);
     
     // Kinect
 	ofxKinect kinect;

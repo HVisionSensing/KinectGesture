@@ -958,10 +958,10 @@
 			isa = PBXGroup;
 			children = (
 				FE9418FF14F5789400565141 /* main.cpp */,
-				FE8CA0F614EC6F880055F2C8 /* fourpoint.h */,
 				FE9418FB14F5788D00565141 /* Tracker.h */,
-				FE9418FC14F5788D00565141 /* hand.h */,
 				FE9418FD14F5788D00565141 /* Tracker.cpp */,
+				FE8CA0F614EC6F880055F2C8 /* fourpoint.h */,
+				FE9418FC14F5788D00565141 /* hand.h */,
 			);
 			name = VR;
 			sourceTree = "<group>";
