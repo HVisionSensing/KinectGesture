@@ -5,9 +5,9 @@
 //  Created by Noah Tovares on 1/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+/*
 #include <iostream>
-#include "tracker.h"
+
 #include "Math.h"
 #include <Carbon/Carbon.h>
 #include "MacWindows.h"
@@ -20,7 +20,9 @@
 #include <vector>
 #include "hand.h"
 #include "finger.h"
+*/
 
+#include "tracker.h"
 
 Tracker::Tracker(){
     bc=0;

@@ -25,8 +25,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
-#include "finger.h"
-#include "circle.h"
 #include "fourpoint.h"
 
 class Tracker : public ofBaseApp
@@ -104,9 +102,6 @@ public:
     //vector<finger> realfingers;
     vector<finger> tempfingers;
     finger tempfing;
-    vector<circle> circs;
-    circle testcirc;
-    bool canedit;
     
     int avex,avey,avel;
 };
