@@ -28,7 +28,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libusb-1.0/libusb.h>
+#include "libusb.h"
 #include "freenect_internal.h"
 
 int fnusb_num_devices(fnusb_ctx *ctx)
