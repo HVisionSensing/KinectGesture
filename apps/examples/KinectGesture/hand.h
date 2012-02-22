@@ -144,10 +144,7 @@ class hand{
         }
         
         //draw the "fingers"
-        //drawfingersnew();
-        //drawfingersz();
         drawfingersq();
-        //drawfingers();
         handpnts.clear();
   
     }
@@ -262,6 +259,7 @@ class hand{
         
     }
     
+    //group and draw fingers based on the q value of the points
     void drawfingersq(void){
         
         numtips = 0;
@@ -375,77 +373,7 @@ class hand{
         
         
     }
-    
-    //determine average finger locations, and draw fingertips based on Z value
-    void drawfingers(void){
-        
-        int counter = 0;
-        
-        for (int k = 0; k<posfingers.size(); k++) ofCircle(posfingers[k].x, posfingers[k].y, 10);
-       
-        for (int k = 0; k<posfingers.size(); k++) {
-           
 
-            //determine ll, the distance between one "finger" and the next
-            dx = posfingers[k+1].x - posfingers[k].x;
-            dy = posfingers[k+1].y - posfingers[k].y;
-            dl = sqrt((dx*dx)+(dy*dy)); 
-            
-            //if the distance between the fingers is less than 5 ...
-            if (dl<10){
-                
-                xtot += posfingers[k].x;
-                ytot += posfingers[k].y;
-                counter++;
-                
-                //realfingers.push_back(posfingers[k]);
-            }
-            
-            else {
-                
-                //for (int p = 0; p < realfingers.size(); p++){
-                //    xave += realfingers[p].x;
-                //    yave += realfingers[p].y;
-                //}
-                
-                //xave /= realfingers.size();
-                //yave /= realfingers.size();
-                
-                //counter++;
-                //xtot += posfingers[k].x;
-                //ytot += posfingers[k].y;
-
-                xave = xtot/counter;
-                yave = ytot/counter;
-
-                //create circle at the average finger position
-                ofFill();
-                ofSetColor(0,0,255);
-                
-                ofCircle(xave,yave,10);
-                
-                ofNoFill();
-                
-                //RESET VALUES
-                dx=0;
-                dy=0;
-                ll=0;
-                xtot = 0;
-                ytot = 0;
-                xave = 0;
-                yave = 0;
-                //realfingers.clear();
-                
-                //if (numtips == 4) k = posfingers.size();
-                
-            }
-            
-        }
-        
-        posfingers.clear();
-        
-
-    }
     
 };
 
