@@ -847,7 +847,6 @@
 				16E3DE531306AE9800224050 /* ofxMSAInteractiveObject */,
 				1677CFB912E291DB009B9D64 /* handJesture.cpp */,
 				1677CFBA12E291DB009B9D64 /* handJesture.h */,
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -964,6 +963,7 @@
 				FE90D88114D0A74F0018547E /* Tracker.cpp */,
 				FE8CA0F614EC6F880055F2C8 /* fourpoint.h */,
 				FEDADE2214D9907C00A57FA1 /* hand.h */,
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 			);
 			name = VR;
 			sourceTree = "<group>";
