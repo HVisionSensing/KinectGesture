@@ -29,11 +29,8 @@ class hand{
     ofPoint centroid;
     
     vector<ofPoint> posfingers;
-    vector<ofPoint> sortedfingers;
     vector<ofPoint> realfingers;
-    vector<ofPoint> handpnts;
-    vector<ofPoint> posfingerscopy;
-    vector<ofPoint> fingerpnts;   
+    vector<ofPoint> handpnts;  
     vector<fourpoint> fourfingers;
     
     hand(){
