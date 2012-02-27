@@ -208,7 +208,7 @@ class hand{
                     //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile << xave <<"," << yave <<"\n";
+                    myfile << xave <<"," << yave <<",";
                 }
                 
                 
@@ -248,7 +248,7 @@ class hand{
                     tempPnt.z = zave;
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile << xave <<"," << yave <<"\n";
+                    myfile << xave <<"," << yave;
                 }
                 
                 dq=0;
@@ -261,8 +261,6 @@ class hand{
                 counter = 0;
             }
             
-            
-            
             //cout<<numtips<<"\n";
             
         }
@@ -271,11 +269,14 @@ class hand{
         
         fourfingers.clear();
         
-        myfile<<"new\n";
+        myfile<<"\n";
         
         myfile.close();
         
+        
     }
+    
+ 
     
 };
 
