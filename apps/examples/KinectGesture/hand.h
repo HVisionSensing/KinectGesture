@@ -14,9 +14,15 @@
 #include "ofxKinect.h"
 #include "Tracker.h"
 #include "fourpoint.h"
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 class hand{
     public:
+    
+    ofstream myfile;
     
     int xloc, yloc, dx, dy, dz, dl, ll, dq;
     int numtips;
@@ -73,6 +79,8 @@ class hand{
     
     //detect the existence of fingers
     void detectfingers(void){
+        
+       
         
         posfingers.clear();
         
@@ -149,6 +157,8 @@ class hand{
     //group and draw fingers based on the q value of the points
     void drawfingersq(void){
         
+        myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
+        
         numtips = 0;
         int counter = 0;
         int mindensity = 1;
@@ -198,6 +208,7 @@ class hand{
                     //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
+                    myfile << xave <<"," << yave <<"\n";
                 }
                 
                 
@@ -237,6 +248,7 @@ class hand{
                     tempPnt.z = zave;
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
+                    myfile << xave <<"," << yave <<"\n";
                 }
                 
                 dq=0;
@@ -252,12 +264,16 @@ class hand{
             
             
             //cout<<numtips<<"\n";
+            
         }
         
         //cout<<"\n";
         
         fourfingers.clear();
         
+        myfile<<"new\n";
+        
+        myfile.close();
         
     }
     

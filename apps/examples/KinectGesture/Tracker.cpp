@@ -8,6 +8,11 @@
 
 #include "tracker.h"
 
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
 Tracker::Tracker(){
     bc=0;
     hc=1;
@@ -158,6 +163,8 @@ void Tracker::trackfinger(){
         tempcenter.x = contourFinder.blobs[j].centroid.x;
         tempcenter.y = contourFinder.blobs[j].centroid.y;
         
+        
+        
         for(int i=0; i<contourFinder.blobs[j].nPts; i++){
             ofPoint tempPnt;
             tempPnt.x = contourFinder.blobs[j].pts[i].x;
@@ -238,6 +245,23 @@ void Tracker::trackfinger(){
 
 //tracking of the hand, and gestures associated with hands
 void Tracker::trackhand() {
+    
+    handloc1.open ("/Users/noahtovares/Desktop/KinectTxt/handloc1.txt",ios::app);
+    handloc2.open ("/Users/noahtovares/Desktop/KinectTxt/handloc2.txt",ios::app);
+    
+    if (contourFinder.nBlobs == 2) {
+
+        handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+        handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+    }
+    
+    if (contourFinder.nBlobs == 1) {
+        handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+    }
+    
+    handloc1.close();
+    handloc2.close();
+    
     ofPushMatrix();
     
     ofTranslate(200, 150, 0);

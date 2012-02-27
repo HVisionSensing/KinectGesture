@@ -38,6 +38,8 @@ private:
     
 public:
     
+    ofstream handloc1, handloc2;
+    
     GLdouble size;
     Tracker();
     
