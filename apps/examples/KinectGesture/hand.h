@@ -44,7 +44,7 @@ class hand{
     }
     
     //takes points that make up hand and shuffles them so the start is at the bottom
-    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, int handnum){
+    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[]){
         centroid = center;
         
         //display center of old hand position
@@ -74,12 +74,12 @@ class hand{
     }
     
     //detect fingers without shuffling the points around
-    void noshuff(vector<ofPoint> oldpoints, int handnum){
+    void noshuff(vector<ofPoint> oldpoints, const char handnum[]){
         detectfingers(handnum);
     }
     
     //detect the existence of fingers
-    void detectfingers(int handnum){
+    void detectfingers(const char handnum[]){
         
         posfingers.clear();
         
@@ -154,7 +154,8 @@ class hand{
     }
     
     //group and draw fingers based on the q value of the points
-    void drawfingersq(int handnum){
+    void drawfingersq(const char handnum[]){
+        /*
         //cout<<handnum<<"\n";
         string sname, temp1;
         sname.append("/Users/noahtovares/Desktop/KinectTxt/fingers");
@@ -179,9 +180,11 @@ class hand{
 
         cout<<"\n";
         
+        */
+        
         //myfile.open (name,ios::app);
         
-        myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
+        myfile.open (handnum,ios::app);
         
         numtips = 0;
         int counter = 0;

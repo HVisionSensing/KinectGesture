@@ -182,8 +182,16 @@ void Tracker::trackfinger(){
         }
         //INITIATE HAND TRACKING AN FINGER TRACKING
         //hands[j].noshuff(tempPnts);
+        char fingerfile1[] = "/Users/noahtovares/Desktop/KinectTxt/f1.txt";
+        char fingerfile2[] = "/Users/noahtovares/Desktop/KinectTxt/f2.txt";
         
-        hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, j+1);
+        if (j == 0){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile1); 
+        }
+        
+        if(j == 1){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile2);
+        }
         
         //cout<<"j= "<<j<<"\n";
         
