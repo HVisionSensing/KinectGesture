@@ -7,6 +7,7 @@
 //
 
 #include "tracker.h"
+#include "hand.h"
 
 #include <iostream>
 #include <fstream>
@@ -157,6 +158,8 @@ void Tracker::trackfinger(){
     
     ofPoint tempcenter;
     
+    //hands[0].myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
+    
     for (int j = 0; j < contourFinder.nBlobs; j++){
         vector<ofPoint> tempPnts;
         
@@ -186,6 +189,10 @@ void Tracker::trackfinger(){
         
         tempPnts.clear();
     }
+    
+    //hands[0].myfile<<"\n";
+    
+    //hands[0].myfile.close();
     
     if (hands[0].numtips==1) {
         if (hands[1].numtips==1) {

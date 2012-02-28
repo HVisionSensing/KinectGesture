@@ -173,7 +173,7 @@ class hand{
         for (int k = 0; k < sname.length(); k++) {
             temp.push_back(sname[k]);
             name[k]=temp[k];
-            cout<<name[k];
+            //cout<<name[k];
             
         }
 
