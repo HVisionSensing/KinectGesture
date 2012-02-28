@@ -208,7 +208,7 @@ class hand{
                     //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile << xave <<"," << yave <<",";
+                    myfile <<xave <<"," << yave <<" ";
                 }
                 
                 
