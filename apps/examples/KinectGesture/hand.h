@@ -43,7 +43,7 @@ class hand{
     }
     
     //takes points that make up hand and shuffles them so the start is at the bottom
-    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center){
+    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, int handnum){
         centroid = center;
         
         //display center of old hand position
@@ -69,18 +69,16 @@ class hand{
         }
         
         //initialize the detection of fingers
-        detectfingers();
+        detectfingers(handnum);
     }
     
     //detect fingers without shuffling the points around
-    void noshuff(vector<ofPoint> oldpoints){
-        detectfingers();
+    void noshuff(vector<ofPoint> oldpoints, int handnum){
+        detectfingers(handnum);
     }
     
     //detect the existence of fingers
-    void detectfingers(void){
-        
-       
+    void detectfingers(int handnum){
         
         posfingers.clear();
         
@@ -149,14 +147,14 @@ class hand{
         }
         
         //draw the "fingers"
-        drawfingersq();
+        drawfingersq(handnum);
         handpnts.clear();
   
     }
     
     //group and draw fingers based on the q value of the points
-    void drawfingersq(void){
-        
+    void drawfingersq(char handnum){
+
         myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
         
         numtips = 0;
@@ -208,7 +206,7 @@ class hand{
                     //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile <<xave <<"," << yave <<" ";
+                    myfile <<" " <<xave <<"," << yave <<" ";
                 }
                 
                 
