@@ -16,6 +16,7 @@
 #include "fourpoint.h"
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 
 using namespace std;
 
@@ -153,8 +154,33 @@ class hand{
     }
     
     //group and draw fingers based on the q value of the points
-    void drawfingersq(char handnum){
+    void drawfingersq(int handnum){
+        //cout<<handnum<<"\n";
+        string sname, temp1;
+        sname.append("/Users/noahtovares/Desktop/KinectTxt/fingers");
+        std::string s;
+        std::stringstream out;
+        out << handnum;
+        s = out.str();
+        sname.append(s);
+        sname.append(".txt");
+        
+        //cout<<sname<<"\n";
+        
+        string temp;
+        
+        char name [sname.length()-1];
+        for (int k = 0; k < sname.length(); k++) {
+            temp.push_back(sname[k]);
+            name[k]=temp[k];
+            cout<<name[k];
+            
+        }
 
+        cout<<"\n";
+        
+        //myfile.open (name,ios::app);
+        
         myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
         
         numtips = 0;

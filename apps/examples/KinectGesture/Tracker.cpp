@@ -164,7 +164,6 @@ void Tracker::trackfinger(){
         tempcenter.y = contourFinder.blobs[j].centroid.y;
         
         
-        
         for(int i=0; i<contourFinder.blobs[j].nPts; i++){
             ofPoint tempPnt;
             tempPnt.x = contourFinder.blobs[j].pts[i].x;
@@ -180,7 +179,10 @@ void Tracker::trackfinger(){
         }
         //INITIATE HAND TRACKING AN FINGER TRACKING
         //hands[j].noshuff(tempPnts);
-        hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, j);
+        
+        hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, j+1);
+        
+        //cout<<"j= "<<j<<"\n";
         
         tempPnts.clear();
     }
