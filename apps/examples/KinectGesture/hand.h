@@ -148,7 +148,9 @@ class hand{
         }
         
         //draw the "fingers"
+        
         drawfingersq(handnum);
+        
         handpnts.clear();
   
     }
