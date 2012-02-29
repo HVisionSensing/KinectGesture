@@ -207,7 +207,7 @@ class hand{
                     //cout<<tempPnt.z<<" ";
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile <<" " <<xave <<"," << yave <<" ";
+                    myfile <<xave <<"," << yave <<" ";
                 }
                 
                 
@@ -247,7 +247,7 @@ class hand{
                     tempPnt.z = zave;
                     //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
-                    myfile << xave <<"," << yave;
+                    myfile << xave <<"," << yave<<" ";
                 }
                 
                 dq=0;
@@ -265,6 +265,10 @@ class hand{
         }
         
         //cout<<"\n";
+        
+        if (numtips == 0){
+            myfile<<"e";
+        }
         
         fourfingers.clear();
         
