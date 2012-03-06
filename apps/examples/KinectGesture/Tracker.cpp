@@ -265,11 +265,20 @@ void Tracker::trackhand() {
     
     handloc1.open ("/Users/noahtovares/Desktop/KinectTxt/handloc1.txt",ios::app);
     handloc2.open ("/Users/noahtovares/Desktop/KinectTxt/handloc2.txt",ios::app);
+
     
     if (contourFinder.nBlobs == 2) {
 
-        handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
-        handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+        if (contourFinder.blobs[0].centroid.x < contourFinder.blobs[1].centroid.x){
+            handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+            handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+        }
+        
+        if (contourFinder.blobs[0].centroid.x > contourFinder.blobs[1].centroid.x){
+            handloc1 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+            handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+        }
+
     }
     
     if (contourFinder.nBlobs == 1) {

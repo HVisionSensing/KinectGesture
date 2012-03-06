@@ -12,7 +12,7 @@
 class fourpoint{
     
 public:
-    int x, y, z, q;
+    double x, y, z, q;
 };
 
 #endif
