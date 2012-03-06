@@ -282,7 +282,7 @@ void Tracker::trackhand() {
     }
     
     if (contourFinder.nBlobs == 1) {
-        handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+        handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
     }
     
     handloc1.close();
