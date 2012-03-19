@@ -239,6 +239,7 @@ void Tracker::trackhand() {
     
 }
 
+// initiate finger tracking
 void Tracker::trackfinger(){
     
     fingers.clear();

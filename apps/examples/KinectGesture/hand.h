@@ -52,16 +52,6 @@ class hand{
         if (handnumber == 1) hand1pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
         if (handnumber == 2) hand2pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
         
-        // display center of old hand position
-        ofSetColor(0, 255, 0);
-        //ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
-        
-        // display center of new hand position
-        ofSetColor(0, 0, 255);
-        //ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
-        
-        ofSetColor(255, 0, 0);
-        
         // shuffle the poiNts by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
@@ -211,13 +201,6 @@ class hand{
                     yave = ytot/counter;
                     zave = ztot/counter;
                     
-                    ofFill();
-                    ofSetColor(0,0,255);
-                    
-                    ofCircle(xave,yave,20);
-                    numtips++;
-                    ofNoFill();
-                    
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
@@ -248,12 +231,6 @@ class hand{
                     xave = xtot/counter;
                     yave = ytot/counter;
                     zave = ztot/counter;
-                    
-                    ofFill();
-                    ofSetColor(0,0,255);
-                    ofCircle(xave,yave,20);
-                    numtips++;
-                    ofNoFill();
                     
                     ofPoint tempPnt;
                     tempPnt.x = xave;
