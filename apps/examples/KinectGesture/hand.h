@@ -23,7 +23,7 @@ using namespace std;
 class hand{
     public:
     
-    ofstream myfile;
+    ofstream myfile, myfile1;
     
     int xloc, yloc, dx, dy, dz, dl, ll, dq;
     int numtips;
@@ -43,33 +43,35 @@ class hand{
     hand(){
     }
     
-    //takes points that make up hand and shuffles them so the start is at the bottom
+    // takes points that make up hand and shuffles them so the start is at the bottom
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[]){
         centroid = center;
         
-        //display center of old hand position
+        // display center of old hand position
         ofSetColor(0, 255, 0);
         //ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
         
-        //display center of new hand position
+        // display center of new hand position
         ofSetColor(0, 0, 255);
         //ofCircle(oldpoints[oldpoints.size()/2].x, oldpoints[oldpoints.size()/2].y, 10);
         
         ofSetColor(255, 0, 0);
         
-        //shuffle the poits by a number h
+        // shuffle the poits by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
+        
+        // push the remaining points to handpnts
         for (int k = 0; k<h; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
             //ofCircle(handpnts[k].x, handpnts[k].y, 5);
         }
         
-        //initialize the detection of fingers
+        // initialize the detection of fingers
         detectfingers(handnum);
     }
     
@@ -147,8 +149,7 @@ class hand{
             }
         }
         
-        //draw the "fingers"
-        
+        // draw the "fingers"
         drawfingersq(handnum);
         
         handpnts.clear();
@@ -160,6 +161,8 @@ class hand{
         
         myfile.open (handnum,ios::app);
         
+        //myfile1.open ("/Users/noahtovares/Desktop/KinectTxt/numfingers.txt",ios::app);
+
         numtips = 0;
         int counter = 0;
         int mindensity = 1;
@@ -168,8 +171,6 @@ class hand{
             
             //compute z distance between one finger and the next
             dq = fourfingers[k-1].q-fourfingers[k].q;
-            //cout<<dz;
-            //cout<<"\n";
             
             //if the two fingers are close
             if(abs(dq)<2) {
@@ -177,19 +178,13 @@ class hand{
                 ytot += fourfingers[k-1].y;
                 ztot += fourfingers[k-1].z;
                 
-                //cout<<posfingers[k].z<<",";
-                //cout<<" " <<k <<" of " <<posfingers.size() <<"\n";
-                
                 counter++;
             }
             
+            // if the two fingers are not close
             else if(abs(dq)>2){
-                //cout<<",n,";
-                //xtot += posfingers[k-1].x;
-                //ytot += posfingers[k-1].y;
                 
-                //counter++;
-                
+                // if the density of fingers is significant enough to possible be a real finger, push back average position to realfingers
                 if (counter > mindensity) {
                     xave = xtot/counter;
                     yave = ytot/counter;
@@ -206,13 +201,13 @@ class hand{
                     tempPnt.x = xave;
                     tempPnt.y = yave;
                     tempPnt.z = zave;
-                    //cout<<tempPnt.z<<" ";
-                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
+                    
+                    // write the real finger position to the txt file
                     myfile <<xave <<"," << yave <<" ";
                 }
                 
-                
+                // reset all the values
                 dq=0;
                 xave = 0;
                 yave = 0;
@@ -224,14 +219,10 @@ class hand{
                 
             }
             
-            
+            // if the loop has reached the end of the possible fingers
             if(k==fourfingers.size()-1){
-                //cout<<",n,";
                 
-                //counter++;
-                //xtot += posfingers[k].x;
-                //ytot += posfingers[k].y;
-                
+                // if the density of fingers is significant enough to possible be a real finger, push back average position to realfingers
                 if (counter > mindensity) {
                     xave = xtot/counter;
                     yave = ytot/counter;
@@ -247,11 +238,13 @@ class hand{
                     tempPnt.x = xave;
                     tempPnt.y = yave;
                     tempPnt.z = zave;
-                    //cout<<tempPnt.x<<" "<<tempPnt.y<<"\n";
                     realfingers.push_back(tempPnt);
+                    
+                    // write the real finger position to the txt file
                     myfile << xave <<"," << yave<<" ";
                 }
                 
+                // reset all the values
                 dq=0;
                 xave = 0;
                 yave = 0;
@@ -262,22 +255,17 @@ class hand{
                 counter = 0;
             }
             
-            //cout<<numtips<<"\n";
-            
         }
         
-        //cout<<"\n";
-        
-        if (numtips == 0){
-            myfile<<"e";
-        }
+        //if (numtips == 0){
+        //    myfile<<"e";
+        //}
         
         fourfingers.clear();
         
         myfile<<"\n";
         
         myfile.close();
-        
         
     }
     

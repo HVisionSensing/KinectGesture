@@ -151,249 +151,13 @@ void Tracker::checkDepthUpdated(){
 	}
 }
 
-void Tracker::trackfinger(){
-    
-    fingers.clear();
-    tempfingers.clear();
-    
-    ofPoint tempcenter;
-    
-    //hands[0].myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
-    
-    for (int j = 0; j < contourFinder.nBlobs; j++){
-        vector<ofPoint> tempPnts;
-        
-        tempcenter.x = contourFinder.blobs[j].centroid.x;
-        tempcenter.y = contourFinder.blobs[j].centroid.y;
-        
-        
-        for(int i=0; i<contourFinder.blobs[j].nPts; i++){
-            ofPoint tempPnt;
-            tempPnt.x = contourFinder.blobs[j].pts[i].x;
-            tempPnt.y = contourFinder.blobs[j].pts[i].y;
-            tempPnt.z = kinect.getDistanceAt(tempPnt.x, tempPnt.y);
-            
-            //ofCircle(tempPnt.x, tempPnt.y, 10);
-            
-            tempPnts.push_back(tempPnt);
-            
-            //ofCircle(tempPnts[i].x, tempPnts[i].y, 10);
-            
-        }
-        //INITIATE HAND TRACKING AN FINGER TRACKING
-        //hands[j].noshuff(tempPnts);
-        char fingerfile1[] = "/Users/noahtovares/Desktop/KinectTxt/f1.txt";
-        char fingerfile2[] = "/Users/noahtovares/Desktop/KinectTxt/f2.txt";
-        
-        if (j == 0){
-            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile1); 
-        }
-        
-        if(j == 1){
-            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile2);
-        }
-        
-        //cout<<"j= "<<j<<"\n";
-        
-        tempPnts.clear();
-    }
-    
-    //hands[0].myfile<<"\n";
-    
-    //hands[0].myfile.close();
-    
-    if (hands[0].numtips==1) {
-        if (hands[1].numtips==1) {
-            
-            avex = 0;
-            avey = 0;
-            avel = 0;
-                        
-            for (int j = 0; j < 2; j++){
-                for (int p = 0; p <1; p++) {
-                    avex += hands[j].realfingers[p].x;
-                    avey += hands[j].realfingers[p].y;
-                }
-                
-            }
-            
-            avel = sqrt(
-                        
-                        (((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x))*
-                        ((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x)))
-                        +(((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y))*
-                          ((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y)))
-                        
-                        );
-            
-            avex /=2;
-            avey /=2;
-            
-            //cout<<avex<<" "<<avey<<"\n";
-            
-            ofPushMatrix();
-            
-            ofCircle(avex, avey, avel/5);
-            
-            ofPopMatrix();
-            
-        }
-        
-        else{
-            ofPushMatrix();
-            ofCircle(avex, avey, avel/5);
-            ofPopMatrix();
-        }
-
-        
-    }
-    
-    else{
-        ofPushMatrix();
-        ofCircle(avex, avey, avel/5);
-        ofPopMatrix();
-    }
-    
-    for (int p = 0; p <2; p++) {
-        hands[p].realfingers.clear();
-    }
-    
-    }
-
-//tracking of the hand, and gestures associated with hands
-void Tracker::trackhand() {
-    
-    handloc1.open ("/Users/noahtovares/Desktop/KinectTxt/handloc1.txt",ios::app);
-    handloc2.open ("/Users/noahtovares/Desktop/KinectTxt/handloc2.txt",ios::app);
-
-    
-    if (contourFinder.nBlobs == 2) {
-
-        if (contourFinder.blobs[0].centroid.x < contourFinder.blobs[1].centroid.x){
-            handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
-            handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
-        }
-        
-        if (contourFinder.blobs[0].centroid.x > contourFinder.blobs[1].centroid.x){
-            handloc1 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
-            handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
-        }
-
-    }
-    
-    if (contourFinder.nBlobs == 1) {
-        handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
-    }
-    
-    handloc1.close();
-    handloc2.close();
-    
-    ofPushMatrix();
-    
-    ofTranslate(200, 150, 0);
-    glScalef(0.9, 0.9, 1.0f); 
-    
-    for (int i = 0; i < contourFinder.nBlobs; i++){
-        ofPushMatrix();
-        contourFinder.blobs[i].draw(0,0);
-        ofSetColor(255, 0, 0);
-        //ofFill();
-        //ofEllipse(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 4, 4);
-        
-        float centroidX = 0;
-        float centroidY = 0;
-        float addCount = 0;
-        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=1){
-            addCount++;
-            centroidX += contourFinder.blobs[i].pts[j].x;
-            centroidY += contourFinder.blobs[i].pts[j].y;
-        }
-        centroidX = centroidX/addCount;
-        centroidY = centroidY/addCount;
-        //ofCircle(centroidX, centroidY, 5);
-        
-        glPushMatrix();
-        
-        //this draws a 3d sphere at the center of the hand
-        //int z = kinect.getDistanceAt(centroidX,centroidY);
-        //cout<<z<<"\n";
-        //glTranslatef(centroidX,z,centroidY);
-        //ofSetColor(255, 255, 0);
-        //ofSolidSphere(10);
-        ///glPopMatrix();
-    
-        ofPopMatrix();
-    }
-    
-    /*
-    
-    //gesture to track hands when they are closed
-    if (contourFinder.nBlobs == 2) {
-        if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
-            ofPushMatrix();
-            xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
-            yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
-            int dx = contourFinder.blobs[1].centroid.x-contourFinder.blobs[0].centroid.x;
-            int dy = contourFinder.blobs[1].centroid.y-contourFinder.blobs[0].centroid.y;
-            ll=sqrt((dx*dx)+(dy*dy))/4;
-            
-            
-            ofCircle(xx, yy, ll);
-            ofPopMatrix();
-            
-        }
-        else{
-            ofPushMatrix();
-            ofCircle(xx, yy, ll);
-            ofPopMatrix();
-        }
-    }
-    
-    */
-
-}
-
+// this is the main loop 
 void Tracker::draw() {
     
     trackhand();
     
     trackfinger();
     
-    //this draws a 3d sphere at the center of each finger
-    
-    /*
-    for (int p = 0; p<2; p++) {
-        for (int i = 0; i<hands[p].numtips; i++) {
-            
-            //int z = 0;
-            
-            if (hands[p].numtips !=0){
-                
-                //glLoadIdentity();
-                
-                //ofSetColor(255, 0, 0);
-                //ofCircle(hands[p].realfingers[i].x,hands[p].realfingers[i].y, 5);
-                
-                glPushMatrix();
-                
-                //glTranslatef(hands[p].realfingers[i].x,hands[p].realfingers[i].y,z/10);
-                
-                //z = kinect.getDistanceAt(hands[p].realfingers[i].x,hands[p].realfingers[i].y);
-                
-                //changes the axes so that when show from below motion is realistic
-                
-                //glTranslatef(hands[p].realfingers[i].x, hands[p].realfingers[i].z, hands[p].realfingers[i].y);
-                
-                ofSetColor(0, 255, 0);
-                //ofSolidSphere(10);
-                
-                glPopMatrix();
-            }
-   
-        }
-        
-    }
-    */
     std::ostringstream osstream,stream2, stream3, stream4, stream5;
     
     int x [contourFinder.nBlobs];
@@ -462,6 +226,244 @@ void Tracker::draw() {
 	ofNoFill();
     
 };
+
+//track hand, write location to txt file
+void Tracker::trackhand() {
+    
+    // this code is for the two handed system
+    hand1.open ("/Users/noahtovares/Desktop/KinectTxt/hand1.txt",ios::app);
+    hand2.open ("/Users/noahtovares/Desktop/KinectTxt/hand2.txt",ios::app);
+    
+    hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
+    hand2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<" ";
+    
+    //hand1.close();
+    //hand2.close();
+    
+    // the code below is for the one handed system
+    /*
+    handloc1.open ("/Users/noahtovares/Desktop/KinectTxt/handloc1.txt",ios::app);
+    handloc2.open ("/Users/noahtovares/Desktop/KinectTxt/handloc2.txt",ios::app);
+    
+    
+    if (contourFinder.nBlobs == 2) {
+        
+        if (contourFinder.blobs[0].centroid.x < contourFinder.blobs[1].centroid.x){
+            handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+            handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+            // this is if the z coordinate of the hand is required
+            //handloc1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y << "," << contourFinder.blobs[0].centroid.z << "\n";
+            //handloc2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y << "," << contourFinder.blobs[1].centroid.z << "\n";
+            
+        }
+        
+        if (contourFinder.blobs[0].centroid.x > contourFinder.blobs[1].centroid.x){
+            handloc1 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<"\n";
+            handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+            // this is if the z coordinate of the hand is required
+            //handloc1 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y << "," << contourFinder.blobs[1].centroid.z << "\n";
+            //handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y << "," << contourFinder.blobs[0].centroid.z << "\n";
+            
+        }
+        
+    }
+    
+    if (contourFinder.nBlobs == 1) {
+        //handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<"\n";
+        contourFinder.blobs[0].centroid.z = kinect.getDistanceAt(contourFinder.blobs[0].centroid.x, contourFinder.blobs[0].centroid.y);
+        
+        handloc2 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y << "," << contourFinder.blobs[0].centroid.z << ",\n";
+    }
+    */
+    // end of one handed system
+    
+    handloc1.close();
+    handloc2.close();
+    
+    ofPushMatrix();
+    
+    ofTranslate(200, 150, 0);
+    glScalef(0.9, 0.9, 1.0f); 
+    
+    for (int i = 0; i < contourFinder.nBlobs; i++){
+        ofPushMatrix();
+        contourFinder.blobs[i].draw(0,0);
+        ofSetColor(255, 0, 0);
+        //ofFill();
+        //ofEllipse(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 4, 4);
+        
+        float centroidX = 0;
+        float centroidY = 0;
+        float addCount = 0;
+        for (int j = 0; j < contourFinder.blobs[i].nPts; j+=1){
+            addCount++;
+            centroidX += contourFinder.blobs[i].pts[j].x;
+            centroidY += contourFinder.blobs[i].pts[j].y;
+        }
+        centroidX = centroidX/addCount;
+        centroidY = centroidY/addCount;
+        //ofCircle(centroidX, centroidY, 5);
+        
+        glPushMatrix();
+        
+        //this draws a 3d sphere at the center of the hand
+        //int z = kinect.getDistanceAt(centroidX,centroidY);
+        //cout<<z<<"\n";
+        //glTranslatef(centroidX,z,centroidY);
+        //ofSetColor(255, 255, 0);
+        //ofSolidSphere(10);
+        ///glPopMatrix();
+        
+        ofPopMatrix();
+    }
+    
+    /*
+     
+     //gesture to track hands when they are closed
+     if (contourFinder.nBlobs == 2) {
+     if (contourFinder.blobs[0].nPts + contourFinder.blobs[1].nPts < 600) {
+     ofPushMatrix();
+     xx=(contourFinder.blobs[1].centroid.x+contourFinder.blobs[0].centroid.x)/2;
+     yy=(contourFinder.blobs[1].centroid.y+contourFinder.blobs[0].centroid.y)/2;
+     int dx = contourFinder.blobs[1].centroid.x-contourFinder.blobs[0].centroid.x;
+     int dy = contourFinder.blobs[1].centroid.y-contourFinder.blobs[0].centroid.y;
+     ll=sqrt((dx*dx)+(dy*dy))/4;
+     
+     
+     ofCircle(xx, yy, ll);
+     ofPopMatrix();
+     
+     }
+     else{
+     ofPushMatrix();
+     ofCircle(xx, yy, ll);
+     ofPopMatrix();
+     }
+     }
+     
+     */
+    
+}
+
+void Tracker::trackfinger(){
+    
+    fingers.clear();
+    tempfingers.clear();
+    
+    ofPoint tempcenter;
+    
+    //hands[0].myfile.open ("/Users/noahtovares/Desktop/KinectTxt/fingers.txt",ios::app);
+    
+    // loop through blobs, store hand centroid to be passed to hand class
+    for (int j = 0; j < contourFinder.nBlobs; j++){
+        vector<ofPoint> tempPnts;
+        
+        tempcenter.x = contourFinder.blobs[j].centroid.x;
+        tempcenter.y = contourFinder.blobs[j].centroid.y;
+        
+        // loop through all hand points, create ofPoint, push to vector to be passed to hand class
+        for (int i=0; i<contourFinder.blobs[j].nPts; i++){
+            ofPoint tempPnt;
+            tempPnt.x = contourFinder.blobs[j].pts[i].x;
+            tempPnt.y = contourFinder.blobs[j].pts[i].y;
+            tempPnt.z = kinect.getDistanceAt(tempPnt.x, tempPnt.y);
+            
+            tempPnts.push_back(tempPnt);            
+            
+        }
+        // initiate finger tracking
+
+        //char fingerfile1[] = "/Users/noahtovares/Desktop/KinectTxt/f1.txt";
+        //char fingerfile2[] = "/Users/noahtovares/Desktop/KinectTxt/f2.txt";
+        
+        // char lists of file names for positions to be written to 
+        char file1[] = "/Users/noahtovares/Desktop/KinectTxt/hand1.txt";
+        char file2[] = "/Users/noahtovares/Desktop/KinectTxt/hand2.txt";
+        
+        if (j == 0){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, file1); 
+        }
+        
+        if(j == 1){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, file2);
+        }
+        
+        /*
+        if (j == 0){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile1); 
+        }
+        
+        if(j == 1){
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, fingerfile2);
+        }
+        */
+        
+        //cout<<"j= "<<j<<"\n";
+        
+        tempPnts.clear();
+    }
+    
+    //hands[0].myfile<<"\n";
+    
+    //hands[0].myfile.close();
+    
+    if (hands[0].numtips==1) {
+        if (hands[1].numtips==1) {
+            
+            avex = 0;
+            avey = 0;
+            avel = 0;
+                        
+            for (int j = 0; j < 2; j++){
+                for (int p = 0; p <1; p++) {
+                    avex += hands[j].realfingers[p].x;
+                    avey += hands[j].realfingers[p].y;
+                }
+                
+            }
+            
+            avel = sqrt(
+                        
+                        (((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x))*
+                        ((hands[0].realfingers[0].x)-(hands[1].realfingers[0].x)))
+                        +(((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y))*
+                          ((hands[0].realfingers[0].y)-(hands[1].realfingers[0].y)))
+                        
+                        );
+            
+            avex /=2;
+            avey /=2;
+            
+            //cout<<avex<<" "<<avey<<"\n";
+            
+            ofPushMatrix();
+            
+            ofCircle(avex, avey, avel/5);
+            
+            ofPopMatrix();
+            
+        }
+        
+        else{
+            ofPushMatrix();
+            ofCircle(avex, avey, avel/5);
+            ofPopMatrix();
+        }
+
+        
+    }
+    
+    else{
+        ofPushMatrix();
+        ofCircle(avex, avey, avel/5);
+        ofPopMatrix();
+    }
+    
+    for (int p = 0; p <2; p++) {
+        hands[p].realfingers.clear();
+    }
+    
+    }
 
 void Tracker::keyPressed (int key) {
 	ofLog(OF_LOG_VERBOSE, ofToString(key));

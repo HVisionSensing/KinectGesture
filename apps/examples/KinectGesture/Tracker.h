@@ -38,7 +38,7 @@ private:
     
 public:
     
-    ofstream handloc1, handloc2;
+    ofstream handloc1, handloc2, hand1, hand2;
     
     GLdouble size;
     Tracker();
