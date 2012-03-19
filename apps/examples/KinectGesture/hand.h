@@ -23,7 +23,7 @@ using namespace std;
 class hand{
     public:
     
-    ofstream myfile, myfile1;
+    ofstream myfile, myfile1, hand1pnts, hand2pnts;
     
     int xloc, yloc, dx, dy, dz, dl, ll, dq;
     int numtips;
@@ -47,6 +47,11 @@ class hand{
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[]){
         centroid = center;
         
+        // find hand index number
+        int handnumber = handnum[41];
+        if (handnumber == 1) hand1pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
+        if (handnumber == 2) hand2pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
+        
         // display center of old hand position
         ofSetColor(0, 255, 0);
         //ofCircle(oldpoints[0].x, oldpoints[0].y, 10);
@@ -57,22 +62,38 @@ class hand{
         
         ofSetColor(255, 0, 0);
         
-        // shuffle the poits by a number h push back to handpnts
+        // shuffle the poiNts by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            //ofCircle(handpnts[k].x, handpnts[k].y, 5);
+            
+            // write hand points to appropriate hand txt file
+            if (handnumber == 1) hand1pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
+            if (handnumber == 2) hand2pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // push the remaining points to handpnts
         for (int k = 0; k<h; k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
-            //ofCircle(handpnts[k].x, handpnts[k].y, 5);
+            
+            // write hand points to appropriate hand txt file
+            if (handnumber == 1) hand1pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
+            if (handnumber == 2) hand2pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // initialize the detection of fingers
         detectfingers(handnum);
+        
+        // finish writing handpnts
+        if (handnumber == 1){
+            hand1pnts<<"\n";
+            hand1pnts.close();
+        }
+        if (handnumber == 2){
+            hand2pnts<<"\n";
+            hand2pnts.close();
+        }
     }
     
     //detect fingers without shuffling the points around
@@ -257,9 +278,9 @@ class hand{
             
         }
         
-        //if (numtips == 0){
-        //    myfile<<"e";
-        //}
+        if (numtips == 0){
+            myfile<<"e";
+        }
         
         fourfingers.clear();
         
