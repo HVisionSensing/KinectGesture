@@ -161,14 +161,14 @@ class hand{
         }
         
         // draw the "fingers"
-        drawfingersq(handnum);
+        drawfingers(handnum);
         
         handpnts.clear();
   
     }
     
     //group and draw fingers based on the q value of the points
-    void drawfingersq(const char handnum[]){
+    void drawfingers(const char handnum[]){
         
         myfile.open (handnum,ios::app);
         
