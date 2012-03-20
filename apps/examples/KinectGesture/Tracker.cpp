@@ -234,9 +234,24 @@ void Tracker::trackhand() {
     hand1.open ("/Users/noahtovares/Desktop/KinectTxt/hand1.txt",ios::app);
     hand2.open ("/Users/noahtovares/Desktop/KinectTxt/hand2.txt",ios::app);
     
-    hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
-    hand2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<" ";
     
+    for (int i = 0; i < contourFinder.nBlobs; i++){
+        contourFinder.blobs[i].draw();
+    }
+    
+    if (contourFinder.nBlobs == 2) {
+        
+        hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
+        hand2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<" ";
+
+    }
+    
+    if (contourFinder.nBlobs == 1) {
+         hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
+    }
+    
+    hand1.close();
+    hand2.close();
 }
 
 // initiate finger tracking
@@ -268,15 +283,17 @@ void Tracker::trackfinger(){
         // initiate finger tracking
         
         // char lists of file names for positions to be written to 
-        char file1[] = "/Users/noahtovares/Desktop/KinectTxt/hand1.txt";
-        char file2[] = "/Users/noahtovares/Desktop/KinectTxt/hand2.txt";
+        char hand1[] = "/Users/noahtovares/Desktop/KinectTxt/hand1.txt";
+        char hand2[] = "/Users/noahtovares/Desktop/KinectTxt/hand2.txt";
+        char hand1pnts[] = "/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt";
+        char hand2pnts[] = "/Users/noahtovares/Desktop/KinectTxt/hand2pnts.txt";
         
         if (j == 0){
-            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, file1); 
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, hand1, hand1pnts); 
         }
         
         if(j == 1){
-            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, file2);
+            hands[j].shuffpnts(tempPnts, tempPnts.size()/2, tempcenter, hand2, hand2pnts);
         }
         
         tempPnts.clear();

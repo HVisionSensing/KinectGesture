@@ -23,7 +23,7 @@ using namespace std;
 class hand{
     public:
     
-    ofstream myfile, myfile1, hand1pnts, hand2pnts;
+    ofstream myfile, myfile1;
     
     int xloc, yloc, dx, dy, dz, dl, ll, dq;
     int numtips;
@@ -40,26 +40,21 @@ class hand{
     vector<ofPoint> handpnts;  
     vector<fourpoint> fourfingers;
     
-    hand(){
-    }
+    hand(){}
     
     // takes points that make up hand and shuffles them so the start is at the bottom
-    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[]){
+    void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[], const char handpntsnum[]){
         centroid = center;
         
-        // find hand index number
-        int handnumber = handnum[41];
-        if (handnumber == 1) hand1pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
-        if (handnumber == 2) hand2pnts.open ("/Users/noahtovares/Desktop/KinectTxt/hand1pnts.txt",ios::app);
+        //myfile.open (handpntsnum,ios::app);
         
-        // shuffle the poiNts by a number h push back to handpnts
+        // shuffle the points by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
             ofPoint tempPnt = oldpoints[k];
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            if (handnumber == 1) hand1pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
-            if (handnumber == 2) hand2pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
+            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // push the remaining points to handpnts
@@ -68,22 +63,15 @@ class hand{
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            if (handnumber == 1) hand1pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
-            if (handnumber == 2) hand2pnts<<tempPnt.x<<","<<tempPnt.y<<" ";
+            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // initialize the detection of fingers
         detectfingers(handnum);
         
         // finish writing handpnts
-        if (handnumber == 1){
-            hand1pnts<<"\n";
-            hand1pnts.close();
-        }
-        if (handnumber == 2){
-            hand2pnts<<"\n";
-            hand2pnts.close();
-        }
+        //myfile<<"\n";
+        //myfile.close();
     }
     
     //detect fingers without shuffling the points around
@@ -170,7 +158,7 @@ class hand{
     //group and draw fingers based on the q value of the points
     void drawfingers(const char handnum[]){
         
-        myfile.open (handnum,ios::app);
+        myfile1.open (handnum,ios::app);
         
         //myfile1.open ("/Users/noahtovares/Desktop/KinectTxt/numfingers.txt",ios::app);
 
@@ -214,7 +202,7 @@ class hand{
                     realfingers.push_back(tempPnt);
                     
                     // write the real finger position to the txt file
-                    myfile <<xave <<"," << yave <<" ";
+                    myfile1 <<xave <<"," << yave <<" ";
                 }
                 
                 // reset all the values
@@ -251,7 +239,7 @@ class hand{
                     realfingers.push_back(tempPnt);
                     
                     // write the real finger position to the txt file
-                    myfile << xave <<"," << yave<<" ";
+                    myfile1 << xave <<"," << yave<<" ";
                 }
                 
                 // reset all the values
@@ -267,15 +255,16 @@ class hand{
             
         }
         
-        if (numtips == 0){
-            myfile<<"e";
-        }
+        // CHANGE THE KINECTREADER TO SET POSITION OF FING TO HAND POSITON IF 'e'
+        //if (numtips == 0){
+        //    myfile<<"e";
+        //}
         
         fourfingers.clear();
         
-        myfile<<"\n";
+        myfile1<<"\n";
         
-        myfile.close();
+        myfile1.close();
         
     }
     
