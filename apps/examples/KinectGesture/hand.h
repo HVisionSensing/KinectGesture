@@ -201,6 +201,12 @@ class hand{
                     yave = ytot/counter;
                     zave = ztot/counter;
                     
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
+                    
                     ofPoint tempPnt;
                     tempPnt.x = xave;
                     tempPnt.y = yave;
@@ -231,6 +237,12 @@ class hand{
                     xave = xtot/counter;
                     yave = ytot/counter;
                     zave = ztot/counter;
+                    
+                    ofFill();
+                    ofSetColor(0,0,255);
+                    ofCircle(xave,yave,20);
+                    numtips++;
+                    ofNoFill();
                     
                     ofPoint tempPnt;
                     tempPnt.x = xave;
