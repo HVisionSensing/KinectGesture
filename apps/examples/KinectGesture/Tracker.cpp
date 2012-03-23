@@ -162,6 +162,7 @@ void Tracker::draw() {
     
     int x [contourFinder.nBlobs];
     int y [contourFinder.nBlobs];
+    int z [contourFinder.nBlobs];
     
     double length;
     
@@ -180,6 +181,21 @@ void Tracker::draw() {
         osstream << y[i];
         osstream << " ";
         //cout<<"y"<<i<<" = "<< y[i];
+        
+        int add = 5;
+        
+        double avez = (kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y) +
+                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x+add, contourFinder.blobs[i].centroid.y) +
+                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y+add) +
+                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x-add, contourFinder.blobs[i].centroid.y) +
+                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y-add) )/5;
+        
+        z[i] = avez;
+        osstream << "z";
+        osstream << i;
+        osstream << " = ";
+        osstream << z[i];
+        osstream << " ";
     }
     
     if (contourFinder.nBlobs == 2){

@@ -46,7 +46,7 @@ class hand{
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[], const char handpntsnum[]){
         centroid = center;
         
-        //myfile.open (handpntsnum,ios::app);
+        myfile.open (handpntsnum,ios::app);
         
         // shuffle the points by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
@@ -54,7 +54,7 @@ class hand{
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
+            myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // push the remaining points to handpnts
@@ -63,15 +63,15 @@ class hand{
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
+            myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // initialize the detection of fingers
         detectfingers(handnum);
         
         // finish writing handpnts
-        //myfile<<"\n";
-        //myfile.close();
+        myfile<<"\n";
+        myfile.close();
     }
     
     //detect fingers without shuffling the points around
