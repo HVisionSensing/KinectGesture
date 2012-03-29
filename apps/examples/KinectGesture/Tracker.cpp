@@ -22,7 +22,7 @@ Tracker::Tracker(){
 void Tracker::setup(void){
     
     //Setup Kinect
-	angle = -5;
+	angle = 15;
 	//kinect.init(true);  //shows infrared image
 	kinect.init();
 	//kinect.setVerbose(true);
@@ -163,9 +163,9 @@ void Tracker::draw() {
     //grayImage.draw(500, 320, 400, 300);
     //contourFinder.draw(920, 320, 400, 300);
 
-    for (int i = 0; i < contourFinder.blobs.size(); i ++) {
-        cout<<i <<" " << kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y)<<"\n";
-    }
+    //for (int i = 0; i < contourFinder.blobs.size(); i ++) {
+    //    cout<<i <<" " << kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y)<<"\n";
+    //}
     
     trackhand();
     
