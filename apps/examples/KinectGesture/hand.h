@@ -54,7 +54,8 @@ class hand{
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
+            
+            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // push the remaining points to handpnts
@@ -63,15 +64,16 @@ class hand{
             handpnts.push_back(tempPnt);
             
             // write hand points to appropriate hand txt file
-            myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
+            //myfile<<tempPnt.x<<","<<tempPnt.y<<" ";
         }
         
         // initialize the detection of fingers
         detectfingers(handnum);
         
         // finish writing handpnts
-        myfile<<"\n";
-        myfile.close();
+        //myfile<<oldpoints[h].x<<","<<oldpoints[h].y<<" ";
+        //myfile<<"\n";
+        //myfile.close();
     }
     
     //detect fingers without shuffling the points around
