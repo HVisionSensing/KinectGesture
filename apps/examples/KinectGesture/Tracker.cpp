@@ -22,7 +22,7 @@ Tracker::Tracker(){
 void Tracker::setup(void){
     
     //Setup Kinect
-	angle = 15;
+	angle = -5;
 	//kinect.init(true);  //shows infrared image
 	kinect.init();
 	//kinect.setVerbose(true);
@@ -63,7 +63,6 @@ void Tracker::setup(void){
     
     gui.addSlider("Near Distance", nearThreshold, 5, 20);
 	gui.addSlider("Far Distance", farThreshold, 20, 60);
-    
     
     gui.addTitle("MOUSE CONTROLL");
 	gui.addSlider("Display Width", displayWidth, 600, 1980);
@@ -119,8 +118,6 @@ void Tracker::update(void){
     
     contourFinder.findContours(grayImage, 2000, (kinect.width*kinect.height)/4, 2, false);
     
-    //contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height)/2, 20, false);
-    
 	if (showConfigUI) {
 		return;
 	}
@@ -155,17 +152,7 @@ void Tracker::checkDepthUpdated(){
 }
 
 // this is the main loop 
-
 void Tracker::draw() {
-    
-    //kinect.drawDepth(500, 10, 400, 300);
-    //kinect.draw(920, 10, 400, 300);
-    //grayImage.draw(500, 320, 400, 300);
-    //contourFinder.draw(920, 320, 400, 300);
-
-    //for (int i = 0; i < contourFinder.blobs.size(); i ++) {
-    //    cout<<i <<" " << kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y)<<"\n";
-    //}
     
     trackhand();
     
@@ -198,10 +185,10 @@ void Tracker::draw() {
         int add = 5;
         
         double avez = (kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y) +
-                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x+add, contourFinder.blobs[i].centroid.y) +
-                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y+add) +
-                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x-add, contourFinder.blobs[i].centroid.y) +
-                        kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y-add) )/5;
+                       kinect.getDistanceAt(contourFinder.blobs[i].centroid.x+add, contourFinder.blobs[i].centroid.y) +
+                       kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y+add) +
+                       kinect.getDistanceAt(contourFinder.blobs[i].centroid.x-add, contourFinder.blobs[i].centroid.y) +
+                       kinect.getDistanceAt(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y-add) )/5;
         
         z[i] = avez;
         osstream << "z";
@@ -272,11 +259,11 @@ void Tracker::trackhand() {
         
         hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
         hand2 << contourFinder.blobs[1].centroid.x << "," << contourFinder.blobs[1].centroid.y <<" ";
-
+        
     }
     
     if (contourFinder.nBlobs == 1) {
-         hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
+        hand1 << contourFinder.blobs[0].centroid.x << "," << contourFinder.blobs[0].centroid.y <<" ";
     }
     
     hand1.close();

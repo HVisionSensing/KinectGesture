@@ -46,7 +46,7 @@ class hand{
     void shuffpnts(vector<ofPoint> oldpoints, int h, ofPoint center, const char handnum[], const char handpntsnum[]){
         centroid = center;
         
-        myfile.open (handpntsnum,ios::app);
+        //myfile.open (handpntsnum,ios::app);
         
         // shuffle the points by a number h push back to handpnts
         for (int k = h; k<oldpoints.size(); k++) {
