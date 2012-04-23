@@ -262,6 +262,8 @@ class hand{
         //    myfile<<"e";
         //}
         
+        //cout << numtips << "\n";
+        
         fourfingers.clear();
         
         myfile1<<"\n";
